@@ -12,7 +12,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ContentComponent } from './components/content/content.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -24,7 +23,6 @@ import { FeedbackComponent } from './components/feedback/feedback.component';
     TabbarComponent,
     FooterComponent,
     TimerlineComponent,
-    SidebarComponent,
     ContentComponent,
     NotFoundComponent,
     FeedbackComponent,
