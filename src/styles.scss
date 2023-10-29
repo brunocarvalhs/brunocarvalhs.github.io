@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$brunocarvalhs-primary: mat.define-palette(mat.$indigo-palette);
+$brunocarvalhs-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$brunocarvalhs-warn: mat.define-palette(mat.$red-palette);
+
+$brunocarvalhs-theme: mat.define-light-theme((
+  color: (
+    primary: $brunocarvalhs-primary,
+    accent: $brunocarvalhs-accent,
+    warn: $brunocarvalhs-warn,
+  )
+));
+
+@include mat.all-component-themes($brunocarvalhs-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
