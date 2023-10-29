@@ -4,15 +4,8 @@ import { HomeComponent } from './home.component';
 import { PresentationComponent } from './components/presentation/presentation.component';
 
 @NgModule({
-  declarations: [
-    PresentationComponent,
-    HomeComponent,
-  ],
-  imports: [
-    CommonModule,
-  ],
-  bootstrap: [HomeComponent]
+  declarations: [PresentationComponent, HomeComponent],
+  imports: [CommonModule],
+  bootstrap: [HomeComponent],
 })
-export class HomeModule {
-
-}
+export class HomeModule {}
