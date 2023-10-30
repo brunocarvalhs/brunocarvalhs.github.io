@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TabbarComponent } from './components/tabbar/tabbar.component';
@@ -30,6 +33,9 @@ import { FeedbackComponent } from './components/feedback/feedback.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    provideFirebaseApp(() => initializeApp()),
+    provideAnalytics(() => getAnalytics()),
+    provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
     FontAwesomeModule,
     MatToolbarModule,
