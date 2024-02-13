@@ -98,11 +98,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 --------------------------------------------------------------------------------
-Package: @fullpage/angular-fullpage
-License: "GPL-3.0"
-
-
---------------------------------------------------------------------------------
 Package: @angular/animations
 License: "MIT"
 
