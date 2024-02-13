@@ -1,0 +1,25 @@
+<section class="ftco-section" id="skills-section">
+  <div class="container">
+    <div class="row justify-content-center pb-5">
+      <div class="col-md-12 heading-section text-center">
+        <h1 class="big big-2">Skills</h1>
+        <h2 class="mb-4">Skills</h2>
+        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 animate-box" *ngFor="let skill of skills">
+        <div class="progress-wrap">
+          <h3>{{ skill.tecnology }}</h3>
+          <div class="progress">
+            <div class="progress-bar color-1" role="progressbar"
+              [attr.aria-valuenow]="calculateTimeExperience(skill.date)" aria-valuemin="0"
+              [attr.aria-valuemax]="maxDate * 2" [style]="'width: ' + calculateTimeExperience(skill.date) * 10 + '%'">
+              <span class="fs-6">{{ calculateTimeExperience(skill.date) }} anos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
