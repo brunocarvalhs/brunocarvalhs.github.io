@@ -10,6 +10,14 @@
           "style": "scss"
         }
       },
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "pt": {
+            "translation": "src/locale/messages.pt.json"
+          }
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",

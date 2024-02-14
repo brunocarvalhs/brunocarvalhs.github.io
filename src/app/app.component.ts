@@ -8,12 +8,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    HeaderComponent,
-    FooterComponent,
-    LoadingComponent,
-    RouterOutlet,
-  ],
+  imports: [HeaderComponent, FooterComponent, LoadingComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
