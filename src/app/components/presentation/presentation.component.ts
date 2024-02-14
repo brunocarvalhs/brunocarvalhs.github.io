@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { sections } from '../../app.sections';
 import Typed from 'typed.js';
 
 @Component({
@@ -10,6 +11,7 @@ import Typed from 'typed.js';
   styleUrl: './presentation.component.scss',
 })
 export class PresentationComponent {
+  sections = sections
   greeting = 'Hello!';
   fullName = 'Bruno Carvalho';
   professions = ['Mobile Android', 'Full Stack'];

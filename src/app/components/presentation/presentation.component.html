@@ -4,14 +4,14 @@
       <div class="col-md-6">
         <div class="one-forth d-flex align-items-center">
           <div class="text text-white">
-            <span class="subheading" i18n>Hello!</span>
-            <h1 class="mb-4 mt-3" i18n>I'm <span>{{ fullName }}</span></h1>
+            <span class="subheading" i18n>Olá!</span>
+            <h1 class="mb-4 mt-3" i18n>Prazer, <span>{{ fullName }}</span></h1>
             <div class="mb-4">
               <div class="typed-text"></div>
             </div>
             <p>
-              <a href="#" class="btn btn-primary py-3 px-4" i18n>Hire me</a>
-              <a href="#" class="btn btn-white btn-outline-white py-3 px-4" i18n>My works</a>
+              <a [href]="'#'+sections[6].id" class="btn btn-primary py-3 px-4 mr-4" i18n>Contrate-me</a>
+              <a [href]="'#'+sections[5].id" class="btn btn-white btn-outline-white py-3 px-4" i18n>Meus trabalhos</a>
             </p>
           </div>
         </div>

@@ -32,6 +32,7 @@
     "jquery": "^3.7.1",
     "jquery-waypoints": "^2.0.5",
     "jquery.easing": "^1.4.1",
+    "octokit": "^3.1.2",
     "popper.js": "^1.14.3",
     "rollup": "^4.10.0",
     "rxjs": "~7.8.0",

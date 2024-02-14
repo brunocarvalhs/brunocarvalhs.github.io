@@ -12,23 +12,21 @@
       <div class="col-md-6 col-lg-7 pl-lg-5 pb-5">
         <div class="row justify-content-start pb-3">
           <div class="col-md-12 heading-section">
-            <h1 class="big">About</h1>
-            <h2 class="mb-4">About Me</h2>
-            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+            <h1 class="big">Sobre</h1>
+            <h2 class="mb-4">Sobre mim</h2>
+            <p>Um pequeno rio chamado Duden passa por seu lugar e abastece-o com a regelialia necessária.</p>
             <ul class="about-info mt-4 px-md-0 px-2">
-              <li class="d-flex"><span>Name:</span> <span>{{ userInfo.fullName }}</span></li>
-              <li class="d-flex"><span>Date of birth:</span> <span>{{ userInfo.birthDate }}</span></li>
-              <li class="d-flex"><span>Address:</span> <span>{{ userInfo.address }}</span></li>
-              <li class="d-flex"><span>Zip code:</span> <span>{{ userInfo.zipCode }}</span></li>
-              <li class="d-flex"><span>Email:</span> <span>{{ userInfo.email }}</span></li>
-              <li class="d-flex"><span>Phone: </span> <span>{{ userInfo.phone }}</span></li>
+              <li class="d-flex"><span>Nome:</span> <span>{{ userInfo?.fullName }}</span></li>
+              <li class="d-flex"><span>Idade:</span> <span>{{ calculateAge() }}</span></li>
+              <li class="d-flex"><span>Estado:</span> <span>{{ userInfo?.address }}</span></li>
+              <li class="d-flex"><span>E-mail:</span> <span>{{ userInfo?.email }}</span></li>
             </ul>
           </div>
         </div>
         <div class="counter-wrap d-flex mt-md-3">
           <div class="text">
             <p class="mb-4">
-              <span class="number">{{userInfo.projectCompleted}} </span>
+              <span class="number">{{userInfo?.projectCompleted}} </span>
               <span>Project complete</span>
             </p>
             <p><a href="#" class="btn btn-primary py-3 px-3">Download CV</a></p>
