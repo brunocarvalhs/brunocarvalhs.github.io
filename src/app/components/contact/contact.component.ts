@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common'
+import { FormsModule } from '@angular/forms';
 
 interface Contact {
   email: String,
@@ -12,6 +13,7 @@ interface Contact {
   selector: 'app-contact',
   standalone: true,
   imports: [
+    FormsModule,
     NgOptimizedImage
   ],
   templateUrl: './contact.component.html',
@@ -23,5 +25,15 @@ export class ContactComponent {
     address: "",
     phone: "",
     website: ""
+  }
+
+  name = '';
+  email = '';
+  subject = '';
+  message = '';
+
+  onSubmit() {
+    const mailtoLink = `mailto:${this.data.email}?name=${this.name}&email=${this.email}&subject=${this.subject}&body=${this.message}`;
+    window.open(mailtoLink);
   }
 }

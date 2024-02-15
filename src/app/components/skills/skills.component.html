@@ -10,12 +10,12 @@
     <div class="row">
       <div class="col-md-6 animate-box" *ngFor="let skill of skills">
         <div class="progress-wrap">
-          <h3>{{ skill.tecnology }}</h3>
+          <h3>{{ skill.technology }}</h3>
           <div class="progress">
             <div class="progress-bar color-1" role="progressbar"
-              [attr.aria-valuenow]="calculateTimeExperience(skill.date)" aria-valuemin="0"
-              [attr.aria-valuemax]="maxDate * 2" [style]="'width: ' + calculateTimeExperience(skill.date) * 10 + '%'">
-              <span class="fs-6">{{ calculateTimeExperience(skill.date) }} anos</span>
+              [attr.aria-valuenow]="skill.projects" aria-valuemin="0"
+              [attr.aria-valuemax]="maxProjects" [style]="'width: ' + skill.projects * 10 + '%'">
+              <span class="fs-6">{{ skill.projects }}</span>
             </div>
           </div>
         </div>

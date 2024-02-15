@@ -13,7 +13,7 @@ import { NgIf } from '@angular/common';
   styleUrl: './about.component.scss',
 })
 export class AboutComponent {
-  constructor(private githubService: GithubService) {}
+  constructor(private githubService: GithubService, ) {}
 
   userInfo: UserInfoModel | null = null;
 

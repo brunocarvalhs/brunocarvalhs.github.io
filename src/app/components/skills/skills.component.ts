@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
+import { GithubService } from '../../services/github/github.service';
+import { RepoUserModel } from '../../services/github/model/repo-user.model';
 
 interface Skills {
-  tecnology: string,
-  date: string
+  technology: string,
+  projects: number
 }
 
 @Component({
@@ -16,23 +18,42 @@ interface Skills {
   styleUrl: './skills.component.scss'
 })
 export class SkillsComponent {
-  skills: Skills[] = [
-    {
-      tecnology: 'PHP',
-      date: '2017'
-    },
-    {
-      tecnology: 'Kotlin',
-      date: '2021'
-    },
-  ]
 
-  minDate: number = Math.min(...this.skills.map(skill => this.calculateTimeExperience(skill.date)));
-  maxDate: number = Math.max(...this.skills.map(skill => this.calculateTimeExperience(skill.date)));
+  constructor(private githubService: GithubService) {}
+
+  skills: Skills[] = []
+
+  minProjects: number = 0;
+  maxProjects: number = 0;
 
   calculateTimeExperience(date: string): number {
     const dateNow: number = new Date().getFullYear();
     const dateParsed: number = parseInt(date);
     return dateNow - dateParsed;
+  }
+
+  ngOnInit(): void {
+    this.fetchData()
+  }
+
+  fetchData() {
+    this.githubService.getUserRepos().subscribe((githubRepos) => {
+      this.maxProjects = githubRepos.length
+
+      for (const repo of githubRepos) {
+        const language = repo.language;
+
+        let existingSkill = this.skills.find(skill => skill.technology === language);
+        if (!existingSkill) {
+          existingSkill = {
+            technology: language,
+            projects: 0
+          };
+          this.skills.push(existingSkill);
+        }
+
+        existingSkill.projects++;
+      }
+    });
   }
 }

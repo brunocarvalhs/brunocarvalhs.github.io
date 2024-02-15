@@ -49,26 +49,26 @@
 
     <div class="row no-gutters block-9">
       <div class="col-md-6 order-md-last d-flex">
-        <form action="#" class="bg-light p-4 p-md-5 contact-form">
+        <form (ngSubmit)="onSubmit()" class="bg-light p-4 p-md-5 contact-form">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Your Name">
+            <label for="name">Name:</label>
+            <input type="text" id="name" [(ngModel)]="name" class="form-control" required>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Your Email">
+            <label for="email">Email:</label>
+            <input type="email" id="email" [(ngModel)]="email" class="form-control" required>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Subject">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" [(ngModel)]="subject" class="form-control" required>
           </div>
           <div class="form-group">
-            <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+            <label for="message">Message:</label>
+            <textarea id="message" [(ngModel)]="message" class="form-control" required></textarea>
           </div>
-          <div class="form-group">
-            <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
-          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
         </form>
-
       </div>
-
       <div class="col-md-6 d-flex">
         <div class="img" style="background-image: url(/assets/images/about.jpg);"></div>
       </div>

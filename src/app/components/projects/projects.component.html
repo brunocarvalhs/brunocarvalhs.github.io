@@ -10,11 +10,11 @@
     <div class="row g-4">
       <div *ngFor="let project of list; let i=index" class="project-item">
         <div class="project img d-flex justify-content-center align-items-center"
-             [style.backgroundImage]="'url(' + project.url + '/banner.png)'">
+          [style.backgroundImage]="'url(' + project.url + '/banner.png)'">
           <div class="overlay"></div>
           <div class="text text-center p-4">
             <h3><a [attr.href]="project.html_url">{{ project.name }}</a></h3>
-            <span>{{ project.language }}</span>
+            <span><i [attr.class]="'devicon-' + project.language.toLowerCase() + '-plain colored'"></i>{{ project.language }}</span>
           </div>
         </div>
       </div>

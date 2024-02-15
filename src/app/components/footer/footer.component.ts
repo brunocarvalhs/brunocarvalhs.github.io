@@ -13,5 +13,9 @@ import { sections } from '../../app.sections';
 })
 export class FooterComponent {
   sections = sections;
-  date: String = new Date().getFullYear().toString()
+  date: string = ''
+
+  ngOnInit(): void {
+    this.date = new Date().getFullYear().toString()
+  }
 }
