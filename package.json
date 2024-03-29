@@ -28,7 +28,7 @@
     "@types/bootstrap": "^5.2.10",
     "@types/jquery": "^3.5.29",
     "bootstrap": "^5.3.2",
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "jquery": "^3.7.1",
     "jquery-waypoints": "^2.0.5",
     "jquery.easing": "^1.4.1",
