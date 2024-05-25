@@ -80,3 +80,120 @@
     }
   }
 }
+
+.containerImage {
+  width: 569px;
+  height: 549px;
+  position: relative;
+
+  .large-circle {
+    width: 526px;
+    height: 526px;
+    left: 10px;
+    top: 23px;
+    position: absolute;
+    background: #2D2D2D;
+    box-shadow: 0px 5px 34px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 9999px;
+    overflow: hidden;
+  }
+
+  .circle-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    clip-path: circle(50%);
+  }
+
+  .medium-circle {
+    width: 545px;
+    height: 445px;
+    left: 0px;
+    top: 23px;
+    position: absolute;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .small-circle-1 {
+    width: 114px;
+    height: 114px;
+    left: 393px;
+    top: 406px;
+    position: absolute;
+    background: #333333;
+    box-shadow: 0px 4px 4px 5px rgba(0, 0, 0, 0.06);
+    border-radius: 9999px;
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .small-circle-2 {
+    width: 156px;
+    height: 156px;
+    left: 12px;
+    top: 336px;
+    position: absolute;
+    background: #333333;
+    box-shadow: 0px 4px 4px 5px rgba(0, 0, 0, 0.06);
+    border-radius: 9999px;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .small-circle-3 {
+    width: 112px;
+    height: 112px;
+    left: 412px;
+    top: 104px;
+    position: absolute;
+    background: #333333;
+    box-shadow: 0px 4px 4px 5px rgba(0, 0, 0, 0.06);
+    border-radius: 9999px;
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .tiny-circle {
+    width: 23px;
+    height: 23px;
+    left: 15px;
+    top: 81px;
+    position: absolute;
+    background: #4F4F4F;
+    border-radius: 9999px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .tiny-circle-2 {
+    width: 31px;
+    height: 31px;
+    left: 498px;
+    top: 0px;
+    position: absolute;
+    background: #222222;
+    box-shadow: 0px 4px 4px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 9999px;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .tiny-circle-3 {
+    width: 10px;
+    height: 10px;
+    left: 559px;
+    top: 358px;
+    position: absolute;
+    background: #BDBDBD;
+    border-radius: 9999px;
+    animation: float 2s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
