@@ -98,9 +98,9 @@
     overflow: hidden;
   }
 
-  .circle-img {
-    width: 100%;
-    height: 100%;
+  .circle-icon {
+    width: 75% !important;
+    height: 75% !important;
     object-fit: cover;
     clip-path: circle(50%);
   }
@@ -112,6 +112,14 @@
     top: 23px;
     position: absolute;
     animation: float 6s ease-in-out infinite;
+  }
+
+  .small-circle-1,
+  .small-circle-2,
+  .small-circle-3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .small-circle-1 {
@@ -196,4 +204,3 @@
     transform: translateY(0px);
   }
 }
-
