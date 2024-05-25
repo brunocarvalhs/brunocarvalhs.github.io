@@ -26,7 +26,8 @@ export class GithubService {
             map((data) => new UserProfileModel(data)),
             tap((profile) => {
               this.cachedUserProfile = profile; // Cache the result
-            })
+            }),
+            catchError(this.handleError<UserProfileModel>('getUserProfile'))
           );
   }
 
@@ -37,13 +38,18 @@ export class GithubService {
           .get<any[]>(`${this.baseUrl}/users/${environment.github_username}/repos`)
           .pipe(
             map((data) => data.map((repoData) => new RepoUserModel(repoData))),
-            catchError((error) => {
-              console.error('Error fetching user repos:', error);
-              return of([]); // Return empty array on error
-            }),
+            catchError(this.handleError<RepoUserModel[]>('getUserRepos')),
             tap((repos) => {
               this.cachedUserRepos = repos; // Cache the result
             })
           );
+  }
+
+  // Handle Http operation that failed
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
   }
 }
