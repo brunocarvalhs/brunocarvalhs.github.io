@@ -1,41 +1,41 @@
 <section id="home-section" class="hero">
   <div class="container">
-    <div class="row vh-100">
-      <div class="col-md-6">
-        <div class="one-forth d-flex align-items-center">
+    <div class="row align-items-center">
+      <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+        <div class="one-forth text-center text-md-left">
           <div class="text text-white">
             <span class="subheading" i18n>Olá!</span>
             <h1 class="mb-4 mt-3" i18n>Prazer, <span>{{ fullName }}</span></h1>
             <div class="mb-4">
-              <div class="typed-text"></div>
+              <div class="typed-text">
+                <p></p>
+              </div>
             </div>
             <p>
-              <a [href]="'#'+sections[6].id" class="btn btn-primary py-3 px-4 mr-4" i18n>Contrate-me</a>
-              <a [href]="'#'+sections[5].id" class="btn btn-white btn-outline-white py-3 px-4" i18n>Meus trabalhos</a>
+              <a [href]="'#'+sections[6].id" class="btn btn-primary py-3 px-4 mr-2 mb-2" i18n>Contrate-me</a>
+              <a [href]="'#'+sections[5].id" class="btn btn-white btn-outline-white py-3 px-4 mb-2" i18n>Meus trabalhos</a>
             </p>
           </div>
         </div>
       </div>
-      <div class="col-md-6 d-flex justify-content-center">
-        <div class="row justify-content-center align-items-center" style="height: 100vh;">
-          <div class="containerImage position-relative" style="width: 569px; height: 549px;">
-            <div class="large-circle">
-              <img [src]="'/assets/images/presentation/presentation.png'" class="circle-img" alt="Illustration of a presentation">
-            </div>
-            <div class="medium-circle"></div>
-            <div class="small-circle-1">
-              <img [src]="'/assets/images/presentation/kotlin.svg'" class="circle-icon" alt="Kotlin programming language logo">
-            </div>
-            <div class="small-circle-2">
-              <img [src]="'/assets/images/presentation/android.svg'" class="circle-icon" alt="Android logo">
-            </div>
-            <div class="small-circle-3">
-              <img [src]="'/assets/images/presentation/angular.svg'" class="circle-icon" alt="Angular framework logo">
-            </div>
-            <div class="tiny-circle"></div>
-            <div class="tiny-circle-2"></div>
-            <div class="tiny-circle-3"></div>
+      <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+        <div class="containerImage position-relative">
+          <div class="large-circle">
+            <img [src]="'/assets/images/presentation/presentation.png'" class="circle-img img-fluid" alt="Illustration of a presentation">
           </div>
+          <div class="medium-circle"></div>
+          <div class="small-circle-1">
+            <img [src]="'/assets/images/presentation/kotlin.svg'" class="circle-icon img-fluid" alt="Kotlin programming language logo">
+          </div>
+          <div class="small-circle-2">
+            <img [src]="'/assets/images/presentation/android.svg'" class="circle-icon img-fluid" alt="Android logo">
+          </div>
+          <div class="small-circle-3">
+            <img [src]="'/assets/images/presentation/angular.svg'" class="circle-icon img-fluid" alt="Angular framework logo">
+          </div>
+          <div class="tiny-circle"></div>
+          <div class="tiny-circle-2"></div>
+          <div class="tiny-circle-3"></div>
         </div>
       </div>
     </div>
