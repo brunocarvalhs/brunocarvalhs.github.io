@@ -38,15 +38,15 @@ export class SkillsComponent {
 
   fetchData() {
     this.githubService.getUserRepos().subscribe((githubRepos) => {
-      this.maxProjects = githubRepos.length
+      this.maxProjects = githubRepos.length;
 
-      for (const repo of githubRepos) {
-        const language = repo.language;
+      const filteredRepos = githubRepos.filter(repo => repo.language); // Filter out repos with empty language
 
-        let existingSkill = this.skills.find(skill => skill.technology === language);
+      for (const repo of filteredRepos) {
+        var existingSkill = this.skills.find(skill => skill.technology === repo.language);
         if (!existingSkill) {
           existingSkill = {
-            technology: language,
+            technology: repo.language,
             projects: 0
           };
           this.skills.push(existingSkill);
