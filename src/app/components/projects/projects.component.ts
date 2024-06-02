@@ -24,7 +24,9 @@ export class ProjectsComponent {
 
   fetchData() {
     this.githubService.getUserRepos().subscribe((githubRepo) => {
-      this.list = githubRepo
+      this.list = githubRepo.filter((item) => {
+        return item.language != null
+      })
     });
   }
 }
