@@ -204,3 +204,12 @@
     transform: translateY(0px);
   }
 }
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.position-relative {
+  position: relative !important;
+}
