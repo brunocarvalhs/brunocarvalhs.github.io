@@ -319,10 +319,10 @@ button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-mo
 }
 
 // Imports de SCSS personalizados
-@import './app/scss/size';
-@import './app/scss/headers';
-@import './app/scss/forms';
-@import './app/scss/button';
-@import './app/scss/image';
-@import './app/scss/text';
-@import './app/scss/float';
+@import './assets/scss/button';
+@import './assets/scss/float';
+@import './assets/scss/forms';
+@import './assets/scss/headers';
+@import './assets/scss/image';
+@import './assets/scss/size';
+@import './assets/scss/text';
