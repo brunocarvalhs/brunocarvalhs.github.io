@@ -1,0 +1,35 @@
+
+// Definição de variáveis de cor
+$primary-color: #ffbd39; // indigo
+$accent-color: #e91e63; // pink
+$warn-color: #f44336; // red
+$link-color: #ffbd39; // link color
+$body-bg-color: #000000; // background color
+$text-color: #999999; // text color
+$hover-focus-color: #ffbd39; // link hover and focus color
+$caption-color: #6c757d; // caption color
+
+$brunocarvalhs-primary: mat.define-palette(mat.$indigo-palette);
+$brunocarvalhs-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$brunocarvalhs-warn: mat.define-palette(mat.$red-palette);
+
+$brunocarvalhs-theme: mat.define-light-theme((
+  color: (
+    primary: $brunocarvalhs-primary,
+    accent: $brunocarvalhs-accent,
+    warn: $brunocarvalhs-warn,
+  ),
+));
+
+@import "bootstrap/scss/bootstrap";
+
+$primary: $primary-color;
+$secondary: $accent-color;
+$success: $link-color;
+$info: $text-color;
+$warning: $warn-color;
+$danger: $warn-color;
+$light: $body-bg-color;
+$dark: $text-color;
+
+@import "bootstrap/scss/bootstrap";

@@ -1,0 +1,71 @@
+
+.heading-section h2 {
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.ftco-section {
+    padding: 7em 0;
+    position: relative;
+}
+
+@media (max-width: 767.98px) {
+    .ftco-section {
+        padding: 6em 0;
+    }
+}
+
+.heading-section {
+    position: relative;
+}
+
+.heading-section .subheading {
+    font-size: 13px;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    color: black;
+    letter-spacing: 3px;
+}
+
+.heading-section h1.big {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    font-size: 7vw;
+    color: rgba(255, 255, 255, 0.1);
+    z-index: -1;
+    font-weight: 900;
+}
+
+.heading-section h1.big.big-2 {
+    right: 0;
+}
+
+.heading-section h2 {
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.heading-section h2 span {
+    font-weight: 400;
+}
+
+@media (max-width: 767.98px) {
+    .heading-section h2 {
+        font-size: 38px;
+    }
+}
+
+.heading-section.heading-section-white .subheading {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.heading-section.heading-section-white h2 {
+    color: #fff;
+}
+
+.heading-section.heading-section-white p {
+    color: rgba(255, 255, 255, 0.9);
+}
