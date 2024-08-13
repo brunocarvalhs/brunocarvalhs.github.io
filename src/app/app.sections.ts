@@ -8,9 +8,7 @@ interface Section {
 export const sections: Section[] = [
   { id: 'home-section', name: 'Home' },
   { id: 'about-section', name: 'About' },
-  { id: 'resume-section', name: 'Resume' },
-  { id: 'services-section', name: 'Services' },
-  { id: 'skills-section', name: 'Skills' },
   { id: 'projects-section', name: 'Projects' },
+  { id: 'skills-section', name: 'Skills' },
   { id: 'contact-section', name: 'Contact' },
 ];

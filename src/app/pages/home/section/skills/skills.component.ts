@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
-import { GithubService } from '../../services/github/github.service';
-import { RepoUserModel } from '../../services/github/model/repo-user.model';
+import { GithubService } from '../../../../services/github/github.service';
+import { RepoUserModel } from '../../../../services/github/model/repo-user.model';
 
 interface Skills {
   technology: string,

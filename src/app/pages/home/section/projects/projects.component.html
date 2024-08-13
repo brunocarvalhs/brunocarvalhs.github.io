@@ -1,0 +1,20 @@
+<section class="ftco-section" id="projects-section">
+  <div class="container">
+    <div class="row justify-content-center p-5">
+      <div class="col-md-12 heading-section text-start">
+        <h2 class="mb-4">Projects</h2>
+        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div *ngFor="let project of list; let i=index" class="card m-2" style="width: 18rem;">
+        <div class="card-body">
+          <h4 class="card-title mb-2">{{ project.name }}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">{{ project.language }}</h6>
+          <p class="card-text text-truncate">{{ project.description }}</p>
+          <a href="{{ project.html_url }}" class="btn btn-primary">Repositorio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

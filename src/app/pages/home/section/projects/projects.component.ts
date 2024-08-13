@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { GithubService } from '../../services/github/github.service';
-import { RepoUserModel } from '../../services/github/model/repo-user.model';
-import { NgFor } from '@angular/common';
+import { GithubService } from '../../../../services/github/github.service';
+import { RepoUserModel } from '../../../../services/github/model/repo-user.model';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
   imports: [
-    NgFor
+    NgFor,
+    NgIf
   ],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
@@ -25,7 +26,9 @@ export class ProjectsComponent {
   fetchData() {
     this.githubService.getUserRepos().subscribe((githubRepo) => {
       this.list = githubRepo.filter((item) => {
-        return item.language != null
+        return item.language != null && 
+        item.description != null && 
+        !item.disabled
       })
     });
   }

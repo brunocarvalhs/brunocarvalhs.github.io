@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { GithubService } from '../../services/github/github.service';
-import { UserInfoModel } from '../../models/user-info.model';
+import { GithubService } from '../../../../services/github/github.service';
+import { UserInfoModel } from '../../../../models/user-info.model';
 import { NgIf } from '@angular/common';
 
 @Component({

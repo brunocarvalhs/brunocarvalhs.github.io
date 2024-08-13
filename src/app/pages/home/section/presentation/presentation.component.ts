@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { sections } from '../../app.sections';
+import { sections } from '../../../../app.sections';
 import Typed from 'typed.js';
-import { GithubService } from '../../services/github/github.service';
+import { GithubService } from '../../../../services/github/github.service';
 import { NgIf } from '@angular/common';
 
 @Component({
