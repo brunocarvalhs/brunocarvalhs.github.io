@@ -3,12 +3,12 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { sections } from '../../app.sections';
 import Typed from 'typed.js';
 import { GithubService } from '../../services/github/github.service';
-import { throws } from 'assert';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-presentation',
   standalone: true,
-  imports: [MatSlideToggleModule],
+  imports: [MatSlideToggleModule, NgIf],
   templateUrl: './presentation.component.html',
   styleUrl: './presentation.component.scss',
 })
@@ -17,13 +17,13 @@ export class PresentationComponent {
   sections = sections
   greeting = 'Hello!';
   fullName = 'Bruno Carvalho';
-  image = "/assets/images/presentation/presentation.png"
+  image = ""
   professions = ['Mobile Android', 'Full Stack'];
 
   constructor(private githubService: GithubService) {}
 
   ngOnInit(): void {
-    
+    this.featchData()
   }
 
   featchData() {
@@ -38,7 +38,7 @@ export class PresentationComponent {
       backSpeed: 50,
     };
 
-    const typed = new Typed('.typed-text', options);
+    new Typed('.typed-text', options);
 
     this.githubService.getUserProfile().subscribe((githubProfile) => {
       this.fullName = githubProfile.name

@@ -18,10 +18,10 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+      <div class="col-12 col-md-6 d-flex justify-content-center align-items-center" *ngIf="image">
         <div class="containerImage position-relative">
           <div class="large-circle">
-            <img [src]="{image}" class="circle-img img-fluid" alt="Illustration of a presentation">
+            <img [src]="image" class="circle-img img-fluid" alt="Illustration of a presentation">
           </div>
           <div class="medium-circle"></div>
           <div class="small-circle-1">
