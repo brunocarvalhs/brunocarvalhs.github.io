@@ -7,6 +7,11 @@
 
 @include mat.all-component-themes($brunocarvalhs-theme);
 
+// Bibliotecas externas
+@import 'animate.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+// Estilos da aplicação
 @import './assets/scss/base';
 @import './assets/scss/button';
 @import './assets/scss/float';
@@ -15,3 +20,7 @@
 @import './assets/scss/image';
 @import './assets/scss/size';
 @import './assets/scss/text';
+@import './assets/scss/social';
+
+// Estilos responsivos
+@import './assets/scss/responsive';

@@ -1,13 +1,18 @@
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alterna navegação">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="container d-flex">
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target shadow-sm" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <span class="fw-bold text-primary">Bruno Carvalho</span>
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
     <div id="ftco-nav" class="collapse navbar-collapse justify-content-center">
       <ul class="navbar-nav nav">
         <li class="nav-item" *ngFor="let section of sections">
           <a
-            class="nav-link"
+            class="nav-link px-3"
             [href]="'#'+section.id"
             [ngClass]="{'active': currentSection === section.id}"
           >
@@ -15,6 +20,18 @@
           </a>
         </li>
       </ul>
+      
+      <div class="d-flex ms-auto social-links">
+        <a href="https://github.com/brunocarvalhs" target="_blank" class="nav-link px-2">
+          <i class="bi bi-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/brunocarvalhs/" target="_blank" class="nav-link px-2">
+          <i class="bi bi-linkedin"></i>
+        </a>
+        <a href="mailto:brunocarvalhs@outlook.com.br" class="nav-link px-2">
+          <i class="bi bi-envelope-fill"></i>
+        </a>
+      </div>
     </div>
   </div>
 </nav>
