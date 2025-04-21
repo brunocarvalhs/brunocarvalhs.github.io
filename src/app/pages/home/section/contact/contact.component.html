@@ -2,32 +2,116 @@
   <div class="container">
     <div class="row justify-content-start mb-5 pb-3">
       <div class="col-md-12 heading-section text-start">
-        <h3 class="title mb-4">Contato</h3>
-        <p class="subtitle">Estou sempre aberto a novas oportunidades e colaborações. Se você tem um projeto em mente ou deseja conversar sobre como posso ajudar a transformar suas ideias em realidade, preencha o formulário abaixo e entrarei em contato o mais breve possível.</p>
+        <h3 class="title mb-4 section-title">Contato</h3>
+        <p class="subtitle section-subtitle">Estou sempre aberto a novas oportunidades e colaborações. Se você tem um projeto em mente ou deseja conversar sobre como posso ajudar a transformar suas ideias em realidade, preencha o formulário abaixo e entrarei em contato o mais breve possível.</p>
       </div>
     </div>
 
-    <div class="row no-gutters block-9">
-      <div class="col-md-12 order-md-last d-flex">
-        <form (ngSubmit)="onSubmit()" class="bg-light p-4 p-md-5 contact-form">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" [(ngModel)]="name" class="form-control" required>
+    <div class="row g-4">
+      <!-- Informações de contato -->
+      <div class="col-md-5 mb-4 mb-md-0">
+        <div class="card border-0 shadow-sm h-100 animate__animated animate__fadeInLeft">
+          <div class="card-body p-4">
+            <h4 class="mb-4">Informações de Contato</h4>
+            
+            <div class="d-flex mb-4">
+              <div class="contact-icon me-3">
+                <i class="bi bi-geo-alt-fill text-primary fs-4"></i>
+              </div>
+              <div>
+                <h5 class="mb-1">Localização</h5>
+                <p class="mb-0">São Paulo, Brasil</p>
+              </div>
+            </div>
+            
+            <div class="d-flex mb-4">
+              <div class="contact-icon me-3">
+                <i class="bi bi-envelope-fill text-primary fs-4"></i>
+              </div>
+              <div>
+                <h5 class="mb-1">Email</h5>
+                <p class="mb-0">brunocarvalhs&#64;outlook.com.br</p>
+              </div>
+            </div>
+            
+            <div class="d-flex mb-4">
+              <div class="contact-icon me-3">
+                <i class="bi bi-linkedin text-primary fs-4"></i>
+              </div>
+              <div>
+                <h5 class="mb-1">LinkedIn</h5>
+                <p class="mb-0">
+                  <a href="https://www.linkedin.com/in/brunocarvalhs/" target="_blank" class="text-decoration-none">linkedin.com/in/brunocarvalhs</a>
+                </p>
+              </div>
+            </div>
+            
+            <div class="d-flex mb-4">
+              <div class="contact-icon me-3">
+                <i class="bi bi-github text-primary fs-4"></i>
+              </div>
+              <div>
+                <h5 class="mb-1">GitHub</h5>
+                <p class="mb-0">
+                  <a href="https://github.com/brunocarvalhs" target="_blank" class="text-decoration-none">github.com/brunocarvalhs</a>
+                </p>
+              </div>
+            </div>
+            
+            <div class="social-links mt-5">
+              <h5 class="mb-3">Redes Sociais</h5>
+              <div class="d-flex gap-3">
+                <a href="https://github.com/brunocarvalhs" target="_blank" class="social-icon">
+                  <i class="bi bi-github fs-3"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/brunocarvalhs/" target="_blank" class="social-icon">
+                  <i class="bi bi-linkedin fs-3"></i>
+                </a>
+                <a href="mailto:brunocarvalhs@outlook.com.br" class="social-icon">
+                  <i class="bi bi-envelope-fill fs-3"></i>
+                </a>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" [(ngModel)]="email" class="form-control" required>
+        </div>
+      </div>
+      
+      <!-- Formulário de contato -->
+      <div class="col-md-7">
+        <div class="card border-0 shadow-sm animate__animated animate__fadeInRight">
+          <div class="card-body p-4 p-md-5">
+            <h4 class="mb-4">Envie uma Mensagem</h4>
+            <form (ngSubmit)="onSubmit()" class="contact-form">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label for="name" class="form-label">Nome</label>
+                    <input type="text" id="name" [(ngModel)]="name" name="name" class="form-control" placeholder="Seu nome" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control" placeholder="seu.email@exemplo.com" required>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label for="subject" class="form-label">Assunto</label>
+                <input type="text" id="subject" [(ngModel)]="subject" name="subject" class="form-control" placeholder="Assunto da mensagem" required>
+              </div>
+              <div class="form-group mb-4">
+                <label for="message" class="form-label">Mensagem</label>
+                <textarea id="message" [(ngModel)]="message" name="message" class="form-control" rows="5" placeholder="Sua mensagem" required></textarea>
+              </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary px-4 py-2">
+                  <i class="bi bi-send-fill me-2"></i>Enviar Mensagem
+                </button>
+              </div>
+            </form>
           </div>
-          <div class="form-group">
-            <label for="subject">Subject:</label>
-            <input type="text" id="subject" [(ngModel)]="subject" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Message:</label>
-            <textarea id="message" [(ngModel)]="message" class="form-control" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-        </form>
+        </div>
       </div>
     </div>
   </div>

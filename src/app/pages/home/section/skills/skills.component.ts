@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { NgFor, NgStyle } from '@angular/common';
 import { GithubService } from '../../../../services/github/github.service';
 import { RepoUserModel } from '../../../../services/github/model/repo-user.model';
 
@@ -8,20 +8,50 @@ interface Skills {
   projects: number
 }
 
+interface KnowledgeArea {
+  name: string,
+  icon: string
+}
+
+interface Tool {
+  name: string,
+  icon: string
+}
+
 @Component({
   selector: 'app-skills',
   standalone: true,
   imports: [
-    NgFor
+    NgFor,
+    NgStyle
   ],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss'
 })
-export class SkillsComponent {
+export class SkillsComponent implements OnInit {
 
   constructor(private githubService: GithubService) {}
 
-  skills: Skills[] = []
+  skills: Skills[] = [];
+  knowledgeAreas: KnowledgeArea[] = [
+    { name: 'Desenvolvimento Mobile', icon: 'bi-phone-fill' },
+    { name: 'Desenvolvimento Web', icon: 'bi-globe' },
+    { name: 'Arquitetura de Software', icon: 'bi-diagram-3-fill' },
+    { name: 'UI/UX Design', icon: 'bi-palette-fill' },
+    { name: 'Banco de Dados', icon: 'bi-database-fill' },
+    { name: 'DevOps', icon: 'bi-gear-fill' }
+  ];
+  
+  tools: Tool[] = [
+    { name: 'Android Studio', icon: 'android-plain' },
+    { name: 'Git', icon: 'git-plain' },
+    { name: 'Firebase', icon: 'firebase-plain' },
+    { name: 'VS Code', icon: 'vscode-plain' },
+    { name: 'Docker', icon: 'docker-plain' },
+    { name: 'Angular', icon: 'angularjs-plain' },
+    { name: 'Node.js', icon: 'nodejs-plain' },
+    { name: 'PostgreSQL', icon: 'postgresql-plain' }
+  ];
 
   minProjects: number = 0;
   maxProjects: number = 0;
@@ -33,7 +63,7 @@ export class SkillsComponent {
   }
 
   ngOnInit(): void {
-    this.fetchData()
+    this.fetchData();
   }
 
   fetchData() {
@@ -54,6 +84,9 @@ export class SkillsComponent {
 
         existingSkill.projects++;
       }
+      
+      // Ordenar habilidades por numero de projetos (decrescente)
+      this.skills.sort((a, b) => b.projects - a.projects);
     });
   }
 }
