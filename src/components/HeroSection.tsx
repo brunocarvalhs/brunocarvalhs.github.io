@@ -81,7 +81,7 @@ const HeroSection = () => {
                 <img
                   src={hero.profileImage}
                   alt={hero.name}
-                  className="w-full h-full object-cover"
+                  className="w-[600px] h-[500px] lg:w-[500px] lg:h-[500px] object-cover mx-auto rounded-2xl"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     e.currentTarget.nextElementSibling?.classList.remove('hidden');
