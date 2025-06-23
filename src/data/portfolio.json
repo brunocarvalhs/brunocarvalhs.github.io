@@ -1,0 +1,291 @@
+{
+  "hero": {
+    "name": "Bruno Carvalho",
+    "title": "Desenvolvedor Full Stack",
+    "description": "Desenvolvo soluções digitais inovadoras e experiências web envolventes. Especialista em React, Node.js e tecnologias modernas para transformar ideias em realidade.",
+    "profileImage": "https://github.com/brunocarvalhs.png",
+    "fallbackInitials": "BC",
+    "socialLinks": [
+      {
+        "name": "GitHub",
+        "url": "https://github.com/brunocarvalhs",
+        "icon": "Github"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://linkedin.com/in/brunocarvalhs",
+        "icon": "Linkedin"
+      }
+    ]
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "description": "Sou um desenvolvedor apaixonado por tecnologia e inovação, com mais de 3 anos de experiência em desenvolvimento web. Tenho atuado em projetos desafiadores que impulsionaram meu crescimento técnico e profissional.",
+    "features": [
+      {
+        "icon": "Code",
+        "title": "Desenvolvimento",
+        "description": "Domino tecnologias modernas como React, Node.js, TypeScript e outras ferramentas essenciais."
+      },
+      {
+        "icon": "Lightbulb",
+        "title": "Inovação",
+        "description": "Busco soluções criativas, eficientes e inovadoras para desafios complexos."
+      },
+      {
+        "icon": "Users",
+        "title": "Colaboração",
+        "description": "Valorizo o trabalho em equipe e a comunicação clara de ideias técnicas."
+      },
+      {
+        "icon": "Zap",
+        "title": "Performance",
+        "description": "Foco em entregar aplicações rápidas, otimizadas e com excelente experiência ao usuário."
+      }
+    ],
+    "journey": {
+      "title": "Minha Jornada",
+      "description1": "Iniciei minha carreira na area da tecnologia desde 2012, mas focado em desenvolvimento em meados de 2018, dedicado a aprender as melhores práticas de desenvolvimento e aprimorar minhas habilidades técnicas.",
+      "description2": "Atualmente, sou um desenvolvedor Android, criando aplicações escaláveis e modernas, sempre atualizado com as tendências do mercado."
+    },
+    "stats": [
+      { "number": "37+", "label": "Projetos" },
+      { "number": "7+", "label": "Anos" },
+      { "number": "15+", "label": "Tecnologias" },
+      { "number": "100%", "label": "Dedicação" }
+    ]
+  },
+  "projects": {
+    "title": "Meus Projetos",
+    "description": "Apresento alguns projetos que demonstram minha experiência em diversas tecnologias e áreas do desenvolvimento web, evidenciando minha capacidade técnica e criatividade.",
+    "items": [
+      {
+        "title": "Friends Secrets",
+        "description": "App Android para sorteio de amigo secreto com sugestões inteligentes de presentes, usando IA para tornar o processo mais divertido.",
+        "image": "https://www.pensarcursos.com.br/blog/wp-content/uploads/2023/12/08144038781025-750x430.webp",
+        "technologies": ["Kotlin", "Android", "Jetpack Compose", "IA"],
+        "github": "https://github.com/brunocarvalhs/FriendsSecrets",
+        "live": "https://play.google.com/store/apps/details?id=br.com.brunocarvalhs.friendssecrets"
+      },
+      {
+        "title": "Paguei!",
+        "description": "Aplicativo Android para centralizar e organizar despesas e boletos, com interface intuitiva e suporte a compartilhamento de custos.",
+        "image": "https://i0.wp.com/blog.adiantesa.com/wp-content/uploads/2023/10/gestao-financeira.jpg?resize=1024%2C683&ssl=1",
+        "technologies": ["Kotlin", "Android", "MVVM", "Jetpack Compose"],
+        "github": "https://github.com/brunocarvalhs/Paguei",
+        "live": null
+      },
+      {
+        "title": "Portfólio Pessoal",
+        "description": "Site de portfólio desenvolvido em Angular para apresentar meus projetos, habilidades e informações de contato.",
+        "image": "https://neilpatel.com/wp-content/uploads/2017/12/portfolio.jpg",
+        "technologies": ["Angular", "SCSS", "HTML"],
+        "github": "https://github.com/brunocarvalhs/brunocarvalhs.github.io",
+        "live": "https://brunocarvalhs.github.io"
+      },
+      {
+        "title": "PhotoBoost",
+        "description": "Script em Node.js para processamento em massa de imagens a partir de moldes definidos por designers, acelerando a criação de conteúdos visuais.",
+        "image": "https://images.pexels.com/photos/270360/pexels-photo-270360.jpeg",
+        "technologies": ["Node.js", "JavaScript"],
+        "github": "https://github.com/brunocarvalhs/PhotoBoost",
+        "live": null
+      },
+      {
+        "title": "Revise",
+        "description": "Aplicativo web para manutenção preventiva de veículos. Permite ao usuário cadastrar a quilometragem do carro e, com base nisso, recomenda revisões e peças a serem verificadas periodicamente.",
+        "image": "https://reparadorsa.com.br/wp-content/uploads/2023/06/HEADER-1.jpg",
+        "technologies": ["JavaScript", "Node.js", "MongoDB", "Express.js"],
+        "github": "https://github.com/brunocarvalhs/Revise",
+        "live": null
+      }
+    ]
+  },
+  "skills": {
+    "title": "Habilidades",
+    "description": "Principais tecnologias e ferramentas que utilizo no meu dia a dia para entregar soluções completas e de alta qualidade.",
+    "categories": [
+      {
+          "title": "Mobile",
+          "skills": [
+            { "name": "Android (Kotlin, Jetpack, Compose, MVVM)", "level": 95 },
+            { "name": "Flutter", "level": 75 },
+            { "name": "React Native", "level": 50 },
+            { "name": "Kotlin Multiplatform", "level": 40 },
+            { "name": "Ionic", "level": 65 },
+            { "name": "Cordova", "level": 20 },
+            { "name": "Xamarin", "level": 10 },
+            { "name": "iOS (Swift)", "level": 15 }
+          ]
+        },
+        {
+          "title": "Frontend",
+          "skills": [
+            { "name": "HTML5", "level": 90 },
+            { "name": "CSS3", "level": 85 },
+            { "name": "JavaScript", "level": 85 },
+            { "name": "Tailwind CSS", "level": 70 },
+            { "name": "Bootstrap", "level": 70 },
+            { "name": "Angular", "level": 60 },
+            { "name": "React", "level": 65 },
+            { "name": "jQuery", "level": 60 },
+            { "name": "TypeScript", "level": 70 },
+            { "name": "SASS/SCSS", "level": 75 }
+          ]
+        },
+        {
+          "title": "Backend",
+          "skills": [
+            { "name": "Node.js", "level": 80 },
+            { "name": "Express.js", "level": 80 },
+            { "name": "Python", "level": 70 },
+            { "name": "Django", "level": 60 },
+            { "name": "GraphQL", "level": 65 },
+            { "name": "REST APIs", "level": 90 },
+            { "name": "PHP (Laravel)", "level": 85 },
+            { "name": "Java (Spring Boot)", "level": 60 },
+            { "name": "WebSocket", "level": 70 }
+          ]
+        },
+        {
+          "title": "Database & Cloud",
+          "skills": [
+            { "name": "MySQL", "level": 85 },
+            { "name": "PostgreSQL", "level": 70 },
+            { "name": "MongoDB", "level": 70 },
+            { "name": "Firebase", "level": 80 },
+            { "name": "Supabase", "level": 70 },
+            { "name": "AWS (EC2, S3, Lambda, Athena, Route 53)", "level": 75 },
+            { "name": "Docker", "level": 70 }
+          ]
+        },
+        {
+          "title": "Tools & Others",
+          "skills": [
+            { "name": "Git/GitHub", "level": 95 },
+            { "name": "GitHub Actions", "level": 90 },
+            { "name": "Figma", "level": 85 },
+            { "name": "Looker Studio", "level": 70 },
+            { "name": "Jest", "level": 60 },
+            { "name": "Webpack", "level": 60 },
+            { "name": "Agile/Scrum", "level": 95 }
+          ]
+        }
+    ],
+    "additionalInfo": {
+      "title": "Sempre Aprendendo",
+      "description": "A tecnologia está em constante evolução, e eu também. Estou sempre aprendendo novas ferramentas e técnicas para entregar o melhor.",
+      "highlights": [
+        {
+          "icon": "🎯",
+          "title": "Foco em Qualidade",
+          "description": "Código limpo, bem documentado e seguindo as melhores práticas."
+        },
+        {
+          "icon": "🚀",
+          "title": "Performance",
+          "description": "Aplicações otimizadas e com excelente experiência para o usuário."
+        },
+        {
+          "icon": "🔄",
+          "title": "Atualização",
+          "description": "Sempre estudando as tecnologias mais recentes do mercado."
+        }
+      ]
+    }
+  },
+  "swot": {
+    "title": "Análise SWOT",
+    "description": "Uma avaliação estratégica das minhas forças, fraquezas, oportunidades e ameaças para meu desenvolvimento profissional.",
+    "categories": [
+      {
+        "title": "Forças",
+        "color": "green",
+        "icon": "💪",
+        "items": [
+          "Experiência sólida em tecnologias modernas",
+          "Capacidade rápida de aprendizado",
+          "Boa comunicação e trabalho em equipe",
+          "Foco em qualidade e boas práticas",
+          "Versatilidade full-stack"
+        ]
+      },
+      {
+        "title": "Fraquezas",
+        "color": "red",
+        "icon": "🎯",
+        "items": [
+          "Experiência limitada em DevOps",
+          "Conhecimento básico em Machine Learning",
+          "Perfeccionismo pode atrasar entregas",
+          "Dificuldade em dizer não a novos projetos"
+        ]
+      },
+      {
+        "title": "Oportunidades",
+        "color": "blue",
+        "icon": "🚀",
+        "items": [
+          "Crescimento do mercado de tecnologia",
+          "Demanda por desenvolvedores full-stack",
+          "Oportunidades em startups inovadoras",
+          "Expansão para tecnologias emergentes",
+          "Freelancing e consultoria"
+        ]
+      },
+      {
+        "title": "Ameaças",
+        "color": "orange",
+        "icon": "⚠️",
+        "items": [
+          "Rápida evolução tecnológica",
+          "Competição acirrada no mercado",
+          "Automação de tarefas simples",
+          "Mudanças nas demandas do mercado"
+        ]
+      }
+    ]
+  },
+  "softSkills": {
+    "title": "Soft Skills",
+    "description": "Habilidades comportamentais e interpessoais que potencializam minha expertise técnica.",
+    "skills": [
+      {
+        "title": "Comunicação",
+        "description": "Capacidade de explicar conceitos técnicos de forma clara e objetiva.",
+        "icon": "💬",
+        "level": 90
+      },
+      {
+        "title": "Trabalho em Equipe",
+        "description": "Colaboração eficaz em projetos multidisciplinares.",
+        "icon": "🤝",
+        "level": 95
+      },
+      {
+        "title": "Resolução de Problemas",
+        "description": "Análise crítica e busca por soluções criativas.",
+        "icon": "🧩",
+        "level": 92
+      },
+      {
+        "title": "Adaptabilidade",
+        "description": "Flexibilidade para se ajustar a mudanças e novos desafios.",
+        "icon": "🔄",
+        "level": 88
+      },
+      {
+        "title": "Gestão de Tempo",
+        "description": "Organização e priorização de tarefas e projetos.",
+        "icon": "⏰",
+        "level": 85
+      },
+      {
+        "title": "Liderança",
+        "description": "Capacidade de guiar equipes e tomar decisões técnicas.",
+        "icon": "👑",
+        "level": 80
+      }
+    ]
+  }
+}

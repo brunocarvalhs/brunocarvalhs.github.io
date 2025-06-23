@@ -8,12 +8,9 @@ Este e meu portfolio pessoal, desenvolvido com Angular para exibir meus projetos
 
 ## Tecnologias Utilizadas
 
-- **Angular 17**: Framework para construcao da interface
+- **React**: Framework para construcao da interface
 - **TypeScript**: Linguagem de programacao
-- **SCSS**: Pre-processador CSS para estilizacao
-- **Bootstrap**: Framework CSS para design responsivo
 - **GitHub API**: Integracao para exibir projetos publicos
-- **Angular Material**: Componentes de UI
 
 ## Funcionalidades
 
