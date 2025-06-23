@@ -1,9 +1,9 @@
 {
   "hero": {
     "name": "Bruno Carvalho",
-    "title": "Desenvolvedor Full Stack",
-    "description": "Desenvolvo soluções digitais inovadoras e experiências web envolventes. Especialista em React, Node.js e tecnologias modernas para transformar ideias em realidade.",
-    "profileImage": "https://github.com/brunocarvalhs.png",
+    "title": "Desenvolvedor Android",
+    "description": "Desenvolvo soluções mobile com foco em performance, usabilidade e inovação. Estudando para se tornar especialista em Android com domínio de Kotlin, Jetpack Compose e arquitetura moderna para criar experiências incríveis.",
+    "profileImage": "/images/brunocarvalhs.jpg",
     "fallbackInitials": "BC",
     "socialLinks": [
       {
@@ -20,7 +20,7 @@
   },
   "about": {
     "title": "Sobre Mim",
-    "description": "Sou um desenvolvedor apaixonado por tecnologia e inovação, com mais de 3 anos de experiência em desenvolvimento web. Tenho atuado em projetos desafiadores que impulsionaram meu crescimento técnico e profissional.",
+    "description": "Sou um desenvolvedor Android com mais de 6 anos de experiência em projetos desafiadores e focados em inovação. Apaixonado por tecnologia, sempre busco evolução técnica e entregar produtos com excelência.",
     "features": [
       {
         "icon": "Code",
@@ -45,8 +45,8 @@
     ],
     "journey": {
       "title": "Minha Jornada",
-      "description1": "Iniciei minha carreira na area da tecnologia desde 2012, mas focado em desenvolvimento em meados de 2018, dedicado a aprender as melhores práticas de desenvolvimento e aprimorar minhas habilidades técnicas.",
-      "description2": "Atualmente, sou um desenvolvedor Android, criando aplicações escaláveis e modernas, sempre atualizado com as tendências do mercado."
+      "description1": "Iniciei na área da tecnologia em 2012, mas desde 2018 venho me dedicando ao desenvolvimento de software. Evoluí de forma sólida como desenvolvedor Android, sempre buscando me especializar nas melhores práticas do ecossistema mobile.",
+      "description2": "Atualmente atuo como Desenvolvedor Android, com foco em criar aplicações modernas, escaláveis e que entregam valor real ao usuário, utilizando tecnologias como Kotlin, Jetpack Compose e arquitetura MVVM."
     },
     "stats": [
       { "number": "37+", "label": "Projetos" },
@@ -57,7 +57,7 @@
   },
   "projects": {
     "title": "Meus Projetos",
-    "description": "Apresento alguns projetos que demonstram minha experiência em diversas tecnologias e áreas do desenvolvimento web, evidenciando minha capacidade técnica e criatividade.",
+    "description": "A seguir, alguns projetos que destacam minha atuação como desenvolvedor Android, evidenciando minhas habilidades técnicas, criatividade e foco em usabilidade e performance.",
     "items": [
       {
         "title": "Friends Secrets",
@@ -103,7 +103,7 @@
   },
   "skills": {
     "title": "Habilidades",
-    "description": "Principais tecnologias e ferramentas que utilizo no meu dia a dia para entregar soluções completas e de alta qualidade.",
+    "description": "Tecnologias e ferramentas que aplico no dia a dia como desenvolvedor Android, garantindo a entrega de soluções robustas, eficientes e alinhadas com as melhores práticas do mercado.",
     "categories": [
       {
           "title": "Mobile",
