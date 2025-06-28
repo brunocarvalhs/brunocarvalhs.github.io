@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { FileText, Scale, Shield, Database, Accessibility, FolderOpen } from 'lucide-react';
-import { getAllDocuments, getProjects, LegalDocument } from '@/utils/markdownLoader';
+import { getAllDocuments, getProjects, LegalDocument } from '@/utils/legalDocumentsApi';
 import LegalDocCard from '@/components/LegalDocCard';
 import LegalDocViewer from '@/components/LegalDocViewer';
 
@@ -48,7 +48,7 @@ const Legal: React.FC = () => {
       try {
         const [allDocs, projectsList] = await Promise.all([
           getAllDocuments(),
-          getProjects()
+          getProjects(),
         ]);
         setDocuments(allDocs);
         setProjects(projectsList);

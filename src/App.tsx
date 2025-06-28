@@ -10,6 +10,7 @@ import Legal from "./pages/Legal";
 import NotFound from "./pages/NotFound";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Docs from "./pages/Docs";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Header />
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/docs" element={<Docs />} />
             <Route path="/legal" element={<Legal />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

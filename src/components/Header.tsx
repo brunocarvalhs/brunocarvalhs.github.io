@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Scale } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X, Scale, Folder } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import { Button } from '@/components/ui/button';
@@ -46,9 +46,7 @@ const Header = () => {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className={`text-2xl font-bold gradient-text`}>
-            Bruno Carvalho
-          </div>
+          <div className="text-2xl font-bold gradient-text">Bruno Carvalho</div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -72,6 +70,13 @@ const Header = () => {
               )
             )}
 
+            <Link to="/docs">
+              <Button variant="outline" size="sm">
+                <Folder className="h-4 w-4 mr-2" />
+                Documentação
+              </Button>
+            </Link>
+
             <Link to="/legal">
               <Button variant="outline" size="sm">
                 <Scale className="h-4 w-4 mr-2" />
@@ -86,7 +91,7 @@ const Header = () => {
           <div className="md:hidden flex items-center space-x-4">
             <ThemeToggle />
             <button
-              className={`${linkClass}`}
+              className={linkClass}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -117,6 +122,22 @@ const Header = () => {
                 </Link>
               )
             )}
+
+            <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4 space-y-2">
+              <Link to="/docs" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button variant="outline" size="sm" className="w-full justify-start">
+                  <Folder className="h-4 w-4 mr-2" />
+                  Documentação
+                </Button>
+              </Link>
+
+              <Link to="/legal" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button variant="outline" size="sm" className="w-full justify-start">
+                  <Scale className="h-4 w-4 mr-2" />
+                  Legal
+                </Button>
+              </Link>
+            </div>
           </div>
         )}
       </nav>

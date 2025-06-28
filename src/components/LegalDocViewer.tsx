@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Download, Calendar, FileText, Link as LinkIcon, Check } from 'lucide-react';
-import { LegalDocument, markdownToHtml } from '@/utils/markdownLoader';
+import { LegalDocument, markdownToHtml } from '@/utils/legalDocumentsApi';
 
 interface LegalDocViewerProps {
     document: LegalDocument;

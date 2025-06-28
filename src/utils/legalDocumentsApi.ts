@@ -1,5 +1,5 @@
 import { LegalDocument } from '@/types/legalTypes';
-import { discoverLegalDocuments } from '@/services/fileDiscoveryService';
+import { discoverLegalDocuments } from '@/services/legalDocumentsLoader';
 import { getProjectKey } from '@/utils/documentUtils';
 
 let documentsCache: LegalDocument[] | null = null;
