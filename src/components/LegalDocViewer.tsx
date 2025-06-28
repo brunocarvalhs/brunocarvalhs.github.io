@@ -61,13 +61,18 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document, onBack }) => 
     };
 
     const handleCopyUrl = () => {
-        const urlToCopy = window.location.href;
-        navigator.clipboard.writeText(urlToCopy).then(() => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-        }).catch(() => {
-            alert('Erro ao copiar URL.');
-        });
+        const baseUrl = window.location.origin;
+        const docHash = `#/legal?doc=${document.id}`; // ← usa query param, não path segment
+        const urlToCopy = `${baseUrl}${docHash}`;
+
+        navigator.clipboard.writeText(urlToCopy)
+            .then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            })
+            .catch(() => {
+                alert('Erro ao copiar URL.');
+            });
     };
 
     const formattedDate = new Date(document.lastUpdated).toLocaleDateString('pt-BR', {
