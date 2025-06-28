@@ -8,18 +8,29 @@ import LegalDocCard from '@/components/LegalDocCard';
 import LegalDocViewer from '@/components/LegalDocViewer';
 
 function getQueryParam(param: string) {
-  const params = new URLSearchParams(window.location.search);
+  const currentHash = window.location.hash; // e.g. "#/legal?doc=abc123"
+  const queryString = currentHash.split('?')[1];
+  const params = new URLSearchParams(queryString || '');
   return params.get(param);
 }
 
 function updateQueryParam(param: string, value: string | null) {
-  const url = new URL(window.location.href);
+  const currentHash = window.location.hash; // e.g. "#/legal?doc=abc123"
+  const [path, queryString] = currentHash.replace(/^#/, '').split('?');
+
+  const params = new URLSearchParams(queryString || '');
+
   if (value) {
-    url.searchParams.set(param, value);
+    params.set(param, value);
   } else {
-    url.searchParams.delete(param);
+    params.delete(param);
   }
-  window.history.pushState({}, '', url.toString());
+
+  const newHash = params.toString()
+    ? `#${path}?${params.toString()}`
+    : `#${path}`;
+
+  window.history.pushState({}, '', newHash);
 }
 
 const Legal: React.FC = () => {
