@@ -105,73 +105,54 @@
     "title": "Habilidades",
     "description": "Tecnologias e ferramentas que aplico no dia a dia como desenvolvedor Android, garantindo a entrega de soluções robustas, eficientes e alinhadas com as melhores práticas do mercado.",
     "categories": [
-      {
+        {
           "title": "Mobile",
           "skills": [
-            { "name": "Android (Kotlin, Jetpack, Compose, MVVM)", "level": 95 },
+            { "name": "Android", "level": 95 },
             { "name": "Flutter", "level": 75 },
             { "name": "React Native", "level": 50 },
-            { "name": "Kotlin Multiplatform", "level": 40 },
-            { "name": "Ionic", "level": 65 },
-            { "name": "Cordova", "level": 20 },
-            { "name": "Xamarin", "level": 10 },
-            { "name": "iOS (Swift)", "level": 15 }
+            { "name": "Ionic", "level": 65 }
           ]
         },
         {
-          "title": "Frontend",
+          "title": "Frontend & UI",
           "skills": [
             { "name": "HTML5", "level": 90 },
             { "name": "CSS3", "level": 85 },
             { "name": "JavaScript", "level": 85 },
             { "name": "Tailwind CSS", "level": 70 },
-            { "name": "Bootstrap", "level": 70 },
-            { "name": "Angular", "level": 60 },
             { "name": "React", "level": 65 },
+            { "name": "Angular", "level": 60 },
             { "name": "jQuery", "level": 60 },
-            { "name": "TypeScript", "level": 70 },
             { "name": "SASS/SCSS", "level": 75 }
           ]
         },
         {
-          "title": "Backend",
+          "title": "Backend & APIs",
           "skills": [
             { "name": "Node.js", "level": 80 },
-            { "name": "Express.js", "level": 80 },
             { "name": "Python", "level": 70 },
-            { "name": "Django", "level": 60 },
-            { "name": "GraphQL", "level": 65 },
-            { "name": "REST APIs", "level": 90 },
-            { "name": "PHP (Laravel)", "level": 85 },
-            { "name": "Java (Spring Boot)", "level": 60 },
-            { "name": "WebSocket", "level": 70 }
+            { "name": "PHP (Laravel)", "level": 85 }
           ]
         },
         {
-          "title": "Database & Cloud",
+          "title": "Database, Cloud & Tools",
           "skills": [
             { "name": "MySQL", "level": 85 },
-            { "name": "PostgreSQL", "level": 70 },
             { "name": "MongoDB", "level": 70 },
             { "name": "Firebase", "level": 80 },
             { "name": "Supabase", "level": 70 },
-            { "name": "AWS (EC2, S3, Lambda, Athena, Route 53)", "level": 75 },
-            { "name": "Docker", "level": 70 }
-          ]
-        },
-        {
-          "title": "Tools & Others",
-          "skills": [
-            { "name": "Git/GitHub", "level": 95 },
-            { "name": "GitHub Actions", "level": 90 },
+            { "name": "AWS", "level": 75 },
+            { "name": "Docker", "level": 70 },
+            { "name": "Git", "level": 95 },
+            { "name": "GitHub/GitHub Actions", "level": 90 },
             { "name": "Figma", "level": 85 },
             { "name": "Looker Studio", "level": 70 },
-            { "name": "Jest", "level": 60 },
-            { "name": "Webpack", "level": 60 },
             { "name": "Agile/Scrum", "level": 95 }
           ]
         }
-    ],
+      ]
+    },
     "additionalInfo": {
       "title": "Sempre Aprendendo",
       "description": "A tecnologia está em constante evolução, e eu também. Estou sempre aprendendo novas ferramentas e técnicas para entregar o melhor.",
