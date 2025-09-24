@@ -3,12 +3,14 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
+  "homepage": "https://bruno-carvalho.dev.br",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
