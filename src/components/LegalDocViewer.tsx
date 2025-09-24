@@ -61,7 +61,7 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document, onBack }) => 
 
     const handleCopyUrl = () => {
         const baseUrl = window.location.origin;
-        const docHash = `#/legal?doc=${document.id}`;
+        const docHash = `/legal?doc=${document.id}`;
         const urlToCopy = `${baseUrl}${docHash}`;
 
         navigator.clipboard.writeText(urlToCopy)

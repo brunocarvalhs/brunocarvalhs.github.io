@@ -15,10 +15,8 @@ function getQueryParam(param: string) {
 }
 
 function updateQueryParam(param: string, value: string | null) {
-  const currentHash = window.location.hash; // e.g. "#/legal?doc=abc123"
-  const [path, queryString] = currentHash.replace(/^#/, '').split('?');
-
-  const params = new URLSearchParams(queryString || '');
+  const { pathname, search } = window.location;
+  const params = new URLSearchParams(search);
 
   if (value) {
     params.set(param, value);
@@ -26,11 +24,9 @@ function updateQueryParam(param: string, value: string | null) {
     params.delete(param);
   }
 
-  const newHash = params.toString()
-    ? `#${path}?${params.toString()}`
-    : `#${path}`;
+  const newUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname;
 
-  window.history.pushState({}, '', newHash);
+  window.history.pushState({}, '', newUrl);
 }
 
 const Legal: React.FC = () => {
