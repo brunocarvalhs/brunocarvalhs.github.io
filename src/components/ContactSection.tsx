@@ -52,33 +52,53 @@ const ContactSection = () => {
             </h3>
             
             <div className="space-y-6">
+              {/* Email */}
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0 border border-blue-200 dark:border-blue-700">
                   <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-800 dark:text-white mb-1">Email</h4>
-                  <p className="text-gray-600 dark:text-gray-300">brunocarvalhs@gmail.com</p>
+                  <a 
+                    href="mailto:brunocarvalhs@outlook.com.br" 
+                    className="text-gray-600 dark:text-gray-300 hover:underline"
+                  >
+                    brunocarvalhs@outlook.com.br
+                  </a>
                 </div>
               </div>
-              
+
+              {/* Telefone */}
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0 border border-green-200 dark:border-green-700">
                   <Phone className="w-6 h-6 text-green-600 dark:text-green-400" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-800 dark:text-white mb-1">Telefone</h4>
-                  <p className="text-gray-600 dark:text-gray-300">+55 (11) 99999-9999</p>
+                  <a 
+                    href="tel:+5513997934483" 
+                    className="text-gray-600 dark:text-gray-300 hover:underline"
+                  >
+                    +55 (13) 99793-4483
+                  </a>
                 </div>
               </div>
-              
+
+              {/* Localização */}
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0 border border-purple-200 dark:border-purple-700">
                   <MapPin className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-800 dark:text-white mb-1">Localização</h4>
-                  <p className="text-gray-600 dark:text-gray-300">São Paulo, Brasil</p>
+                  <a 
+                    href="https://www.google.com/maps?q=São+Paulo,+Brasil" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-gray-600 dark:text-gray-300 hover:underline"
+                  >
+                    São Paulo, Brasil
+                  </a>
                 </div>
               </div>
             </div>
