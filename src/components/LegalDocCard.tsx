@@ -37,21 +37,21 @@ const LegalDocCard: React.FC<LegalDocCardProps> = ({ document, onView }) => {
                         <FileText className="h-5 w-5 text-blue-600" />
                         <Badge
                             variant="secondary"
-                            className={categoryColors[document.category]}
+                            className={categoryColors[document.category] + ' dark:bg-blue-900 dark:text-white dark:border-blue-700'}
                         >
                             {categoryLabels[document.category]}
                         </Badge>
                         {document.project && (
-                            <Badge variant="outline" className="bg-gray-100">
+                            <Badge variant="outline" className="bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-700">
                                 {document.project.replace(/_/g, ' ')}
                             </Badge>
                         )}
                     </div>
                 </div>
-                <CardTitle className="text-lg font-semibold text-gray-900">
+                <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
                     {document.title.replace(/_/g, ' ')}
                 </CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardDescription className="text-gray-600 dark:text-white">
                     {document.description.replace(/_/g, ' ')}
                 </CardDescription>
             </CardHeader>
