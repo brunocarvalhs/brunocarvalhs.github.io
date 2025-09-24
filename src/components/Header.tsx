@@ -31,9 +31,10 @@ const Header = () => {
   const sectionIds = ['hero', 'about', 'projects', 'skills', 'contact'];
 
   const baseLinkClass = `transition-colors duration-300 font-medium`;
+
   const linkClass = isScrolled
     ? 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-    : 'text-gray-900 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400';
+    : 'text-white dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400';
 
   return (
     <header
@@ -46,7 +47,7 @@ const Header = () => {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className={`text-2xl font-bold gradient-text`}>
+          <div className="text-2xl font-bold gradient-text">
             Bruno Carvalho
           </div>
 
@@ -96,7 +97,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 py-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+          <div className="md:hidden mt-4 py-4 bg-white/90 dark:bg-gray-800/90 rounded-lg shadow-lg backdrop-blur-md">
             {navItems.map((item, index) =>
               isHomePage ? (
                 <button
