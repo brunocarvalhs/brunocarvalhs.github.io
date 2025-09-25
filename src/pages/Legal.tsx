@@ -7,26 +7,51 @@ import { getAllDocuments, getProjects, LegalDocument } from '@/utils/markdownLoa
 import LegalDocCard from '@/components/LegalDocCard';
 import LegalDocViewer from '@/components/LegalDocViewer';
 
+// Lê parâmetros tanto de query string quanto de hash
 function getQueryParam(param: string) {
-  const currentHash = window.location.hash; // e.g. "#/legal?doc=abc123"
-  const queryString = currentHash.split('?')[1];
-  const params = new URLSearchParams(queryString || '');
-  return params.get(param);
-}
-
-function updateQueryParam(param: string, value: string | null) {
-  const { pathname, search } = window.location;
-  const params = new URLSearchParams(search);
-
-  if (value) {
-    params.set(param, value);
-  } else {
-    params.delete(param);
+  // 1. Primeiro tenta pela query "normal" (https://site/legal?doc=abc123)
+  const searchParams = new URLSearchParams(window.location.search);
+  if (searchParams.has(param)) {
+    return searchParams.get(param);
   }
 
-  const newUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname;
+  // 2. Se não existir, tenta no hash (https://site/#/legal?doc=abc123)
+  const currentHash = window.location.hash; 
+  const queryString = currentHash.split('?')[1];
+  const hashParams = new URLSearchParams(queryString || '');
+  return hashParams.get(param);
+}
 
-  window.history.pushState({}, '', newUrl);
+// Atualiza parâmetros em ambos (prioriza query string)
+function updateQueryParam(param: string, value: string | null) {
+  const url = new URL(window.location.href);
+
+  if (value) {
+    url.searchParams.set(param, value);
+  } else {
+    url.searchParams.delete(param);
+  }
+
+  // Atualiza a query string no navegador
+  window.history.pushState({}, '', url.toString());
+
+  // Se existir hash, mantém ele intacto (apenas substitui os params se precisar)
+  if (window.location.hash.includes('?')) {
+    const [path, queryString] = window.location.hash.replace(/^#/, '').split('?');
+    const hashParams = new URLSearchParams(queryString || '');
+
+    if (value) {
+      hashParams.set(param, value);
+    } else {
+      hashParams.delete(param);
+    }
+
+    const newHash = hashParams.toString()
+      ? `#${path}?${hashParams.toString()}`
+      : `#${path}`;
+
+    window.history.replaceState({}, '', `${url.pathname}${url.search}${newHash}`);
+  }
 }
 
 const Legal: React.FC = () => {
