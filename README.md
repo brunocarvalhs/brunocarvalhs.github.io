@@ -46,7 +46,7 @@ npm install
 # Servidor de desenvolvimento
 ng serve
 
-# Acesse http://localhost:4200/
+# Acesse https://localhost:4200/
 ```
 
 ### Compilacao para producao
