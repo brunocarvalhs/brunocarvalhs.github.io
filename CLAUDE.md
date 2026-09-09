@@ -21,6 +21,8 @@ Both `package-lock.json` and `yarn.lock` are present; `npm` is the one actually 
 
 Vitest + Testing Library (`jsdom` environment, configured inline in `vite.config.ts`'s `test` block; setup file at `src/test/setup.ts`). Tests live next to the code they cover as `*.test.ts(x)`. The suite so far is deliberately narrow: it covers pure logic that was extracted specifically to be testable (and exported) from otherwise-component-local helpers — `Terminal.tsx` (`slugify`, `getCompletions`, `COMMANDS`), `ProjectThumbnail.tsx` (`hashString`, `pickIcon`, `slugifyTitle`), `use-github-projects.ts` (`blendRepos`), `ContactSection.tsx` (`buildMailtoUrl`, `CONTACT_EMAIL`), and `Legal.tsx` (`getQueryParam`, `updateQueryParam`). When adding new non-trivial logic to a component, prefer exporting it as a standalone function (even from the component's own file) over leaving it inline and untested — that's the established pattern here, not a full component-rendering test for everything.
 
+`jsdom`'s bundled `undici` throws `webidl.util.markAsUncloneable is not a function` on Node 20 (confirmed on GitHub Actions' runner; works fine on Node 22+) — this is why CI pins Node 22, not 20. Don't drop that pin without checking this still holds on whatever `jsdom` version is current then.
+
 ## Architecture
 
 This is a personal portfolio site (Vite + React 18 + TypeScript + Tailwind + shadcn/ui on Radix + `react-router-dom`), deployed to GitHub Pages at `bruno-carvalho.dev.br`.
