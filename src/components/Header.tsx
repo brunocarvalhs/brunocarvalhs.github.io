@@ -32,9 +32,13 @@ const Header = () => {
 
   const baseLinkClass = `transition-colors duration-300 font-medium`;
 
+  // Both states need a `dark:` pair — at the top of the page (`!isScrolled`)
+  // this sits directly over the Hero, whose background now follows the
+  // site's light/dark toggle instead of always being dark, so a fixed
+  // `text-white` here goes invisible in light mode.
   const linkClass = isScrolled
     ? 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-    : 'text-white dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400';
+    : 'text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400';
 
   return (
     <header
