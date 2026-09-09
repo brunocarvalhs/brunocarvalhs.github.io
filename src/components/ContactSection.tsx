@@ -7,6 +7,14 @@ import { useToast } from '@/hooks/use-toast';
 import Reveal from '@/components/Reveal';
 import portfolioData from '@/data/portfolio.json';
 
+export const CONTACT_EMAIL = 'brunocarvalhs@outlook.com.br';
+
+export function buildMailtoUrl(formData: { name: string; email: string; message: string }): string {
+  const subject = `Contato via site — ${formData.name}`;
+  const body = `${formData.message}\n\n—\n${formData.name}\n${formData.email}`;
+  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -17,16 +25,10 @@ const ContactSection = () => {
   const { hero } = portfolioData;
   const year = new Date().getFullYear();
 
-  const CONTACT_EMAIL = 'brunocarvalhs@outlook.com.br';
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const subject = `Contato via site — ${formData.name}`;
-    const body = `${formData.message}\n\n—\n${formData.name}\n${formData.email}`;
-    const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailtoUrl;
+    window.location.href = buildMailtoUrl(formData);
 
     toast({
       title: 'Abrindo seu app de email…',

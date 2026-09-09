@@ -11,7 +11,7 @@ import { categoryLabels, categoryIcons } from '@/lib/legalCategories';
 import { useToast } from '@/hooks/use-toast';
 
 // Lê parâmetros tanto de query string quanto de hash
-function getQueryParam(param: string) {
+export function getQueryParam(param: string) {
   // 1. Primeiro tenta pela query "normal" (https://site/legal?doc=abc123)
   const searchParams = new URLSearchParams(window.location.search);
   if (searchParams.has(param)) {
@@ -26,7 +26,7 @@ function getQueryParam(param: string) {
 }
 
 // Atualiza parâmetros em ambos (prioriza query string)
-function updateQueryParam(param: string, value: string | null) {
+export function updateQueryParam(param: string, value: string | null) {
   const url = new URL(window.location.href);
 
   if (value) {

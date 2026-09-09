@@ -15,7 +15,7 @@ export interface GithubProject {
   topics: string[];
 }
 
-interface RawRepo {
+export interface RawRepo {
   name: string;
   description: string | null;
   html_url: string;
@@ -68,6 +68,33 @@ function mapRepo(repo: RawRepo): GithubProject {
 }
 
 /**
+ * Blends "most recently pushed" and "most starred" repos into one deduped
+ * list, capped at `limit`, interleaving the two rankings so both signals
+ * are represented rather than one dominating (e.g. an old repo with lots of
+ * stars wouldn't otherwise leave room for anything recent). Forks and
+ * archived repos should already be filtered out of `repos` before calling
+ * this — it doesn't re-check those flags itself.
+ */
+export function blendRepos(repos: RawRepo[], limit: number): RawRepo[] {
+  const byRecent = [...repos].sort(
+    (a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime()
+  );
+  const byPopular = [...repos].sort((a, b) => b.stargazers_count - a.stargazers_count);
+
+  const seen = new Set<string>();
+  const blended: RawRepo[] = [];
+  for (let i = 0; i < repos.length && blended.length < limit; i++) {
+    for (const repo of [byRecent[i], byPopular[i]]) {
+      if (repo && !seen.has(repo.name) && blended.length < limit) {
+        seen.add(repo.name);
+        blended.push(repo);
+      }
+    }
+  }
+  return blended;
+}
+
+/**
  * Public repos for `brunocarvalhs`, blending "recently pushed" and "most
  * starred" into one deduped list — no auth needed (unauthenticated GitHub
  * REST API, 60 req/h/IP), cached in localStorage for an hour so a page
@@ -98,23 +125,7 @@ export function useGithubProjects(limit = 6) {
         const raw = (await res.json()) as RawRepo[];
 
         const eligible = raw.filter((r) => !r.fork && !r.archived);
-        const byRecent = [...eligible].sort(
-          (a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime()
-        );
-        const byPopular = [...eligible].sort((a, b) => b.stargazers_count - a.stargazers_count);
-
-        const seen = new Set<string>();
-        const blended: RawRepo[] = [];
-        // Interleave recent/popular so both signals are represented, deduped.
-        for (let i = 0; i < eligible.length && blended.length < limit; i++) {
-          for (const repo of [byRecent[i], byPopular[i]]) {
-            if (repo && !seen.has(repo.name) && blended.length < limit) {
-              seen.add(repo.name);
-              blended.push(repo);
-            }
-          }
-        }
-
+        const blended = blendRepos(eligible, limit);
         const result = blended.map(mapRepo);
         setProjects(result);
         writeCache(result);

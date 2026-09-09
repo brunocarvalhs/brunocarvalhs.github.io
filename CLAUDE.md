@@ -9,13 +9,17 @@ npm run dev          # Vite dev server, port 8080
 npm run build         # vite build && cp build/index.html build/404.html — see "GitHub Pages deploy" below for why the copy step exists
 npm run build:dev     # build in development mode
 npm run lint          # eslint .
+npm run test          # vitest run — single pass, what CI runs
+npm run test:watch    # vitest — interactive watch mode
 npm run preview       # preview the production build locally
-npm run deploy        # gh-pages -d build — pushes build/ to the gh-pages branch (does NOT run build first, run `npm run build` before this)
+npm run deploy        # gh-pages -d build — manual fallback only; master pushes deploy automatically now, see CI below
 ```
 
-There is no test suite (no test runner is installed, no `test` script exists).
-
 Both `package-lock.json` and `yarn.lock` are present; `npm` is the one actually used for scripts above.
+
+### Tests
+
+Vitest + Testing Library (`jsdom` environment, configured inline in `vite.config.ts`'s `test` block; setup file at `src/test/setup.ts`). Tests live next to the code they cover as `*.test.ts(x)`. The suite so far is deliberately narrow: it covers pure logic that was extracted specifically to be testable (and exported) from otherwise-component-local helpers — `Terminal.tsx` (`slugify`, `getCompletions`, `COMMANDS`), `ProjectThumbnail.tsx` (`hashString`, `pickIcon`, `slugifyTitle`), `use-github-projects.ts` (`blendRepos`), `ContactSection.tsx` (`buildMailtoUrl`, `CONTACT_EMAIL`), and `Legal.tsx` (`getQueryParam`, `updateQueryParam`). When adding new non-trivial logic to a component, prefer exporting it as a standalone function (even from the component's own file) over leaving it inline and untested — that's the established pattern here, not a full component-rendering test for everything.
 
 ## Architecture
 
@@ -33,9 +37,13 @@ Nearly all visible copy — hero bio, about/journey text, project list, skills w
 
 These app-facing legal docs are deep-linked from outside the site (published from within the Android apps themselves via `/legal?doc=<id>`), which is why the GitHub Pages 404 handling below matters — a broken deep link here is a broken link inside a published app, not just a 404 on the website.
 
+### CI/CD: `.github/workflows/ci.yml`
+
+Every push and PR to `master` runs a `check` job (`npm ci && npm run lint && npm run test && npm run build`). On a direct push to `master` (not PRs), a second `deploy` job publishes `build/` straight to the `gh-pages` branch via `peaceiris/actions-gh-pages`, using the automatic `GITHUB_TOKEN` — no manual secret setup. **Pushing to `master` now deploys to production automatically**; there's no separate approval step. `npm run deploy` (the local `gh-pages -d build` command) still works as a manual fallback if you ever need to publish without going through a push/CI cycle, but the normal path is just: push to `master`, CI does the rest.
+
 ### GitHub Pages deploy: `build/` is committed, and 404.html must mirror index.html
 
-Unusually, the `build/` output directory is tracked in git on `master` (not gitignored) — the workflow is `npm run build` then `npm run deploy` (which pushes `build/` to the `gh-pages` branch via the `gh-pages` package), and `build/` in `master` ends up as a byproduct of that local build step.
+Unusually, the `build/` output directory is also tracked in git on `master` (not gitignored) — this predates the CI pipeline and is now mostly a redundant byproduct of local `npm run build` runs (CI builds its own fresh copy for deployment and doesn't read the committed one). Harmless to leave committed; not required for the automated deploy to work.
 
 GitHub Pages has no server-side rewrite, so any client-side route other than `/` (e.g. `/legal`, or a deep link like `/legal?doc=...`) resolves as a 404 at the CDN level, which serves `build/404.html` as the response body. For that to actually work as a functioning SPA route, `404.html` must be byte-identical to the current `index.html` (same hashed asset filenames) — a stale 404.html referencing old, deleted JS/CSS chunks silently breaks every deep link. This is why `npm run build` ends with `cp build/index.html build/404.html`; do not remove that step or "clean up" `build/404.html` by hand.
 

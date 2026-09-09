@@ -9,7 +9,7 @@ const PALETTES: [string, string][] = [
   ['from-purple-500', 'to-fuchsia-600'],
 ];
 
-function hashString(value: string): number {
+export function hashString(value: string): number {
   let hash = 0;
   for (let i = 0; i < value.length; i++) {
     hash = (hash << 5) - hash + value.charCodeAt(i);
@@ -18,12 +18,23 @@ function hashString(value: string): number {
   return Math.abs(hash);
 }
 
-function pickIcon(technologies: string[]): LucideIcon {
+export function pickIcon(technologies: string[]): LucideIcon {
   const stack = technologies.join(' ').toLowerCase();
   if (stack.includes('android') || stack.includes('kotlin') || stack.includes('jetpack')) return Smartphone;
   if (stack.includes('node') || stack.includes('express') || stack.includes('mongodb')) return TerminalIcon;
   if (stack.includes('react') || stack.includes('angular') || stack.includes('html')) return Globe;
   return Wrench;
+}
+
+// Strips combining diacritical marks (U+0300–U+036F) left over after NFD
+// normalization, so accented titles like "Portfólio" slugify to "portfolio".
+export function slugifyTitle(title: string): string {
+  return title
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 }
 
 interface ProjectThumbnailProps {
@@ -37,14 +48,7 @@ interface ProjectThumbnailProps {
 const ProjectThumbnail: React.FC<ProjectThumbnailProps> = ({ title, technologies }) => {
   const [from, to] = PALETTES[hashString(title) % PALETTES.length];
   const Icon = pickIcon(technologies);
-  // Strips combining diacritical marks (U+0300–U+036F) left over after NFD
-  // normalization, so accented titles like "Portfólio" slugify to "portfolio".
-  const slug = title
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+  const slug = slugifyTitle(title);
 
   return (
     <div className={`relative flex h-full w-full items-center justify-center bg-gradient-to-br ${from} ${to}`}>

@@ -14,7 +14,7 @@ const EMAIL = 'brunocarvalhs@outlook.com.br';
 
 const { hero, about, projects, skills } = portfolioData;
 
-function slugify(value: string) {
+export function slugify(value: string) {
   return value
     .toLowerCase()
     .normalize('NFD')
@@ -26,7 +26,7 @@ function slugify(value: string) {
 
 const projectFiles = projects.items.map((p) => ({ ...p, slug: slugify(p.title) }));
 
-const COMMANDS = [
+export const COMMANDS = [
   'help', 'whoami', 'about', 'ls', 'cat', 'skills', 'contact',
   'open', 'theme', 'date', 'sudo', 'clear', 'exit', 'close',
 ];
@@ -37,7 +37,7 @@ const COMMANDS = [
  * Returns all candidates matching the relevant prefix — the caller cycles
  * through them on repeated Tab presses.
  */
-function getCompletions(value: string): { candidates: string[]; replace: (choice: string) => string } {
+export function getCompletions(value: string): { candidates: string[]; replace: (choice: string) => string } {
   const trimmedStart = value.match(/^\s*/)?.[0] ?? '';
   const [cmd, ...rest] = value.trim().split(/\s+/);
   const hasTrailingSpace = /\s$/.test(value);
