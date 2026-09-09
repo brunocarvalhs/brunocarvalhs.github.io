@@ -6,7 +6,7 @@
   "homepage": "https://bruno-carvalho.dev.br",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cp build/index.html build/404.html",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
