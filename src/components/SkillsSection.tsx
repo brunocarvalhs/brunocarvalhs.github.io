@@ -12,20 +12,39 @@ interface SkillBarProps {
   delay: number;
 }
 
+// Thresholds borrowed from observability dashboards (green/blue/amber
+// health bands) — a deliberate nod to Bruno's real day job (performance &
+// observability), not just decoration.
+function threshold(level: number) {
+  if (level >= 85) return { label: 'avançado', text: 'text-emerald-400', bar: 'bg-emerald-500', dot: 'bg-emerald-400' };
+  if (level >= 70) return { label: 'sólido', text: 'text-blue-400', bar: 'bg-blue-500', dot: 'bg-blue-400' };
+  return { label: 'em evolução', text: 'text-amber-400', bar: 'bg-amber-500', dot: 'bg-amber-400' };
+}
+
 const SkillBar: React.FC<SkillBarProps> = ({ name, level, delay }) => {
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>();
+  const t = threshold(level);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className="rounded-lg border border-white/5 bg-black/20 p-3">
       <div className="mb-2 flex items-center justify-between">
-        <span className="font-medium text-neutral-300">{name}</span>
-        <span className="text-sm tabular-nums text-neutral-500">{level}%</span>
+        <span className="flex items-center gap-2 font-medium text-neutral-300">
+          <span className={`h-1.5 w-1.5 rounded-full ${t.dot} animate-pulse-slow`} />
+          {name}
+        </span>
+        <span className="font-mono text-sm font-bold tabular-nums text-white">
+          {isVisible ? level : 0}
+          <span className="text-neutral-500">%</span>
+        </span>
       </div>
-      <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
         <div
-          className="h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 transition-[width] duration-1000 ease-out"
+          className={`h-1.5 rounded-full ${t.bar} transition-[width] duration-1000 ease-out`}
           style={{ width: isVisible ? `${level}%` : '0%', transitionDelay: `${delay}ms` }}
         />
+      </div>
+      <div className={`mt-1.5 text-right font-mono text-[10px] uppercase tracking-wide ${t.text}`}>
+        {t.label}
       </div>
     </div>
   );
@@ -38,8 +57,9 @@ const SkillsSection = () => {
     <section id="skills" className="min-h-screen bg-neutral-950 py-20 md:py-24">
       <div className="container mx-auto px-6">
         <Reveal className="mb-16 text-center">
-          <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
-            Expertise técnica
+          <span className="mb-3 inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse-slow" />
+            Performance dashboard
           </span>
           <h2 className="text-balance text-4xl font-bold tracking-tight text-white">
             {skills.title}

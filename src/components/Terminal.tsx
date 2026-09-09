@@ -26,6 +26,39 @@ function slugify(value: string) {
 
 const projectFiles = projects.items.map((p) => ({ ...p, slug: slugify(p.title) }));
 
+const COMMANDS = [
+  'help', 'whoami', 'about', 'ls', 'cat', 'skills', 'contact',
+  'open', 'theme', 'date', 'sudo', 'clear', 'exit', 'close',
+];
+
+/**
+ * Tab-completion, bash/fish-style: completes the command name itself, or
+ * (for `open`/`cat`) the argument after it, against a fixed candidate list.
+ * Returns all candidates matching the relevant prefix — the caller cycles
+ * through them on repeated Tab presses.
+ */
+function getCompletions(value: string): { candidates: string[]; replace: (choice: string) => string } {
+  const trimmedStart = value.match(/^\s*/)?.[0] ?? '';
+  const [cmd, ...rest] = value.trim().split(/\s+/);
+  const hasTrailingSpace = /\s$/.test(value);
+
+  if (rest.length === 0 && !hasTrailingSpace) {
+    const candidates = COMMANDS.filter((c) => c.startsWith((cmd ?? '').toLowerCase()));
+    return { candidates, replace: (choice) => `${trimmedStart}${choice} ` };
+  }
+
+  const argPrefix = (rest[rest.length - 1] ?? '').toLowerCase();
+  let argCandidates: string[] = [];
+  if (cmd === 'open') argCandidates = ['github', 'linkedin'];
+  if (cmd === 'cat') argCandidates = ['sobre.md', ...projectFiles.map((p) => `${p.slug}.md`)];
+
+  const candidates = argCandidates.filter((c) => c.startsWith(argPrefix));
+  return {
+    candidates,
+    replace: (choice) => `${trimmedStart}${cmd} ${[...rest.slice(0, -1), choice].join(' ')} `,
+  };
+}
+
 function findSocial(name: string) {
   return hero.socialLinks.find((l) => l.name.toLowerCase() === name.toLowerCase());
 }
@@ -48,7 +81,11 @@ function buildHelp(): Line[] {
     { text: '  clear                   limpa o terminal' },
     { text: '  exit | close            fecha o terminal' },
     { text: '' },
-    { text: 'dica: use as setas ↑ / ↓ para navegar pelo histórico de comandos.', tone: 'muted' },
+    { text: 'atalhos:', tone: 'accent' },
+    { text: '  ↑ / ↓                   navega pelo histórico de comandos' },
+    { text: '  Tab                     autocompleta comando ou argumento' },
+    { text: '  Ctrl+L                  limpa o terminal' },
+    { text: '  Ctrl+C                  cancela a linha atual' },
   ];
 }
 
@@ -127,14 +164,18 @@ function buildContact(): Line[] {
 
 interface TerminalProps {
   className?: string;
+  /** Custom trigger UI. Receives `onClick` to wire up; falls back to the
+   * default small `bruno@carvalho:~$` prompt line when omitted. */
+  trigger?: (props: { onClick: () => void }) => React.ReactNode;
 }
 
-const Terminal: React.FC<TerminalProps> = ({ className }) => {
+const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
   const [open, setOpen] = useState(false);
   const [entries, setEntries] = useState<HistoryEntry[]>([]);
   const [input, setInput] = useState('');
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
+  const tabStateRef = useRef<{ base: string; candidates: string[]; index: number } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const idRef = useRef(0);
@@ -273,6 +314,49 @@ const Terminal: React.FC<TerminalProps> = ({ className }) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Ctrl+L — clear, like a real terminal (doesn't touch command history).
+    if (e.ctrlKey && e.key.toLowerCase() === 'l') {
+      e.preventDefault();
+      e.stopPropagation();
+      setEntries([]);
+      return;
+    }
+
+    // Ctrl+C — abort the current line: echo it with a `^C` marker and start fresh.
+    if (e.ctrlKey && e.key.toLowerCase() === 'c') {
+      e.preventDefault();
+      e.stopPropagation();
+      setEntries((prev) => [...prev, { id: idRef.current++, command: `${input}^C`, lines: [] }]);
+      setInput('');
+      setHistoryIndex(null);
+      tabStateRef.current = null;
+      return;
+    }
+
+    if (e.key === 'Tab') {
+      // Radix's Dialog FocusScope traps Tab for its own focus-cycling —
+      // stopPropagation is required, not just preventDefault, or the
+      // keydown still reaches that handler and moves focus off the input.
+      e.preventDefault();
+      e.stopPropagation();
+      const prevTab = tabStateRef.current;
+      const isContinuing = prevTab && prevTab.base === input;
+      const { candidates, replace } = getCompletions(isContinuing ? prevTab.base : input);
+
+      if (candidates.length === 0) return;
+
+      const base = isContinuing ? prevTab.base : input;
+      const index = isContinuing ? (prevTab.index + 1) % candidates.length : 0;
+      tabStateRef.current = { base, candidates, index };
+      setInput(replace(candidates[index]));
+      return;
+    }
+
+    // Any other key resets tab-cycling, so the next Tab press starts a fresh match.
+    if (e.key !== 'Shift' && e.key !== 'Control' && e.key !== 'Alt' && e.key !== 'Meta') {
+      tabStateRef.current = null;
+    }
+
     if (e.key === 'Enter') {
       execute(input);
       setInput('');
@@ -316,21 +400,25 @@ const Terminal: React.FC<TerminalProps> = ({ className }) => {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={openTerminal}
-        aria-label="Abrir terminal interativo"
-        className={cn(
-          '-mx-1 -my-2 inline-flex w-fit items-center gap-1.5 rounded-md px-1 py-2 font-mono text-sm text-slate-400 transition-colors hover:text-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50 group',
-          className
-        )}
-      >
-        <span className="text-emerald-400/90">{PROMPT}</span>
-        <span
-          aria-hidden="true"
-          className="inline-block h-4 w-[7px] translate-y-[1px] bg-slate-300 animate-caret-blink group-hover:bg-emerald-400"
-        />
-      </button>
+      {trigger ? (
+        trigger({ onClick: openTerminal })
+      ) : (
+        <button
+          type="button"
+          onClick={openTerminal}
+          aria-label="Abrir terminal interativo"
+          className={cn(
+            '-mx-1 -my-2 inline-flex w-fit items-center gap-1.5 rounded-md px-1 py-2 font-mono text-sm text-slate-400 transition-colors hover:text-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50 group',
+            className
+          )}
+        >
+          <span className="text-emerald-400/90">{PROMPT}</span>
+          <span
+            aria-hidden="true"
+            className="inline-block h-4 w-[7px] translate-y-[1px] bg-slate-300 animate-caret-blink group-hover:bg-emerald-400"
+          />
+        </button>
+      )}
 
       <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
         <DialogPrimitive.Portal>

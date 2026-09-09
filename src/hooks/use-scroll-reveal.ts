@@ -29,18 +29,7 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
       return;
     }
 
-    const { once = true, threshold = 0.15, rootMargin = '0px 0px -60px 0px', root } = options ?? {};
-
-    // On the horizontal-panel desktop layout, sections live inside a
-    // horizontally-scrolling container instead of the vertical document
-    // viewport. IntersectionObserver only reports "in view" relative to its
-    // `root` — the default (null) is the viewport, which never scrolls
-    // horizontally, so entries would incorrectly report visible immediately.
-    // Using the nearest `[data-panel-scroll-root]` ancestor as root makes
-    // "becomes visible" mean "panel becomes active" in that layout, while
-    // falling back to the normal viewport root on the vertical mobile stack
-    // (where no such ancestor exists).
-    const panelRoot = root ?? (node.closest('[data-panel-scroll-root]') as Element | null);
+    const { once = true, threshold = 0.15, rootMargin = '0px 0px -60px 0px', root = null } = options ?? {};
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -51,7 +40,7 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
           setIsVisible(false);
         }
       },
-      { threshold, rootMargin, root: panelRoot }
+      { threshold, rootMargin, root }
     );
 
     observer.observe(node);

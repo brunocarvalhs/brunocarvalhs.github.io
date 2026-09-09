@@ -1,34 +1,51 @@
-import React, { useRef } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import React from 'react';
+import { ExternalLink, Github, Star, RefreshCw, GitFork, Users, Code2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import portfolioData from '@/data/portfolio.json';
 import Reveal from '@/components/Reveal';
 import ProjectThumbnail from '@/components/ProjectThumbnail';
+import { useGithubProjects } from '@/hooks/use-github-projects';
+import { useGithubProfileStats } from '@/hooks/use-github-profile-stats';
 
 const maxDescriptionLength = 150;
+const GITHUB_USER = 'brunocarvalhs';
+
+type CardData = {
+  title: string;
+  description: string;
+  technologies: string[];
+  github: string;
+  live: string | null;
+  stars?: number;
+};
 
 const ProjectsSection = () => {
   const { projects } = portfolioData;
-  const trackRef = useRef<HTMLDivElement>(null);
+  const { projects: githubProjects, loading, error } = useGithubProjects(6);
+  const { stats } = useGithubProfileStats();
 
-  // The projects panel is one full-page "screen" like every other panel,
-  // but has 5 cards to show — rather than break the one-panel-per-section
-  // model (or cram all 5 into a cramped grid), they live in their own
-  // horizontally-scrolling sub-carousel within this single panel.
-  //
-  // That sub-scroller sits inside the page's own horizontal-scroll
-  // container (on desktop), so a mouse wheel over it needs its own
-  // vertical→horizontal translation *and* to stop the event from bubbling
-  // up — otherwise the outer container's identical wheel handler would also
-  // fire and page between panels instead of scrolling the cards.
-  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    const track = trackRef.current;
-    if (!track) return;
-    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-    e.preventDefault();
-    e.stopPropagation();
-    track.scrollLeft += e.deltaY;
-  };
+  // Live GitHub repos (recent + starred, deduped) are the primary source —
+  // real, always current, no manual upkeep. If the fetch fails or the
+  // account has nothing eligible yet, fall back to the curated list in
+  // portfolio.json so the section never renders empty or broken.
+  const useLive = !loading && !error && githubProjects.length > 0;
+
+  const cards: CardData[] = useLive
+    ? githubProjects.map((repo) => ({
+        title: repo.name,
+        description: repo.description ?? 'Sem descrição no GitHub ainda.',
+        technologies: [repo.language, ...repo.topics].filter((t): t is string => Boolean(t)).slice(0, 4),
+        github: repo.htmlUrl,
+        live: repo.homepage || null,
+        stars: repo.stars,
+      }))
+    : projects.items.map((p) => ({
+        title: p.title,
+        description: p.description,
+        technologies: p.technologies,
+        github: p.github,
+        live: p.live,
+      }));
 
   return (
     <section id="projects" className="min-h-screen bg-black py-20 md:py-24">
@@ -44,23 +61,61 @@ const ProjectsSection = () => {
           <p className="mx-auto max-w-3xl text-balance text-lg text-neutral-300">
             {projects.description}
           </p>
+          {useLive && (
+            <p className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs text-neutral-500">
+              <RefreshCw className="h-3 w-3" />
+              repositórios mais recentes e populares, direto do GitHub
+            </p>
+          )}
         </Reveal>
 
-        <div
-          ref={trackRef}
-          onWheel={handleWheel}
-          className="-mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-6 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]"
-        >
-          {projects.items.map((project, index) => (
-            <Reveal
-              key={index}
-              delay={index * 80}
-              className="w-[85vw] shrink-0 snap-start sm:w-[380px]"
-            >
+        {/* Dashboard strip: live GitHub stat tiles + contribution heatmap */}
+        {stats && (
+          <Reveal className="mb-10">
+            <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+              {[
+                { icon: Code2, label: 'Repositórios', value: stats.publicRepos },
+                { icon: Star, label: 'Estrelas', value: stats.totalStars },
+                { icon: Users, label: 'Seguidores', value: stats.followers },
+                { icon: GitFork, label: 'Linguagem principal', value: stats.topLanguage ?? '—' },
+              ].map((tile) => (
+                <div
+                  key={tile.label}
+                  className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-center backdrop-blur-sm"
+                >
+                  <tile.icon className="mx-auto mb-2 h-4 w-4 text-blue-400" />
+                  <div className="font-mono text-xl font-bold tabular-nums text-white sm:text-2xl">
+                    {tile.value}
+                  </div>
+                  <div className="mt-1 text-xs text-neutral-500">{tile.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="overflow-x-auto rounded-xl border border-white/10 bg-white p-4 sm:p-6">
+              <img
+                src={`https://ghchart.rshah.org/2563eb/${GITHUB_USER}`}
+                alt={`Mapa de contribuições de ${GITHUB_USER} no GitHub`}
+                className="mx-auto min-w-[640px]"
+                loading="lazy"
+              />
+            </div>
+          </Reveal>
+        )}
+
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {cards.map((project, index) => (
+            <Reveal key={project.title + index} delay={index * 80} className="h-full">
               <div className="group flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-400/30">
                 <div className="relative aspect-video overflow-hidden bg-neutral-900 transition-transform duration-500 group-hover:scale-105">
                   <ProjectThumbnail title={project.title} technologies={project.technologies} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  {typeof project.stars === 'number' && project.stars > 0 && (
+                    <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 font-mono text-xs text-amber-300 backdrop-blur-sm">
+                      <Star className="h-3 w-3 fill-current" />
+                      {project.stars}
+                    </span>
+                  )}
                 </div>
 
                 <div className="flex flex-grow flex-col p-6">
@@ -111,10 +166,6 @@ const ProjectsSection = () => {
             </Reveal>
           ))}
         </div>
-
-        <p className="mt-2 text-center font-mono text-xs uppercase tracking-[0.2em] text-neutral-600">
-          arraste para ver mais →
-        </p>
       </div>
     </section>
   );

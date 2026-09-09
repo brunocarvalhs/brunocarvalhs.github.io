@@ -2,7 +2,7 @@
   "hero": {
     "name": "Bruno Carvalho",
     "title": "Desenvolvedor Android",
-    "description": "Desenvolvo soluções mobile com foco em performance, usabilidade e inovação. Estudando para se tornar especialista em Android com domínio de Kotlin, Jetpack Compose e arquitetura moderna para criar experiências incríveis.",
+    "description": "Engenheiro Android no Itaú Unibanco, focado em performance, observabilidade e arquitetura de um dos maiores apps de mobile banking da América Latina — usado por dezenas de milhões de pessoas todos os dias.",
     "profileImage": "/images/brunocarvalhs.jpg",
     "fallbackInitials": "BC",
     "socialLinks": [
@@ -20,7 +20,7 @@
   },
   "about": {
     "title": "Sobre Mim",
-    "description": "Sou um desenvolvedor Android com mais de 6 anos de experiência em projetos desafiadores e focados em inovação. Apaixonado por tecnologia, sempre busco evolução técnica e entregar produtos com excelência.",
+    "description": "Engenheiro Android com 5+ anos de experiência, hoje focado em performance, observabilidade e arquitetura do app do Itaú Unibanco — usado por dezenas de milhões de pessoas todos os dias. Bom código, pra mim, não é só o que funciona: é o que dá pra medir, entender e melhorar continuamente.",
     "features": [
       {
         "icon": "Code",
@@ -45,13 +45,13 @@
     ],
     "journey": {
       "title": "Minha Jornada",
-      "description1": "Iniciei na área da tecnologia em 2012, mas desde 2018 venho me dedicando ao desenvolvimento de software. Evoluí de forma sólida como desenvolvedor Android, sempre buscando me especializar nas melhores práticas do ecossistema mobile.",
-      "description2": "Atualmente atuo como Desenvolvedor Android, com foco em criar aplicações modernas, escaláveis e que entregam valor real ao usuário, utilizando tecnologias como Kotlin, Jetpack Compose e arquitetura MVVM."
+      "description1": "Comecei no back-end (PHP/Laravel) em 2020 e migrei para Android no Itaú Unibanco em 2021, como Analista de Engenharia TI Júnior. Hoje, como Analista Pleno, sigo no mesmo time — mas com o foco mudado para performance, observabilidade e arquitetura multi-módulo do app do banco.",
+      "description2": "No dia a dia, isso significa monitorar crash rate, ANRs e latência (p95/p99) de fluxos críticos em produção, e transformar esses dados em decisões técnicas concretas. Já palestrei internamente sobre gerenciamento de memória em Android para o time de engenharia do Itaú, e sou AWS Certified Cloud Practitioner."
     },
     "stats": [
-      { "number": "37+", "label": "Projetos" },
-      { "number": "7+", "label": "Anos" },
+      { "number": "5+", "label": "Anos" },
       { "number": "15+", "label": "Tecnologias" },
+      { "number": "36", "label": "Certificações" },
       { "number": "100%", "label": "Dedicação" }
     ]
   },
@@ -260,6 +260,26 @@
         "description": "Capacidade de guiar equipes e tomar decisões técnicas.",
         "icon": "👑",
         "level": 80
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "O Que Dizem Sobre Mim",
+    "description": "Recomendações reais de colegas de trabalho e de estudo, publicadas no meu LinkedIn.",
+    "items": [
+      {
+        "name": "Marcello Chuahy",
+        "role": "Desenvolvedor iOS Sênior — ex-Santander e Itaú",
+        "relationship": "Trabalhou na mesma equipe que Bruno",
+        "quote": "Trabalhei com Bruno e gostaria de mencionar seu excelente nível técnico como engenheiro Android, dedicação e compromisso.",
+        "linkedinUrl": "https://www.linkedin.com/in/marcello-chuahy/"
+      },
+      {
+        "name": "Dayane Santos",
+        "role": "Desenvolvedora Full Stack",
+        "relationship": "Estudaram juntos",
+        "quote": "Tive o prazer de trabalhar ao lado dele em vários projetos e atividades extracurriculares. Um ser super dedicado e comprometido — sua paixão pelo aprendizado e capacidade de enfrentar desafios com determinação o tornam uma adição valiosa a qualquer equipe.",
+        "linkedinUrl": "https://www.linkedin.com/in/dayane-cristina-santos/"
       }
     ]
   }

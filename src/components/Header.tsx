@@ -21,19 +21,14 @@ const Header = () => {
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
-    // `inline: 'start'` matters on the desktop horizontal-panel layout: it
-    // tells the browser to scroll the nearest scrollable ancestor along the
-    // inline (x) axis too, which is what pages between panels there. On the
-    // mobile vertical stack there's no such ancestor, so this behaves just
-    // like a normal anchor scroll.
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'start' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     setIsMobileMenuOpen(false);
   };
 
-  const navItems = ['Início', 'Sobre', 'Projetos', 'Habilidades', 'Contato'];
-  const sectionIds = ['hero', 'about', 'projects', 'skills', 'contact'];
+  const navItems = ['Início', 'Sobre', 'Projetos', 'Habilidades', 'Depoimentos', 'Contato'];
+  const sectionIds = ['hero', 'about', 'projects', 'skills', 'testimonials', 'contact'];
 
   const baseLinkClass = `transition-colors duration-300 font-medium`;
 
