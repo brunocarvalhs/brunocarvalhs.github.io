@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { FileText, Scale, Shield, Database, Accessibility, FolderOpen } from 'lucide-react';
+import { Scale, FileText, FolderOpen } from 'lucide-react';
 import { getAllDocuments, getProjects, LegalDocument } from '@/utils/markdownLoader';
 import LegalDocCard from '@/components/LegalDocCard';
 import LegalDocViewer from '@/components/LegalDocViewer';
+import Reveal from '@/components/Reveal';
+import { categoryLabels, categoryIcons } from '@/lib/legalCategories';
 
 // Lê parâmetros tanto de query string quanto de hash
 function getQueryParam(param: string) {
@@ -129,14 +131,6 @@ const Legal: React.FC = () => {
     ? currentDocuments
     : currentDocuments.filter(doc => doc.category === filter);
 
-  const categoryIcons = {
-    privacy: Shield,
-    terms: Scale,
-    accessibility: Accessibility,
-    cookies: Database,
-    data: FileText
-  };
-
   const stats = {
     total: documents.length,
     projects: projects.length,
@@ -145,11 +139,11 @@ const Legal: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8 px-4 pt-24">
+      <div className="min-h-screen bg-white px-4 py-8 pt-24 dark:bg-gray-900">
         <div className="container mx-auto max-w-6xl">
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <span className="ml-3 text-gray-600">Carregando documentos...</span>
+            <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600 dark:border-blue-400"></div>
+            <span className="ml-3 text-gray-600 dark:text-gray-300">Carregando documentos...</span>
           </div>
         </div>
       </div>
@@ -158,9 +152,9 @@ const Legal: React.FC = () => {
 
   if (selectedDocument) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4 pt-24">
+      <div className="min-h-screen bg-gray-50 px-4 py-8 pt-24 dark:bg-gray-900">
         <div className="container mx-auto">
-          <div className="bg-white dark:bg-gray-900 rounded-xl shadow p-4">
+          <div className="rounded-xl bg-white p-4 shadow dark:bg-gray-800">
             <LegalDocViewer
               document={selectedDocument}
               onBack={closeDocument}
@@ -172,52 +166,62 @@ const Legal: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4 pt-24">
+    <div className="min-h-screen bg-white px-4 py-8 pt-24 dark:bg-gray-900">
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
+        <Reveal className="mb-16 text-center">
+          <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
+            Documentação
+          </span>
+          <div className="mb-2 flex items-center justify-center gap-3">
             <Scale className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-            <h1 className="text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-2">
+            <h1 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
               Documentação Legal
             </h1>
           </div>
-          <p className="text-xl font-medium text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <div className="mx-auto mb-8 mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600" />
+          <p className="mx-auto max-w-3xl text-balance text-lg text-gray-600 dark:text-gray-300">
             Documentos legais organizados por projeto, incluindo políticas de privacidade,
-            termos de uso e informações sobre acessibilidade.
+            termos de uso e informações sobre acessibilidade — usados na publicação dos meus apps.
           </p>
-        </div>
+        </Reveal>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="text-center border-l-4 border-l-blue-500 dark:border-l-blue-400">
-            <CardContent className="pt-6">
-              <FileText className="h-8 w-8 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.total}</div>
-              <div className="text-base text-gray-600 dark:text-gray-300">Documentos</div>
-            </CardContent>
-          </Card>
+        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+          <Reveal>
+            <Card className="h-full border-l-4 border-l-blue-500 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-l-blue-400">
+              <CardContent className="pt-6">
+                <FileText className="mx-auto mb-2 h-8 w-8 text-blue-600 dark:text-blue-400" />
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.total}</div>
+                <div className="text-base text-gray-600 dark:text-gray-300">Documentos</div>
+              </CardContent>
+            </Card>
+          </Reveal>
 
-          <Card className="text-center border-l-4 border-l-green-500 dark:border-l-green-400">
-            <CardContent className="pt-6">
-              <FolderOpen className="h-8 w-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.projects}</div>
-              <div className="text-base text-gray-600 dark:text-gray-300">Projetos</div>
-            </CardContent>
-          </Card>
+          <Reveal delay={80}>
+            <Card className="h-full border-l-4 border-l-green-500 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-l-green-400">
+              <CardContent className="pt-6">
+                <FolderOpen className="mx-auto mb-2 h-8 w-8 text-green-600 dark:text-green-400" />
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.projects}</div>
+                <div className="text-base text-gray-600 dark:text-gray-300">Projetos</div>
+              </CardContent>
+            </Card>
+          </Reveal>
 
-          <Card className="text-center border-l-4 border-l-purple-500 dark:border-l-purple-400">
-            <CardContent className="pt-6">
-              <Shield className="h-8 w-8 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.categories}</div>
-              <div className="text-base text-gray-600 dark:text-gray-300">Categorias</div>
-            </CardContent>
-          </Card>
+          <Reveal delay={160}>
+            <Card className="h-full border-l-4 border-l-purple-500 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-l-purple-400">
+              <CardContent className="pt-6">
+                <Scale className="mx-auto mb-2 h-8 w-8 text-purple-600 dark:text-purple-400" />
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.categories}</div>
+                <div className="text-base text-gray-600 dark:text-gray-300">Categorias</div>
+              </CardContent>
+            </Card>
+          </Reveal>
         </div>
 
         {/* Project Filter */}
         <div className="mb-6">
-          <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white tracking-tight">
+          <h3 className="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             Filtrar por Projeto:
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -280,14 +284,8 @@ const Legal: React.FC = () => {
 
           {/* Badges individuais de categoria */}
           {[...new Set(currentDocuments.map(doc => doc.category))].map(category => {
-            const Icon = categoryIcons[category as keyof typeof categoryIcons];
-            const categoryLabel = {
-              privacy: 'Privacidade',
-              terms: 'Termos',
-              accessibility: 'Acessibilidade',
-              cookies: 'Cookies',
-              data: 'Dados'
-            }[category as keyof typeof categoryLabel];
+            const Icon = categoryIcons[category];
+            const categoryLabel = categoryLabels[category];
 
             return (
               <Badge
@@ -311,13 +309,14 @@ const Legal: React.FC = () => {
 
         {/* Documents Grid */}
         {filteredDocs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            {filteredDocs.map(doc => (
-              <LegalDocCard
-                key={`${doc.project || 'general'}-${doc.id}`}
-                document={doc}
-                onView={() => openDocument(doc)}
-              />
+          <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+            {filteredDocs.map((doc, index) => (
+              <Reveal key={`${doc.project || 'general'}-${doc.id}`} delay={index * 60} className="h-full">
+                <LegalDocCard
+                  document={doc}
+                  onView={() => openDocument(doc)}
+                />
+              </Reveal>
             ))}
           </div>
         ) : (
