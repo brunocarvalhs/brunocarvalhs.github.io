@@ -24,23 +24,23 @@
     "features": [
       {
         "icon": "Code",
-        "title": "Desarrollo",
-        "description": "Domino tecnologías modernas como React, Node.js, TypeScript y otras herramientas esenciales."
+        "title": "Mobile Android",
+        "description": "Kotlin y Jetpack Compose en el día a día, en una de las mayores apps de banca móvil de América Latina — después de más de 5 años pasando del back-end a este mundo."
       },
       {
         "icon": "Lightbulb",
-        "title": "Innovación",
-        "description": "Busco soluciones creativas, eficientes e innovadoras para desafíos complejos."
+        "title": "Arquitectura",
+        "description": "Diseño módulos, evalúo trade-offs y simplifico la complejidad en bases de código grandes, siempre pensando en el mantenimiento a largo plazo."
       },
       {
         "icon": "Users",
         "title": "Colaboración",
-        "description": "Valoro el trabajo en equipo y la comunicación clara de ideas técnicas."
+        "description": "Ya di una charla interna sobre gestión de memoria en Android para el equipo de ingeniería de Itaú, y me gusta discutir decisiones técnicas en grupo."
       },
       {
         "icon": "Zap",
-        "title": "Rendimiento",
-        "description": "Enfocado en entregar aplicaciones rápidas, optimizadas y con excelente experiencia de usuario."
+        "title": "Rendimiento y Observabilidad",
+        "description": "Monitoreo la tasa de fallos, ANRs y latencia (p95/p99) de flujos críticos en producción, y transformo esos datos en decisiones técnicas concretas."
       }
     ],
     "journey": {
@@ -149,22 +149,22 @@
     ],
     "additionalInfo": {
       "title": "Siempre Aprendiendo",
-      "description": "La tecnología está en constante evolución, y yo también. Siempre estoy aprendiendo nuevas herramientas y técnicas para entregar lo mejor.",
+      "description": "Vengo del back-end y pasé a Android, y sigo cambiando de foco cada vez que aparece un problema más interesante para resolver — hoy es rendimiento y observabilidad, mañana puede ser otra cosa.",
       "highlights": [
         {
           "icon": "🎯",
           "title": "Foco en Calidad",
-          "description": "Código limpio, bien documentado y siguiendo las mejores prácticas."
+          "description": "Prefiero medir antes de optimizar — decisiones técnicas basadas en datos de producción, no en suposiciones."
         },
         {
           "icon": "🚀",
           "title": "Rendimiento",
-          "description": "Aplicaciones optimizadas y con excelente experiencia para el usuario."
+          "description": "Enfocado en la tasa de fallos, ANRs y latencia de flujos críticos — lo que el usuario realmente siente."
         },
         {
           "icon": "🔄",
           "title": "Actualización",
-          "description": "Siempre estudiando las tecnologías más recientes del mercado."
+          "description": "AWS Certified Cloud Practitioner, y siempre dispuesto a cambiar de stack cuando tiene sentido para el problema."
         }
       ]
     }
@@ -218,14 +218,14 @@
       {
         "name": "Marcello Chuahy",
         "role": "Desarrollador iOS Senior — ex-Santander e Itaú",
-        "relationship": "Trabajó en el mismo equipo que Bruno",
+        "relationship": "Trabajamos en el mismo equipo",
         "quote": "Trabajé con Bruno y me gustaría mencionar su excelente nivel técnico como ingeniero Android, dedicación y compromiso.",
         "linkedinUrl": "https://www.linkedin.com/in/marcello-chuahy/"
       },
       {
         "name": "Dayane Santos",
         "role": "Desarrolladora Full Stack",
-        "relationship": "Estudiaron juntos",
+        "relationship": "Estudiamos juntos",
         "quote": "Tuve el placer de trabajar junto a él en varios proyectos y actividades extracurriculares. Una persona súper dedicada y comprometida — su pasión por el aprendizaje y su capacidad para enfrentar desafíos con determinación lo convierten en una valiosa incorporación para cualquier equipo.",
         "linkedinUrl": "https://www.linkedin.com/in/dayane-cristina-santos/"
       }

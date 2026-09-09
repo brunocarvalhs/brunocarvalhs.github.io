@@ -24,23 +24,23 @@
     "features": [
       {
         "icon": "Code",
-        "title": "Desenvolvimento",
-        "description": "Domino tecnologias modernas como React, Node.js, TypeScript e outras ferramentas essenciais."
+        "title": "Mobile Android",
+        "description": "Kotlin e Jetpack Compose no dia a dia, num dos maiores apps de mobile banking da América Latina — depois de mais de 5 anos migrando do back-end pra esse universo."
       },
       {
         "icon": "Lightbulb",
-        "title": "Inovação",
-        "description": "Busco soluções criativas, eficientes e inovadoras para desafios complexos."
+        "title": "Arquitetura",
+        "description": "Componho módulos, avalio trade-offs e simplifico complexidade em bases de código grandes, sempre pensando em manutenção a longo prazo."
       },
       {
         "icon": "Users",
         "title": "Colaboração",
-        "description": "Valorizo o trabalho em equipe e a comunicação clara de ideias técnicas."
+        "description": "Já palestrei internamente sobre gerenciamento de memória em Android pro time de engenharia do Itaú, e gosto de discutir decisões técnicas em grupo."
       },
       {
         "icon": "Zap",
-        "title": "Performance",
-        "description": "Foco em entregar aplicações rápidas, otimizadas e com excelente experiência ao usuário."
+        "title": "Performance & Observabilidade",
+        "description": "Acompanho crash rate, ANRs e latência (p95/p99) de fluxos críticos em produção, e transformo esses dados em decisões técnicas concretas."
       }
     ],
     "journey": {
@@ -149,22 +149,22 @@
     ],
     "additionalInfo": {
       "title": "Sempre Aprendendo",
-      "description": "A tecnologia está em constante evolução, e eu também. Estou sempre aprendendo novas ferramentas e técnicas para entregar o melhor.",
+      "description": "Vim do back-end pro Android, e sigo migrando de foco sempre que aparece um problema mais interessante pra resolver — hoje é performance e observabilidade, amanhã pode ser outra coisa.",
       "highlights": [
         {
           "icon": "🎯",
           "title": "Foco em Qualidade",
-          "description": "Código limpo, bem documentado e seguindo as melhores práticas."
+          "description": "Prefiro medir antes de otimizar — decisões técnicas baseadas em dados de produção, não em achismo."
         },
         {
           "icon": "🚀",
           "title": "Performance",
-          "description": "Aplicações otimizadas e com excelente experiência para o usuário."
+          "description": "Foco em crash rate, ANRs e latência de fluxos críticos — o que o usuário sente na prática."
         },
         {
           "icon": "🔄",
           "title": "Atualização",
-          "description": "Sempre estudando as tecnologias mais recentes do mercado."
+          "description": "AWS Certified Cloud Practitioner, e sempre disposto a migrar de stack quando faz sentido pro problema."
         }
       ]
     }
@@ -270,14 +270,14 @@
       {
         "name": "Marcello Chuahy",
         "role": "Desenvolvedor iOS Sênior — ex-Santander e Itaú",
-        "relationship": "Trabalhou na mesma equipe que Bruno",
+        "relationship": "Trabalhamos na mesma equipe",
         "quote": "Trabalhei com Bruno e gostaria de mencionar seu excelente nível técnico como engenheiro Android, dedicação e compromisso.",
         "linkedinUrl": "https://www.linkedin.com/in/marcello-chuahy/"
       },
       {
         "name": "Dayane Santos",
         "role": "Desenvolvedora Full Stack",
-        "relationship": "Estudaram juntos",
+        "relationship": "Estudamos juntos",
         "quote": "Tive o prazer de trabalhar ao lado dele em vários projetos e atividades extracurriculares. Um ser super dedicado e comprometido — sua paixão pelo aprendizado e capacidade de enfrentar desafios com determinação o tornam uma adição valiosa a qualquer equipe.",
         "linkedinUrl": "https://www.linkedin.com/in/dayane-cristina-santos/"
       }
