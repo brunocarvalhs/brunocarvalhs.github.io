@@ -1,7 +1,8 @@
 import React from 'react';
 import { Quote, Linkedin, ExternalLink } from 'lucide-react';
-import portfolioData from '@/data/portfolio.json';
+import { usePortfolioData } from '@/hooks/use-portfolio-data';
 import Reveal from '@/components/Reveal';
+import { useStrings } from '@/i18n/strings';
 
 // LinkedIn doesn't give recommendations their own permalink — this is the
 // closest thing to a "source" URL: the recommendations tab of the profile
@@ -9,7 +10,8 @@ import Reveal from '@/components/Reveal';
 const RECOMMENDATIONS_SOURCE_URL = 'https://www.linkedin.com/in/brunocarvalhs/details/recommendations/';
 
 const TestimonialsSection = () => {
-  const { testimonials } = portfolioData;
+  const { testimonials } = usePortfolioData();
+  const t = useStrings();
 
   if (!testimonials?.items?.length) return null;
 
@@ -18,7 +20,7 @@ const TestimonialsSection = () => {
       <div className="container mx-auto px-6">
         <Reveal className="mb-16 text-center">
           <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
-            Depoimentos
+            {t.testimonials.eyebrow}
           </span>
           <h2 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             {testimonials.title}
@@ -59,7 +61,7 @@ const TestimonialsSection = () => {
                     className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 font-mono text-xs text-gray-600 transition-colors hover:border-blue-300 hover:text-blue-600 dark:border-white/10 dark:bg-white/5 dark:text-neutral-400 dark:hover:border-blue-400/30 dark:hover:text-blue-400"
                   >
                     <ExternalLink className="h-3 w-3" />
-                    Ver recomendação original
+                    {t.testimonials.viewOriginal}
                   </a>
                 </figcaption>
               </figure>

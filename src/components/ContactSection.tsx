@@ -5,7 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import Reveal from '@/components/Reveal';
-import portfolioData from '@/data/portfolio.json';
+import { usePortfolioData } from '@/hooks/use-portfolio-data';
+import { useStrings } from '@/i18n/strings';
 
 export const CONTACT_EMAIL = 'brunocarvalhs@outlook.com.br';
 
@@ -22,7 +23,8 @@ const ContactSection = () => {
     message: ''
   });
   const { toast } = useToast();
-  const { hero } = portfolioData;
+  const { hero } = usePortfolioData();
+  const t = useStrings();
   const year = new Date().getFullYear();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -31,8 +33,8 @@ const ContactSection = () => {
     window.location.href = buildMailtoUrl(formData);
 
     toast({
-      title: 'Abrindo seu app de email…',
-      description: 'Confirme o envio por lá para que a mensagem chegue até mim.',
+      title: t.contact.toastTitle,
+      description: t.contact.toastDescription,
     });
 
     setFormData({ name: '', email: '', message: '' });
@@ -61,20 +63,19 @@ const ContactSection = () => {
       <div className="container mx-auto flex-1 px-6">
         <Reveal className="mb-16 text-center">
           <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
-            Vamos conversar
+            {t.contact.eyebrow}
           </span>
-          <h2 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Entre em Contato</h2>
+          <h2 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">{t.contact.title}</h2>
           <div className="mx-auto mb-8 mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600" />
           <p className="mx-auto max-w-3xl text-balance text-lg text-gray-600 dark:text-neutral-300">
-            Estou sempre aberto a novas oportunidades e projetos interessantes.
-            Vamos conversar sobre como posso ajudar você!
+            {t.contact.subtitle}
           </p>
         </Reveal>
 
         <div className="grid gap-12 lg:grid-cols-2">
           {/* Contact Info */}
           <Reveal>
-            <h3 className="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Informações de Contato</h3>
+            <h3 className="mb-8 text-2xl font-bold text-gray-900 dark:text-white">{t.contact.infoTitle}</h3>
 
             <div className="space-y-6">
               {/* Email */}
@@ -83,7 +84,7 @@ const ContactSection = () => {
                   <Mail className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
-                  <h4 className="mb-1 font-semibold text-gray-900 dark:text-white">Email</h4>
+                  <h4 className="mb-1 font-semibold text-gray-900 dark:text-white">{t.contact.emailLabel}</h4>
                   <a href="mailto:brunocarvalhs@outlook.com.br" className="text-gray-500 hover:text-gray-900 hover:underline dark:text-neutral-400 dark:hover:text-white">
                     brunocarvalhs@outlook.com.br
                   </a>
@@ -96,7 +97,7 @@ const ContactSection = () => {
                   <Phone className="h-6 w-6 text-green-600 dark:text-green-400" />
                 </div>
                 <div>
-                  <h4 className="mb-1 font-semibold text-gray-900 dark:text-white">Telefone</h4>
+                  <h4 className="mb-1 font-semibold text-gray-900 dark:text-white">{t.contact.phoneLabel}</h4>
                   <a href="tel:+5513997934483" className="text-gray-500 hover:text-gray-900 hover:underline dark:text-neutral-400 dark:hover:text-white">
                     +55 (13) 99793-4483
                   </a>
@@ -109,14 +110,14 @@ const ContactSection = () => {
                   <MapPin className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
-                  <h4 className="mb-1 font-semibold text-gray-900 dark:text-white">Localização</h4>
+                  <h4 className="mb-1 font-semibold text-gray-900 dark:text-white">{t.contact.locationLabel}</h4>
                   <a
                     href="https://www.google.com/maps?q=São+Paulo,+Brasil"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-500 hover:text-gray-900 hover:underline dark:text-neutral-400 dark:hover:text-white"
                   >
-                    São Paulo, Brasil
+                    {t.contact.locationValue}
                   </a>
                 </div>
               </div>
@@ -124,7 +125,7 @@ const ContactSection = () => {
 
             {/* Social Links */}
             <div className="mt-8">
-              <h4 className="mb-4 font-semibold text-gray-900 dark:text-white">Redes Sociais</h4>
+              <h4 className="mb-4 font-semibold text-gray-900 dark:text-white">{t.contact.socialTitle}</h4>
               <div className="flex space-x-4">
                 <a
                   href="https://github.com/brunocarvalhs"
@@ -150,12 +151,12 @@ const ContactSection = () => {
 
           {/* Contact Form */}
           <Reveal delay={120} className="rounded-2xl border border-gray-200 bg-gray-50 p-8 dark:border-white/10 dark:bg-white/[0.03] dark:backdrop-blur-sm">
-            <h3 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Envie uma Mensagem</h3>
+            <h3 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">{t.contact.formTitle}</h3>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-700 dark:text-neutral-300">
-                  Nome
+                  {t.contact.nameLabel}
                 </label>
                 <Input
                   type="text"
@@ -165,13 +166,13 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required
                   className="w-full border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 dark:border-white/15 dark:bg-black/30 dark:text-white dark:placeholder:text-neutral-500"
-                  placeholder="Seu nome"
+                  placeholder={t.contact.namePlaceholder}
                 />
               </div>
 
               <div>
                 <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700 dark:text-neutral-300">
-                  Email
+                  {t.contact.emailFieldLabel}
                 </label>
                 <Input
                   type="email"
@@ -181,13 +182,13 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required
                   className="w-full border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 dark:border-white/15 dark:bg-black/30 dark:text-white dark:placeholder:text-neutral-500"
-                  placeholder="seu@email.com"
+                  placeholder={t.contact.emailPlaceholder}
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-700 dark:text-neutral-300">
-                  Mensagem
+                  {t.contact.messageLabel}
                 </label>
                 <Textarea
                   id="message"
@@ -197,7 +198,7 @@ const ContactSection = () => {
                   required
                   rows={4}
                   className="w-full border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 dark:border-white/15 dark:bg-black/30 dark:text-white dark:placeholder:text-neutral-500"
-                  placeholder="Sua mensagem aqui..."
+                  placeholder={t.contact.messagePlaceholder}
                 />
               </div>
 
@@ -207,7 +208,7 @@ const ContactSection = () => {
                 size="lg"
               >
                 <Send className="mr-2 h-4 w-4" />
-                Enviar Mensagem
+                {t.contact.submitButton}
               </Button>
             </form>
           </Reveal>
@@ -223,7 +224,7 @@ const ContactSection = () => {
       <div className="container mx-auto mt-16 border-t border-gray-200 px-6 pt-8 dark:border-white/10">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
           <p className="text-sm text-gray-400 dark:text-neutral-500">
-            © {year} {hero.name}. Todos os direitos reservados.
+            {t.footer.copyright(year, hero.name)}
           </p>
           <div className="flex items-center gap-3">
             {hero.socialLinks.map((link, index) => (

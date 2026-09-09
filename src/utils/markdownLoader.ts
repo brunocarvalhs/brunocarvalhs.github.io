@@ -1,18 +1,19 @@
 import { LegalDocument } from '@/types/legalTypes';
 import { discoverLegalDocuments } from '@/services/fileDiscoveryService';
 import { getProjectKey } from '@/utils/documentUtils';
+import { Language, DEFAULT_LANGUAGE } from '@/i18n/languages';
 
-let documentsCache: LegalDocument[] | null = null;
+const documentsCache: Partial<Record<Language, LegalDocument[]>> = {};
 
-export const getAllDocuments = async (): Promise<LegalDocument[]> => {
-  if (!documentsCache) {
-    documentsCache = await discoverLegalDocuments();
+export const getAllDocuments = async (language: Language = DEFAULT_LANGUAGE): Promise<LegalDocument[]> => {
+  if (!documentsCache[language]) {
+    documentsCache[language] = await discoverLegalDocuments(language);
   }
-  return documentsCache;
+  return documentsCache[language]!;
 };
 
-export const getDocumentsByProject = async (projectKey?: string): Promise<LegalDocument[]> => {
-  const allDocs = await getAllDocuments();
+export const getDocumentsByProject = async (projectKey?: string, language: Language = DEFAULT_LANGUAGE): Promise<LegalDocument[]> => {
+  const allDocs = await getAllDocuments(language);
 
   if (!projectKey) {
     return allDocs.filter(doc => !doc.project);
@@ -20,8 +21,8 @@ export const getDocumentsByProject = async (projectKey?: string): Promise<LegalD
 
   return allDocs.filter(doc => doc.project === projectKey);
 };
-export const getProjects = async (): Promise<string[]> => {
-  const allDocs = await getAllDocuments();
+export const getProjects = async (language: Language = DEFAULT_LANGUAGE): Promise<string[]> => {
+  const allDocs = await getAllDocuments(language);
   const projects = [...new Set(allDocs.filter(doc => doc.project).map(doc => getProjectKey(doc.project || '')))];
   return projects.filter(Boolean);
 };

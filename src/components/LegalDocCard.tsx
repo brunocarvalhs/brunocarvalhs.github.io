@@ -4,7 +4,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar, Eye } from 'lucide-react';
 import { LegalDocument } from '@/utils/markdownLoader';
-import { categoryLabels, categoryColors, categoryIcons } from '@/lib/legalCategories';
+import { categoryColors, categoryIcons } from '@/lib/legalCategories';
+import { useStrings } from '@/i18n/strings';
 
 interface LegalDocCardProps {
     document: LegalDocument;
@@ -12,7 +13,8 @@ interface LegalDocCardProps {
 }
 
 const LegalDocCard: React.FC<LegalDocCardProps> = ({ document, onView }) => {
-    const formattedDate = new Date(document.lastUpdated).toLocaleDateString('pt-BR');
+    const t = useStrings();
+    const formattedDate = new Date(document.lastUpdated).toLocaleDateString(t.terminal.dateLocale);
     const CategoryIcon = categoryIcons[document.category];
 
     return (
@@ -21,7 +23,7 @@ const LegalDocCard: React.FC<LegalDocCardProps> = ({ document, onView }) => {
                 <div className="mb-2 flex items-center gap-2">
                     <CategoryIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                     <Badge variant="secondary" className={categoryColors[document.category]}>
-                        {categoryLabels[document.category]}
+                        {t.legal.categories[document.category]}
                     </Badge>
                     {document.project && (
                         <Badge variant="outline" className="bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white">
@@ -41,7 +43,7 @@ const LegalDocCard: React.FC<LegalDocCardProps> = ({ document, onView }) => {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                         <Calendar className="h-4 w-4" />
-                        <span>Atualizado em {formattedDate}</span>
+                        <span>{t.legalViewer.updatedOn(formattedDate)}</span>
                     </div>
 
                     <Button
@@ -51,7 +53,7 @@ const LegalDocCard: React.FC<LegalDocCardProps> = ({ document, onView }) => {
                         className="flex items-center gap-2 transition-colors group-hover:border-blue-300 group-hover:bg-blue-50 dark:group-hover:border-blue-700 dark:group-hover:bg-blue-900/20"
                     >
                         <Eye className="h-4 w-4" />
-                        Visualizar
+                        {t.legal.viewButton}
                     </Button>
                 </div>
             </CardContent>

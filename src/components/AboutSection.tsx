@@ -1,10 +1,12 @@
 import React from 'react';
 import { Code, Lightbulb, Users, Zap } from 'lucide-react';
-import portfolioData from '@/data/portfolio.json';
+import { usePortfolioData } from '@/hooks/use-portfolio-data';
 import Reveal from '@/components/Reveal';
+import { useStrings } from '@/i18n/strings';
 
 const AboutSection = () => {
-  const { about } = portfolioData;
+  const { about } = usePortfolioData();
+  const t = useStrings();
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
@@ -33,7 +35,7 @@ const AboutSection = () => {
       <div className="container mx-auto px-6">
         <Reveal className="mb-16 text-center">
           <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
-            Sobre mim
+            {t.about.eyebrow}
           </span>
           <h2 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             {about.title}

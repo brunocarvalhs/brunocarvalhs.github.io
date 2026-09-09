@@ -7,8 +7,10 @@ import { getAllDocuments, getProjects, LegalDocument } from '@/utils/markdownLoa
 import LegalDocCard from '@/components/LegalDocCard';
 import LegalDocViewer from '@/components/LegalDocViewer';
 import Reveal from '@/components/Reveal';
-import { categoryLabels, categoryIcons } from '@/lib/legalCategories';
+import { categoryIcons } from '@/lib/legalCategories';
 import { useToast } from '@/hooks/use-toast';
+import { useStrings } from '@/i18n/strings';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // Lê parâmetros tanto de query string quanto de hash
 export function getQueryParam(param: string) {
@@ -65,15 +67,17 @@ const Legal: React.FC = () => {
   const [projects, setProjects] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const t = useStrings();
+  const { language } = useLanguage();
 
-  // Carrega documentos e projetos
+  // Carrega documentos e projetos (recarrega se o idioma mudar)
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
       try {
         const [allDocs, projectsList] = await Promise.all([
-          getAllDocuments(),
-          getProjects()
+          getAllDocuments(language),
+          getProjects(language)
         ]);
         setDocuments(allDocs);
         setProjects(projectsList);
@@ -90,8 +94,8 @@ const Legal: React.FC = () => {
             // silenciosamente na lista geral sem explicação.
             updateQueryParam('doc', null);
             toast({
-              title: 'Documento não encontrado',
-              description: 'O link que você acessou aponta para um documento que não existe mais. Aqui está a lista completa.',
+              title: t.legal.notFoundToastTitle,
+              description: t.legal.notFoundToastDescription,
               variant: 'destructive',
             });
           }
@@ -116,7 +120,7 @@ const Legal: React.FC = () => {
     };
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
-  }, []);
+  }, [language]);
 
   // Função para abrir documento e atualizar URL
   const openDocument = (doc: LegalDocument) => {
@@ -152,7 +156,7 @@ const Legal: React.FC = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="flex items-center justify-center py-12">
             <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600 dark:border-blue-400"></div>
-            <span className="ml-3 text-gray-600 dark:text-gray-300">Carregando documentos...</span>
+            <span className="ml-3 text-gray-600 dark:text-gray-300">{t.legal.loading}</span>
           </div>
         </div>
       </div>
@@ -180,18 +184,17 @@ const Legal: React.FC = () => {
         {/* Header */}
         <Reveal className="mb-16 text-center">
           <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
-            Documentação
+            {t.legal.eyebrow}
           </span>
           <div className="mb-2 flex items-center justify-center gap-3">
             <Scale className="h-8 w-8 text-blue-600 dark:text-blue-400" />
             <h1 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Documentação Legal
+              {t.legal.title}
             </h1>
           </div>
           <div className="mx-auto mb-8 mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600" />
           <p className="mx-auto max-w-3xl text-balance text-lg text-gray-600 dark:text-gray-300">
-            Documentos legais organizados por projeto, incluindo políticas de privacidade,
-            termos de uso e informações sobre acessibilidade — usados na publicação dos meus apps.
+            {t.legal.subtitle}
           </p>
         </Reveal>
 
@@ -202,7 +205,7 @@ const Legal: React.FC = () => {
               <CardContent className="pt-6">
                 <FileText className="mx-auto mb-2 h-8 w-8 text-blue-600 dark:text-blue-400" />
                 <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.total}</div>
-                <div className="text-base text-gray-600 dark:text-gray-300">Documentos</div>
+                <div className="text-base text-gray-600 dark:text-gray-300">{t.legal.statsDocuments}</div>
               </CardContent>
             </Card>
           </Reveal>
@@ -212,7 +215,7 @@ const Legal: React.FC = () => {
               <CardContent className="pt-6">
                 <FolderOpen className="mx-auto mb-2 h-8 w-8 text-green-600 dark:text-green-400" />
                 <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.projects}</div>
-                <div className="text-base text-gray-600 dark:text-gray-300">Projetos</div>
+                <div className="text-base text-gray-600 dark:text-gray-300">{t.legal.statsProjects}</div>
               </CardContent>
             </Card>
           </Reveal>
@@ -222,7 +225,7 @@ const Legal: React.FC = () => {
               <CardContent className="pt-6">
                 <Scale className="mx-auto mb-2 h-8 w-8 text-purple-600 dark:text-purple-400" />
                 <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.categories}</div>
-                <div className="text-base text-gray-600 dark:text-gray-300">Categorias</div>
+                <div className="text-base text-gray-600 dark:text-gray-300">{t.legal.statsCategories}</div>
               </CardContent>
             </Card>
           </Reveal>
@@ -231,7 +234,7 @@ const Legal: React.FC = () => {
         {/* Project Filter */}
         <div className="mb-6">
           <h3 className="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Filtrar por Projeto:
+            {t.legal.filterByProject}
           </h3>
           <div className="flex flex-wrap gap-2">
             {/* Botão "Todos os Projetos" */}
@@ -247,7 +250,7 @@ const Legal: React.FC = () => {
               `}
             >
               <FolderOpen className="h-4 w-4" />
-              Todos os Projetos
+              {t.legal.allProjects}
             </Button>
 
             {/* Botões individuais de projeto */}
@@ -288,13 +291,13 @@ const Legal: React.FC = () => {
               }
             `}
           >
-            Todas as Categorias
+            {t.legal.allCategories}
           </Badge>
 
           {/* Badges individuais de categoria */}
           {[...new Set(currentDocuments.map(doc => doc.category))].map(category => {
             const Icon = categoryIcons[category];
-            const categoryLabel = categoryLabels[category];
+            const categoryLabel = t.legal.categories[category];
 
             return (
               <Badge
@@ -331,7 +334,7 @@ const Legal: React.FC = () => {
         ) : (
           <div className="text-center py-12">
             <FileText className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
-            <p className="text-lg text-gray-600 dark:text-gray-300">Nenhum documento encontrado para os filtros selecionados.</p>
+            <p className="text-lg text-gray-600 dark:text-gray-300">{t.legal.emptyState}</p>
           </div>
         )}
       </div>

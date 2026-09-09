@@ -1,0 +1,234 @@
+{
+  "hero": {
+    "name": "Bruno Carvalho",
+    "title": "Android Developer",
+    "description": "Android Engineer at Itaú Unibanco, focused on performance, observability and architecture for one of the largest mobile banking apps in Latin America — used by tens of millions of people every day.",
+    "profileImage": "/images/brunocarvalhs.jpg",
+    "fallbackInitials": "BC",
+    "socialLinks": [
+      {
+        "name": "GitHub",
+        "url": "https://github.com/brunocarvalhs",
+        "icon": "Github"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://linkedin.com/in/brunocarvalhs",
+        "icon": "Linkedin"
+      }
+    ]
+  },
+  "about": {
+    "title": "About Me",
+    "description": "Android Engineer with 5+ years of experience, currently focused on performance, observability and architecture for the Itaú Unibanco app — used by tens of millions of people every day. To me, good code isn't just code that works: it's code you can measure, understand and continuously improve.",
+    "features": [
+      {
+        "icon": "Code",
+        "title": "Development",
+        "description": "I work with modern technologies like React, Node.js, TypeScript and other essential tools."
+      },
+      {
+        "icon": "Lightbulb",
+        "title": "Innovation",
+        "description": "I look for creative, efficient and innovative solutions to complex challenges."
+      },
+      {
+        "icon": "Users",
+        "title": "Collaboration",
+        "description": "I value teamwork and clear communication of technical ideas."
+      },
+      {
+        "icon": "Zap",
+        "title": "Performance",
+        "description": "Focused on delivering fast, optimized applications with a great user experience."
+      }
+    ],
+    "journey": {
+      "title": "My Journey",
+      "description1": "I started in back-end (PHP/Laravel) in 2020 and moved to Android at Itaú Unibanco in 2021, as a Junior IT Engineering Analyst. Today, as a Mid-level Analyst, I'm still on the same team — but now focused on performance, observability and multi-module architecture for the bank's app.",
+      "description2": "Day to day, that means monitoring crash rate, ANRs and latency (p95/p99) for critical flows in production, and turning that data into concrete technical decisions. I've given an internal talk on Android memory management for Itaú's engineering team, and I'm an AWS Certified Cloud Practitioner."
+    },
+    "stats": [
+      { "number": "5+", "label": "Years" },
+      { "number": "15+", "label": "Technologies" },
+      { "number": "36", "label": "Certifications" },
+      { "number": "100%", "label": "Dedication" }
+    ]
+  },
+  "projects": {
+    "title": "My Projects",
+    "description": "Below are some projects that highlight my work as an Android developer, showcasing my technical skills, creativity and focus on usability and performance.",
+    "items": [
+      {
+        "title": "Friends Secrets",
+        "description": "Android app for Secret Santa draws with smart gift suggestions, using AI to make the process more fun.",
+        "technologies": ["Kotlin", "Android", "Jetpack Compose", "AI"],
+        "github": "https://github.com/brunocarvalhs/FriendsSecrets",
+        "live": "https://play.google.com/store/apps/details?id=br.com.brunocarvalhs.friendssecrets"
+      },
+      {
+        "title": "Paguei!",
+        "description": "Android app to centralize and organize expenses and bills, with an intuitive interface and support for splitting costs.",
+        "technologies": ["Kotlin", "Android", "MVVM", "Jetpack Compose"],
+        "github": "https://github.com/brunocarvalhs/Paguei",
+        "live": null
+      },
+      {
+        "title": "Personal Portfolio",
+        "description": "Portfolio website built with Angular to showcase my projects, skills and contact information.",
+        "technologies": ["Angular", "SCSS", "HTML"],
+        "github": "https://github.com/brunocarvalhs/brunocarvalhs.github.io",
+        "live": "https://brunocarvalhs.github.io"
+      },
+      {
+        "title": "PhotoBoost",
+        "description": "Node.js script for bulk image processing from templates defined by designers, speeding up the creation of visual content.",
+        "technologies": ["Node.js", "JavaScript"],
+        "github": "https://github.com/brunocarvalhs/PhotoBoost",
+        "live": null
+      },
+      {
+        "title": "Revise",
+        "description": "Web app for preventive vehicle maintenance. Lets the user register their car's mileage and, based on that, recommends services and parts to check periodically.",
+        "technologies": ["JavaScript", "Node.js", "MongoDB", "Express.js"],
+        "github": "https://github.com/brunocarvalhs/Revise",
+        "live": null
+      }
+    ]
+  },
+  "skills": {
+    "title": "Skills",
+    "description": "Technologies and tools I use day-to-day as an Android developer, delivering robust, efficient solutions aligned with market best practices.",
+    "categories": [
+        {
+          "title": "Mobile",
+          "skills": [
+            { "name": "Android", "level": 95 },
+            { "name": "Flutter", "level": 75 },
+            { "name": "React Native", "level": 50 },
+            { "name": "Ionic", "level": 65 }
+          ]
+        },
+        {
+          "title": "Frontend & UI",
+          "skills": [
+            { "name": "HTML5", "level": 90 },
+            { "name": "CSS3", "level": 85 },
+            { "name": "JavaScript", "level": 85 },
+            { "name": "Tailwind CSS", "level": 70 },
+            { "name": "React", "level": 65 },
+            { "name": "Angular", "level": 60 },
+            { "name": "jQuery", "level": 60 },
+            { "name": "SASS/SCSS", "level": 75 }
+          ]
+        },
+        {
+          "title": "Backend & APIs",
+          "skills": [
+            { "name": "Node.js", "level": 80 },
+            { "name": "Python", "level": 70 },
+            { "name": "PHP (Laravel)", "level": 85 }
+          ]
+        },
+        {
+          "title": "Database, Cloud & Tools",
+          "skills": [
+            { "name": "MySQL", "level": 85 },
+            { "name": "MongoDB", "level": 70 },
+            { "name": "Firebase", "level": 80 },
+            { "name": "Supabase", "level": 70 },
+            { "name": "AWS", "level": 75 },
+            { "name": "Docker", "level": 70 },
+            { "name": "Git", "level": 95 },
+            { "name": "GitHub/GitHub Actions", "level": 90 },
+            { "name": "Figma", "level": 85 },
+            { "name": "Looker Studio", "level": 70 },
+            { "name": "Agile/Scrum", "level": 95 }
+          ]
+        }
+    ],
+    "additionalInfo": {
+      "title": "Always Learning",
+      "description": "Technology keeps evolving, and so do I. I'm always learning new tools and techniques to deliver the best results.",
+      "highlights": [
+        {
+          "icon": "🎯",
+          "title": "Quality Focus",
+          "description": "Clean, well-documented code following best practices."
+        },
+        {
+          "icon": "🚀",
+          "title": "Performance",
+          "description": "Optimized applications with a great user experience."
+        },
+        {
+          "icon": "🔄",
+          "title": "Staying Current",
+          "description": "Always studying the latest technologies on the market."
+        }
+      ]
+    }
+  },
+  "softSkills": {
+    "title": "Soft Skills",
+    "description": "Behavioral and interpersonal skills that amplify my technical expertise.",
+    "skills": [
+      {
+        "title": "Communication",
+        "description": "Ability to explain technical concepts clearly and objectively.",
+        "icon": "💬",
+        "level": 90
+      },
+      {
+        "title": "Teamwork",
+        "description": "Effective collaboration on multidisciplinary projects.",
+        "icon": "🤝",
+        "level": 95
+      },
+      {
+        "title": "Problem Solving",
+        "description": "Critical analysis and pursuit of creative solutions.",
+        "icon": "🧩",
+        "level": 92
+      },
+      {
+        "title": "Adaptability",
+        "description": "Flexibility to adjust to change and new challenges.",
+        "icon": "🔄",
+        "level": 88
+      },
+      {
+        "title": "Time Management",
+        "description": "Organizing and prioritizing tasks and projects.",
+        "icon": "⏰",
+        "level": 85
+      },
+      {
+        "title": "Leadership",
+        "description": "Ability to guide teams and make technical decisions.",
+        "icon": "👑",
+        "level": 80
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "What People Say About Me",
+    "description": "Real recommendations from coworkers and study colleagues, published on my LinkedIn.",
+    "items": [
+      {
+        "name": "Marcello Chuahy",
+        "role": "Senior iOS Developer — ex-Santander and Itaú",
+        "relationship": "Worked on the same team as Bruno",
+        "quote": "I worked with Bruno and would like to mention his excellent technical level as an Android engineer, dedication and commitment.",
+        "linkedinUrl": "https://www.linkedin.com/in/marcello-chuahy/"
+      },
+      {
+        "name": "Dayane Santos",
+        "role": "Full Stack Developer",
+        "relationship": "Studied together",
+        "quote": "I had the pleasure of working alongside him on several projects and extracurricular activities. A truly dedicated and committed person — his passion for learning and ability to face challenges with determination make him a valuable addition to any team.",
+        "linkedinUrl": "https://www.linkedin.com/in/dayane-cristina-santos/"
+      }
+    ]
+  }
+}

@@ -1,14 +1,6 @@
 import { Shield, Scale, Accessibility, Database, FileText, LucideIcon } from 'lucide-react';
 import type { DocumentCategory } from '@/types/legalTypes';
 
-export const categoryLabels: Record<DocumentCategory, string> = {
-  privacy: 'Privacidade',
-  terms: 'Termos',
-  accessibility: 'Acessibilidade',
-  cookies: 'Cookies',
-  data: 'Dados',
-};
-
 export const categoryColors: Record<DocumentCategory, string> = {
   privacy: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700',
   terms: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 dark:border-green-700',

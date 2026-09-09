@@ -4,21 +4,19 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Download, Calendar, Link as LinkIcon, Share2, Check } from 'lucide-react';
 import { LegalDocument, markdownToHtml } from '@/utils/markdownLoader';
-import { categoryLabels, categoryColors, categoryIcons } from '@/lib/legalCategories';
+import { categoryColors, categoryIcons } from '@/lib/legalCategories';
+import { useStrings } from '@/i18n/strings';
 
 interface LegalDocViewerProps {
     document: LegalDocument;
     onBack: () => void;
 }
 
-const SITE_TITLE = 'Bruno Carvalho — Desenvolvedor Android';
-const SITE_DESCRIPTION =
-    'Bruno Carvalho, desenvolvedor Android com 5+ anos de experiência em Kotlin, Jetpack Compose e arquitetura, hoje no app do Itaú Unibanco. Veja projetos, apps publicados na Play Store e contato.';
-
 const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }) => {
     const [content, setContent] = useState<string>('');
     const [loading, setLoading] = useState(true);
     const [copied, setCopied] = useState(false);
+    const t = useStrings();
 
     // Opening a specific legal document from a link inside one of the apps
     // shouldn't show the generic site title/description in the browser tab
@@ -29,16 +27,16 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }
     useEffect(() => {
         const previousTitle = window.document.title;
         const metaDescription = window.document.querySelector('meta[name="description"]');
-        const previousDescription = metaDescription?.getAttribute('content') ?? SITE_DESCRIPTION;
+        const previousDescription = metaDescription?.getAttribute('content') ?? t.seo.description;
 
-        window.document.title = `${doc.title.replace(/_/g, ' ')} — Documentação Legal | Bruno Carvalho`;
+        window.document.title = `${doc.title.replace(/_/g, ' ')} — ${t.legal.title} | Bruno Carvalho`;
         metaDescription?.setAttribute('content', doc.description.replace(/_/g, ' '));
 
         return () => {
-            window.document.title = previousTitle || SITE_TITLE;
+            window.document.title = previousTitle || t.seo.title;
             metaDescription?.setAttribute('content', previousDescription);
         };
-    }, [doc.id, doc.title, doc.description]);
+    }, [doc.id, doc.title, doc.description, t]);
 
     useEffect(() => {
         const loadContent = async () => {
@@ -49,14 +47,14 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }
                 setContent(htmlContent);
             } catch (error) {
                 console.error('Erro ao processar conteúdo:', error);
-                setContent('<p>Erro ao processar o documento.</p>');
+                setContent(`<p>${t.legalViewer.errorContent}</p>`);
             } finally {
                 setLoading(false);
             }
         };
 
         loadContent();
-    }, [doc.content]);
+    }, [doc.content, t]);
 
     const handleDownload = () => {
         const element = window.document.createElement('a');
@@ -91,11 +89,11 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }
                 setTimeout(() => setCopied(false), 2000);
             })
             .catch(() => {
-                alert('Erro ao copiar URL.');
+                alert(t.legalViewer.shareErrorAlert);
             });
     };
 
-    const formattedDate = new Date(doc.lastUpdated).toLocaleDateString('pt-BR', {
+    const formattedDate = new Date(doc.lastUpdated).toLocaleDateString(t.terminal.dateLocale, {
         timeZone: 'UTC'
     });
     const CategoryIcon = categoryIcons[doc.category];
@@ -111,7 +109,7 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }
                     className="mb-4 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 >
                     <ArrowLeft className="h-4 w-4 mr-2" />
-                    Voltar aos Documentos
+                    {t.legalViewer.backButton}
                 </Button>
 
                 <div className="flex items-start justify-between flex-wrap gap-4">
@@ -119,7 +117,7 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }
                         <div className="flex items-center gap-2 mb-2">
                             <CategoryIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                             <Badge variant="secondary" className={categoryColors[doc.category]}>
-                                {categoryLabels[doc.category]}
+                                {t.legal.categories[doc.category]}
                             </Badge>
                             {doc.project && (
                                 <Badge variant="outline" className="bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-700">
@@ -136,7 +134,7 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }
                             className="flex items-center gap-2 dark:hover:bg-gray-700 dark:hover:text-white transition-colors"
                         >
                             <Download className="h-4 w-4" />
-                            Baixar
+                            {t.legalViewer.downloadButton}
                         </Button>
 
                         <Button
@@ -147,24 +145,24 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }
                             {copied ? (
                                 <>
                                     <Check className="h-4 w-4 text-green-500" />
-                                    Copiado!
+                                    {t.legalViewer.copiedButton}
                                 </>
                             ) : canShare ? (
                                 <>
                                     <Share2 className="h-4 w-4" />
-                                    Compartilhar
+                                    {t.legalViewer.shareButton}
                                 </>
                             ) : (
                                 <>
                                     <LinkIcon className="h-4 w-4" />
-                                    Copiar URL
+                                    {t.legalViewer.copyButton}
                                 </>
                             )}
                         </Button>
 
                         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                             <Calendar className="h-4 w-4" />
-                            <span>Atualizado em {formattedDate}</span>
+                            <span>{t.legalViewer.updatedOn(formattedDate)}</span>
                         </div>
                     </div>
                 </div>
@@ -176,7 +174,7 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }
                     {loading ? (
                         <div className="flex items-center justify-center py-12">
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400"></div>
-                            <span className="ml-3 text-gray-600 dark:text-gray-300">Carregando documento...</span>
+                            <span className="ml-3 text-gray-600 dark:text-gray-300">{t.legalViewer.loading}</span>
                         </div>
                     ) : (
                         <div
@@ -199,10 +197,7 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }
 
             {/* Footer */}
             <div className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400 transition-colors">
-                <p>
-                    Este documento faz parte da documentação legal dos projetos de propriedade do brunocarvalhs.
-                    Para questões específicas, utilize o formulário de contato.
-                </p>
+                <p>{t.legalViewer.footerNote}</p>
             </div>
         </div>
     );

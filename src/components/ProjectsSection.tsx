@@ -1,11 +1,12 @@
 import React from 'react';
 import { ExternalLink, Github, Star, RefreshCw, GitFork, Users, Code2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import portfolioData from '@/data/portfolio.json';
+import { usePortfolioData } from '@/hooks/use-portfolio-data';
 import Reveal from '@/components/Reveal';
 import ProjectThumbnail from '@/components/ProjectThumbnail';
 import { useGithubProjects } from '@/hooks/use-github-projects';
 import { useGithubProfileStats } from '@/hooks/use-github-profile-stats';
+import { useStrings } from '@/i18n/strings';
 
 const maxDescriptionLength = 150;
 const GITHUB_USER = 'brunocarvalhs';
@@ -20,9 +21,10 @@ type CardData = {
 };
 
 const ProjectsSection = () => {
-  const { projects } = portfolioData;
+  const { projects } = usePortfolioData();
   const { projects: githubProjects, loading, error } = useGithubProjects(6);
   const { stats } = useGithubProfileStats();
+  const t = useStrings();
 
   // Live GitHub repos (recent + starred, deduped) are the primary source —
   // real, always current, no manual upkeep. If the fetch fails or the
@@ -33,7 +35,7 @@ const ProjectsSection = () => {
   const cards: CardData[] = useLive
     ? githubProjects.map((repo) => ({
         title: repo.name,
-        description: repo.description ?? 'Sem descrição no GitHub ainda.',
+        description: repo.description ?? t.projects.noDescription,
         technologies: [repo.language, ...repo.topics].filter((t): t is string => Boolean(t)).slice(0, 4),
         github: repo.htmlUrl,
         live: repo.homepage || null,
@@ -52,7 +54,7 @@ const ProjectsSection = () => {
       <div className="container mx-auto px-6">
         <Reveal className="mb-12 text-center">
           <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
-            Portfólio
+            {t.projects.eyebrow}
           </span>
           <h2 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             {projects.title}
@@ -64,7 +66,7 @@ const ProjectsSection = () => {
           {useLive && (
             <p className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs text-gray-400 dark:text-neutral-500">
               <RefreshCw className="h-3 w-3" />
-              repositórios mais recentes e populares, direto do GitHub
+              {t.projects.liveDataNote}
             </p>
           )}
         </Reveal>
@@ -74,10 +76,10 @@ const ProjectsSection = () => {
           <Reveal className="mb-10">
             <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
               {[
-                { icon: Code2, label: 'Repositórios', value: stats.publicRepos },
-                { icon: Star, label: 'Estrelas', value: stats.totalStars },
-                { icon: Users, label: 'Seguidores', value: stats.followers },
-                { icon: GitFork, label: 'Linguagem principal', value: stats.topLanguage ?? '—' },
+                { icon: Code2, label: t.projects.statRepos, value: stats.publicRepos },
+                { icon: Star, label: t.projects.statStars, value: stats.totalStars },
+                { icon: Users, label: t.projects.statFollowers, value: stats.followers },
+                { icon: GitFork, label: t.projects.statTopLanguage, value: stats.topLanguage ?? '—' },
               ].map((tile) => (
                 <div
                   key={tile.label}
@@ -95,7 +97,7 @@ const ProjectsSection = () => {
             <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white p-4 dark:border-white/10 sm:p-6">
               <img
                 src={`https://ghchart.rshah.org/2563eb/${GITHUB_USER}`}
-                alt={`Mapa de contribuições de ${GITHUB_USER} no GitHub`}
+                alt={t.projects.contributionMapAlt(GITHUB_USER)}
                 className="mx-auto min-w-[640px]"
                 loading="lazy"
               />
@@ -145,7 +147,7 @@ const ProjectsSection = () => {
                       onClick={() => window.open(project.github, '_blank')}
                     >
                       <Github className="mr-2 h-4 w-4" />
-                      Código
+                      {t.projects.codeButton}
                     </Button>
                     <Button
                       size="sm"
@@ -158,7 +160,7 @@ const ProjectsSection = () => {
                       disabled={!project.live}
                     >
                       <ExternalLink className="mr-2 h-4 w-4" />
-                      Demo
+                      {t.projects.demoButton}
                     </Button>
                   </div>
                 </div>

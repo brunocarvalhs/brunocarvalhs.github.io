@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Scale } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
+import LanguageSwitcher from './LanguageSwitcher';
 import { Button } from '@/components/ui/button';
+import { useStrings } from '@/i18n/strings';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const t = useStrings();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +30,7 @@ const Header = () => {
     setIsMobileMenuOpen(false);
   };
 
-  const navItems = ['Início', 'Sobre', 'Projetos', 'Habilidades', 'Depoimentos', 'Contato'];
+  const navItems = t.nav.items;
   const sectionIds = ['hero', 'about', 'projects', 'skills', 'testimonials', 'contact'];
 
   const baseLinkClass = `transition-colors duration-300 font-medium`;
@@ -90,20 +93,22 @@ const Header = () => {
             <Link to="/legal">
               <Button variant="outline" size="sm">
                 <Scale className="mr-2 h-4 w-4" />
-                Legal
+                {t.nav.legal}
               </Button>
             </Link>
 
+            <LanguageSwitcher />
             <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center space-x-4 md:hidden">
+          <div className="flex items-center space-x-3 md:hidden">
+            <LanguageSwitcher />
             <ThemeToggle />
             <button
               className={`${linkClass}`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+              aria-label={isMobileMenuOpen ? t.nav.closeMenu : t.nav.openMenu}
               aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

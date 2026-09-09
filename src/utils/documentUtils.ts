@@ -1,4 +1,5 @@
 import { DocumentCategory, LegalDocument } from '@/types/legalTypes';
+import { Language } from '@/i18n/languages';
 
 export const parseFrontmatter = (
   markdownContent: string,
@@ -78,28 +79,63 @@ export const getCategoryFromFilename = (filename: string): DocumentCategory => {
   return 'data';
 };
 
-// Função para gerar título baseado no filename e projeto
-export const generateTitle = (filename: string, project?: string): string => {
-  const baseTitle = filename
-    .replace(/\.(md|txt)$/i, '')
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-  
-  return project ? `${baseTitle} - ${project}` : baseTitle;
+const CATEGORY_TITLES: Record<Language, Record<DocumentCategory, string>> = {
+  'pt-BR': {
+    privacy: 'Política de Privacidade',
+    terms: 'Termos de Uso',
+    accessibility: 'Acessibilidade',
+    cookies: 'Política de Cookies',
+    data: 'Uso e Exclusão de Dados',
+  },
+  en: {
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Use',
+    accessibility: 'Accessibility',
+    cookies: 'Cookie Policy',
+    data: 'Data Usage & Deletion',
+  },
+  es: {
+    privacy: 'Política de Privacidad',
+    terms: 'Términos de Uso',
+    accessibility: 'Accesibilidad',
+    cookies: 'Política de Cookies',
+    data: 'Uso y Eliminación de Datos',
+  },
 };
 
-// Função para gerar descrição baseada na categoria e projeto
-export const generateDescription = (category: string, project?: string): string => {
-  const descriptions = {
-    privacy: `Política de privacidade${project ? ` para ${project}` : ' do portfólio'}`,
-    terms: `Termos de uso${project ? ` do ${project}` : ' do portfólio'}`,
-    accessibility: `Informações de acessibilidade${project ? ` do ${project}` : ''}`,
-    cookies: `Política de cookies${project ? ` do ${project}` : ''}`,
-    data: `Informações sobre dados${project ? ` do ${project}` : ''}`
-  };
-  
-  return descriptions[category as keyof typeof descriptions] || `Documento legal${project ? ` do ${project}` : ''}`;
+const CATEGORY_DESCRIPTIONS: Record<Language, Record<DocumentCategory, (project?: string) => string>> = {
+  'pt-BR': {
+    privacy: (project) => `Política de privacidade${project ? ` para ${project}` : ' do portfólio'}`,
+    terms: (project) => `Termos de uso${project ? ` do ${project}` : ' do portfólio'}`,
+    accessibility: (project) => `Informações de acessibilidade${project ? ` do ${project}` : ''}`,
+    cookies: (project) => `Política de cookies${project ? ` do ${project}` : ''}`,
+    data: (project) => `Informações sobre dados${project ? ` do ${project}` : ''}`,
+  },
+  en: {
+    privacy: (project) => `Privacy policy${project ? ` for ${project}` : ' for the portfolio'}`,
+    terms: (project) => `Terms of use${project ? ` for ${project}` : ' for the portfolio'}`,
+    accessibility: (project) => `Accessibility information${project ? ` for ${project}` : ''}`,
+    cookies: (project) => `Cookie policy${project ? ` for ${project}` : ''}`,
+    data: (project) => `Data information${project ? ` for ${project}` : ''}`,
+  },
+  es: {
+    privacy: (project) => `Política de privacidad${project ? ` para ${project}` : ' del portafolio'}`,
+    terms: (project) => `Términos de uso${project ? ` de ${project}` : ' del portafolio'}`,
+    accessibility: (project) => `Información de accesibilidad${project ? ` de ${project}` : ''}`,
+    cookies: (project) => `Política de cookies${project ? ` de ${project}` : ''}`,
+    data: (project) => `Información sobre datos${project ? ` de ${project}` : ''}`,
+  },
+};
+
+// Título exibido para o documento: rótulo da categoria (por idioma) + projeto.
+export const generateTitle = (category: DocumentCategory, language: Language, project?: string): string => {
+  const baseTitle = CATEGORY_TITLES[language][category];
+  return project ? `${baseTitle} — ${project}` : baseTitle;
+};
+
+// Descrição exibida para o documento: baseada na categoria, idioma e projeto.
+export const generateDescription = (category: DocumentCategory, language: Language, project?: string): string => {
+  return CATEGORY_DESCRIPTIONS[language][category](project);
 };
 
 // Função para formatar nome do projeto

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Layers, Palette, Server, Database } from 'lucide-react';
-import portfolioData from '@/data/portfolio.json';
+import { usePortfolioData } from '@/hooks/use-portfolio-data';
 import Reveal from '@/components/Reveal';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
+import { useStrings, Strings } from '@/i18n/strings';
 
 const categoryIcons = [Layers, Palette, Server, Database];
 
@@ -15,23 +16,23 @@ interface SkillBarProps {
 // Thresholds borrowed from observability dashboards (green/blue/amber
 // health bands) — a deliberate nod to Bruno's real day job (performance &
 // observability), not just decoration.
-function threshold(level: number) {
+function threshold(level: number, skillsStrings: Strings['skills']) {
   if (level >= 85)
     return {
-      label: 'avançado',
+      label: skillsStrings.thresholdAdvanced,
       text: 'text-emerald-600 dark:text-emerald-400',
       bar: 'bg-emerald-500',
       dot: 'bg-emerald-500 dark:bg-emerald-400',
     };
   if (level >= 70)
     return {
-      label: 'sólido',
+      label: skillsStrings.thresholdSolid,
       text: 'text-blue-600 dark:text-blue-400',
       bar: 'bg-blue-500',
       dot: 'bg-blue-500 dark:bg-blue-400',
     };
   return {
-    label: 'em evolução',
+    label: skillsStrings.thresholdEvolving,
     text: 'text-amber-600 dark:text-amber-400',
     bar: 'bg-amber-500',
     dot: 'bg-amber-500 dark:bg-amber-400',
@@ -40,7 +41,8 @@ function threshold(level: number) {
 
 const SkillBar: React.FC<SkillBarProps> = ({ name, level, delay }) => {
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>();
-  const t = threshold(level);
+  const { skills } = useStrings();
+  const t = threshold(level, skills);
 
   return (
     <div ref={ref} className="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-white/5 dark:bg-black/20">
@@ -68,7 +70,8 @@ const SkillBar: React.FC<SkillBarProps> = ({ name, level, delay }) => {
 };
 
 const SkillsSection = () => {
-  const { skills } = portfolioData;
+  const { skills } = usePortfolioData();
+  const t = useStrings();
 
   return (
     <section id="skills" className="min-h-screen bg-gray-50 py-20 dark:bg-neutral-950 md:py-24">
@@ -76,7 +79,7 @@ const SkillsSection = () => {
         <Reveal className="mb-16 text-center">
           <span className="mb-3 inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse-slow" />
-            Performance dashboard
+            {t.skills.eyebrow}
           </span>
           <h2 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             {skills.title}

@@ -1,10 +1,11 @@
 import React from 'react';
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import portfolioData from '@/data/portfolio.json';
+import { usePortfolioData } from '@/hooks/use-portfolio-data';
 import Terminal from '@/components/Terminal';
 import Reveal from '@/components/Reveal';
 import { useTypewriter } from '@/hooks/use-typewriter';
+import { useStrings } from '@/i18n/strings';
 
 // The terminal window that "types out" the name — the primary visual of the
 // Hero, per the brief ("meu nome escrito como se fosse no terminal"). It's
@@ -14,12 +15,13 @@ import { useTypewriter } from '@/hooks/use-typewriter';
 // terminal reads as a terminal, it doesn't switch to a "light terminal".
 const TerminalNameCard: React.FC<{ name: string; onClick: () => void }> = ({ name, onClick }) => {
   const { output, done } = useTypewriter(name, 90, 500);
+  const t = useStrings();
 
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label="Abrir terminal interativo"
+      aria-label={t.hero.openTerminalAria}
       className="group w-full max-w-xl overflow-hidden rounded-xl border border-slate-700/50 bg-[#0b1120] text-left shadow-2xl shadow-black/40 transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50"
     >
       <div className="flex items-center gap-2 border-b border-slate-700/50 bg-[#111827] px-4 py-3">
@@ -41,7 +43,7 @@ const TerminalNameCard: React.FC<{ name: string; onClick: () => void }> = ({ nam
         </p>
         {done && (
           <p className="mt-3 font-mono text-xs text-slate-500 opacity-0 animate-fade-in-up [animation-delay:200ms] [animation-fill-mode:forwards]">
-            clique para abrir o terminal →
+            {t.hero.clickToOpenTerminal}
           </p>
         )}
       </div>
@@ -50,7 +52,8 @@ const TerminalNameCard: React.FC<{ name: string; onClick: () => void }> = ({ nam
 };
 
 const HeroSection = () => {
-  const { hero } = portfolioData;
+  const { hero } = usePortfolioData();
+  const t = useStrings();
 
   const scrollToProjects = () => {
     const element = document.getElementById('projects');
@@ -92,7 +95,7 @@ const HeroSection = () => {
         <Reveal>
           <span className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 font-mono text-xs uppercase tracking-[0.2em] text-blue-700 backdrop-blur-sm dark:border-white/15 dark:bg-white/5 dark:text-blue-300">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse-slow" />
-            Disponível para novos projetos
+            {t.hero.badge}
           </span>
         </Reveal>
 
@@ -132,7 +135,7 @@ const HeroSection = () => {
             size="lg"
             className="rounded-full border-0 bg-blue-600 px-8 py-3 text-lg font-semibold text-white shadow-lg shadow-blue-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-500 hover:shadow-xl hover:shadow-blue-500/30"
           >
-            Ver Projetos
+            {t.hero.ctaProjects}
           </Button>
         </Reveal>
 

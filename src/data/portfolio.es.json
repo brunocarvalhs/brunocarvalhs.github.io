@@ -1,0 +1,234 @@
+{
+  "hero": {
+    "name": "Bruno Carvalho",
+    "title": "Desarrollador Android",
+    "description": "Ingeniero Android en Itaú Unibanco, enfocado en rendimiento, observabilidad y arquitectura de una de las mayores apps de banca móvil de América Latina — usada por decenas de millones de personas todos los días.",
+    "profileImage": "/images/brunocarvalhs.jpg",
+    "fallbackInitials": "BC",
+    "socialLinks": [
+      {
+        "name": "GitHub",
+        "url": "https://github.com/brunocarvalhs",
+        "icon": "Github"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://linkedin.com/in/brunocarvalhs",
+        "icon": "Linkedin"
+      }
+    ]
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "description": "Ingeniero Android con más de 5 años de experiencia, hoy enfocado en rendimiento, observabilidad y arquitectura de la app del Itaú Unibanco — usada por decenas de millones de personas todos los días. Para mí, un buen código no es solo el que funciona: es el que se puede medir, entender y mejorar continuamente.",
+    "features": [
+      {
+        "icon": "Code",
+        "title": "Desarrollo",
+        "description": "Domino tecnologías modernas como React, Node.js, TypeScript y otras herramientas esenciales."
+      },
+      {
+        "icon": "Lightbulb",
+        "title": "Innovación",
+        "description": "Busco soluciones creativas, eficientes e innovadoras para desafíos complejos."
+      },
+      {
+        "icon": "Users",
+        "title": "Colaboración",
+        "description": "Valoro el trabajo en equipo y la comunicación clara de ideas técnicas."
+      },
+      {
+        "icon": "Zap",
+        "title": "Rendimiento",
+        "description": "Enfocado en entregar aplicaciones rápidas, optimizadas y con excelente experiencia de usuario."
+      }
+    ],
+    "journey": {
+      "title": "Mi Trayectoria",
+      "description1": "Empecé en el back-end (PHP/Laravel) en 2020 y pasé a Android en Itaú Unibanco en 2021, como Analista de Ingeniería TI Júnior. Hoy, como Analista Pleno, sigo en el mismo equipo — pero enfocado en rendimiento, observabilidad y arquitectura multi-módulo de la app del banco.",
+      "description2": "En el día a día, eso significa monitorear la tasa de fallos, ANRs y latencia (p95/p99) de flujos críticos en producción, y transformar esos datos en decisiones técnicas concretas. Ya di una charla interna sobre gestión de memoria en Android para el equipo de ingeniería de Itaú, y soy AWS Certified Cloud Practitioner."
+    },
+    "stats": [
+      { "number": "5+", "label": "Años" },
+      { "number": "15+", "label": "Tecnologías" },
+      { "number": "36", "label": "Certificaciones" },
+      { "number": "100%", "label": "Dedicación" }
+    ]
+  },
+  "projects": {
+    "title": "Mis Proyectos",
+    "description": "A continuación, algunos proyectos que destacan mi trabajo como desarrollador Android, evidenciando mis habilidades técnicas, creatividad y enfoque en usabilidad y rendimiento.",
+    "items": [
+      {
+        "title": "Friends Secrets",
+        "description": "App Android para sorteos de amigo secreto con sugerencias inteligentes de regalos, usando IA para hacer el proceso más divertido.",
+        "technologies": ["Kotlin", "Android", "Jetpack Compose", "IA"],
+        "github": "https://github.com/brunocarvalhs/FriendsSecrets",
+        "live": "https://play.google.com/store/apps/details?id=br.com.brunocarvalhs.friendssecrets"
+      },
+      {
+        "title": "Paguei!",
+        "description": "Aplicación Android para centralizar y organizar gastos y facturas, con una interfaz intuitiva y soporte para compartir costos.",
+        "technologies": ["Kotlin", "Android", "MVVM", "Jetpack Compose"],
+        "github": "https://github.com/brunocarvalhs/Paguei",
+        "live": null
+      },
+      {
+        "title": "Portafolio Personal",
+        "description": "Sitio de portafolio desarrollado en Angular para presentar mis proyectos, habilidades e información de contacto.",
+        "technologies": ["Angular", "SCSS", "HTML"],
+        "github": "https://github.com/brunocarvalhs/brunocarvalhs.github.io",
+        "live": "https://brunocarvalhs.github.io"
+      },
+      {
+        "title": "PhotoBoost",
+        "description": "Script en Node.js para el procesamiento masivo de imágenes a partir de plantillas definidas por diseñadores, acelerando la creación de contenido visual.",
+        "technologies": ["Node.js", "JavaScript"],
+        "github": "https://github.com/brunocarvalhs/PhotoBoost",
+        "live": null
+      },
+      {
+        "title": "Revise",
+        "description": "Aplicación web para el mantenimiento preventivo de vehículos. Permite al usuario registrar el kilometraje del auto y, en base a eso, recomienda revisiones y piezas a verificar periódicamente.",
+        "technologies": ["JavaScript", "Node.js", "MongoDB", "Express.js"],
+        "github": "https://github.com/brunocarvalhs/Revise",
+        "live": null
+      }
+    ]
+  },
+  "skills": {
+    "title": "Habilidades",
+    "description": "Tecnologías y herramientas que aplico en el día a día como desarrollador Android, garantizando la entrega de soluciones robustas, eficientes y alineadas con las mejores prácticas del mercado.",
+    "categories": [
+        {
+          "title": "Mobile",
+          "skills": [
+            { "name": "Android", "level": 95 },
+            { "name": "Flutter", "level": 75 },
+            { "name": "React Native", "level": 50 },
+            { "name": "Ionic", "level": 65 }
+          ]
+        },
+        {
+          "title": "Frontend & UI",
+          "skills": [
+            { "name": "HTML5", "level": 90 },
+            { "name": "CSS3", "level": 85 },
+            { "name": "JavaScript", "level": 85 },
+            { "name": "Tailwind CSS", "level": 70 },
+            { "name": "React", "level": 65 },
+            { "name": "Angular", "level": 60 },
+            { "name": "jQuery", "level": 60 },
+            { "name": "SASS/SCSS", "level": 75 }
+          ]
+        },
+        {
+          "title": "Backend & APIs",
+          "skills": [
+            { "name": "Node.js", "level": 80 },
+            { "name": "Python", "level": 70 },
+            { "name": "PHP (Laravel)", "level": 85 }
+          ]
+        },
+        {
+          "title": "Base de Datos, Cloud y Herramientas",
+          "skills": [
+            { "name": "MySQL", "level": 85 },
+            { "name": "MongoDB", "level": 70 },
+            { "name": "Firebase", "level": 80 },
+            { "name": "Supabase", "level": 70 },
+            { "name": "AWS", "level": 75 },
+            { "name": "Docker", "level": 70 },
+            { "name": "Git", "level": 95 },
+            { "name": "GitHub/GitHub Actions", "level": 90 },
+            { "name": "Figma", "level": 85 },
+            { "name": "Looker Studio", "level": 70 },
+            { "name": "Agile/Scrum", "level": 95 }
+          ]
+        }
+    ],
+    "additionalInfo": {
+      "title": "Siempre Aprendiendo",
+      "description": "La tecnología está en constante evolución, y yo también. Siempre estoy aprendiendo nuevas herramientas y técnicas para entregar lo mejor.",
+      "highlights": [
+        {
+          "icon": "🎯",
+          "title": "Foco en Calidad",
+          "description": "Código limpio, bien documentado y siguiendo las mejores prácticas."
+        },
+        {
+          "icon": "🚀",
+          "title": "Rendimiento",
+          "description": "Aplicaciones optimizadas y con excelente experiencia para el usuario."
+        },
+        {
+          "icon": "🔄",
+          "title": "Actualización",
+          "description": "Siempre estudiando las tecnologías más recientes del mercado."
+        }
+      ]
+    }
+  },
+  "softSkills": {
+    "title": "Habilidades Blandas",
+    "description": "Habilidades conductuales e interpersonales que potencian mi experiencia técnica.",
+    "skills": [
+      {
+        "title": "Comunicación",
+        "description": "Capacidad de explicar conceptos técnicos de forma clara y objetiva.",
+        "icon": "💬",
+        "level": 90
+      },
+      {
+        "title": "Trabajo en Equipo",
+        "description": "Colaboración eficaz en proyectos multidisciplinarios.",
+        "icon": "🤝",
+        "level": 95
+      },
+      {
+        "title": "Resolución de Problemas",
+        "description": "Análisis crítico y búsqueda de soluciones creativas.",
+        "icon": "🧩",
+        "level": 92
+      },
+      {
+        "title": "Adaptabilidad",
+        "description": "Flexibilidad para ajustarse a cambios y nuevos desafíos.",
+        "icon": "🔄",
+        "level": 88
+      },
+      {
+        "title": "Gestión del Tiempo",
+        "description": "Organización y priorización de tareas y proyectos.",
+        "icon": "⏰",
+        "level": 85
+      },
+      {
+        "title": "Liderazgo",
+        "description": "Capacidad de guiar equipos y tomar decisiones técnicas.",
+        "icon": "👑",
+        "level": 80
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Lo Que Dicen Sobre Mí",
+    "description": "Recomendaciones reales de colegas de trabajo y de estudio, publicadas en mi LinkedIn.",
+    "items": [
+      {
+        "name": "Marcello Chuahy",
+        "role": "Desarrollador iOS Senior — ex-Santander e Itaú",
+        "relationship": "Trabajó en el mismo equipo que Bruno",
+        "quote": "Trabajé con Bruno y me gustaría mencionar su excelente nivel técnico como ingeniero Android, dedicación y compromiso.",
+        "linkedinUrl": "https://www.linkedin.com/in/marcello-chuahy/"
+      },
+      {
+        "name": "Dayane Santos",
+        "role": "Desarrolladora Full Stack",
+        "relationship": "Estudiaron juntos",
+        "quote": "Tuve el placer de trabajar junto a él en varios proyectos y actividades extracurriculares. Una persona súper dedicada y comprometida — su pasión por el aprendizaje y su capacidad para enfrentar desafíos con determinación lo convierten en una valiosa incorporación para cualquier equipo.",
+        "linkedinUrl": "https://www.linkedin.com/in/dayane-cristina-santos/"
+      }
+    ]
+  }
+}

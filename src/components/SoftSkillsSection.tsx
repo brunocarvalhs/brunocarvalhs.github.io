@@ -1,8 +1,9 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import portfolioData from '@/data/portfolio.json';
+import { usePortfolioData } from '@/hooks/use-portfolio-data';
 import Reveal from '@/components/Reveal';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
+import { useStrings } from '@/i18n/strings';
 
 interface SoftSkillCardProps {
   title: string;
@@ -39,14 +40,15 @@ const SoftSkillCard: React.FC<SoftSkillCardProps> = ({ title, description, icon,
 };
 
 const SoftSkillsSection = () => {
-  const { softSkills } = portfolioData;
+  const { softSkills } = usePortfolioData();
+  const t = useStrings();
 
   return (
     <section id="soft-skills" className="min-h-screen bg-white py-20 dark:bg-black md:py-24">
       <div className="container mx-auto px-6">
         <Reveal className="mb-16 text-center">
           <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
-            Comportamental
+            {t.softSkills.eyebrow}
           </span>
           <h2 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             {softSkills.title}

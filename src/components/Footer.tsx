@@ -1,10 +1,12 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Github, Linkedin } from 'lucide-react';
-import portfolioData from '@/data/portfolio.json';
+import { usePortfolioData } from '@/hooks/use-portfolio-data';
+import { useStrings } from '@/i18n/strings';
 
 const Footer = () => {
-  const { hero } = portfolioData;
+  const { hero } = usePortfolioData();
+  const t = useStrings();
   const year = new Date().getFullYear();
   const location = useLocation();
 
@@ -31,7 +33,7 @@ const Footer = () => {
     <footer className="border-t border-white/5 bg-gray-900 py-10 text-white dark:bg-gray-950">
       <div className="container mx-auto flex flex-col items-center gap-4 px-6 sm:flex-row sm:justify-between">
         <p className="text-sm text-gray-400 dark:text-gray-500">
-          © {year} {hero.name}. Todos os direitos reservados.
+          {t.footer.copyright(year, hero.name)}
         </p>
         <div className="flex items-center gap-3">
           {hero.socialLinks.map((link, index) => (

@@ -6,12 +6,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 import Index from "./pages/Index";
 import Legal from "./pages/Legal";
 import NotFound from "./pages/NotFound";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SeoManager from "@/components/SeoManager";
 
 const queryClient = new QueryClient();
 
@@ -40,23 +42,26 @@ class AppErrorBoundary extends Component<{ children: ReactNode }, { hasError: bo
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <AppErrorBoundary>
-          <BrowserRouter basename={import.meta.env.BASE_URL}>
-            <Header />
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/legal" element={<Legal />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <Footer />
-          </BrowserRouter>
-        </AppErrorBoundary>
-      </TooltipProvider>
-    </ThemeProvider>
+    <LanguageProvider>
+      <ThemeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <SeoManager />
+          <AppErrorBoundary>
+            <BrowserRouter basename={import.meta.env.BASE_URL}>
+              <Header />
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/legal" element={<Legal />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <Footer />
+            </BrowserRouter>
+          </AppErrorBoundary>
+        </TooltipProvider>
+      </ThemeProvider>
+    </LanguageProvider>
   </QueryClientProvider>
 );
 

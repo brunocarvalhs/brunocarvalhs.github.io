@@ -2,29 +2,35 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
 import portfolioData from '@/data/portfolio.json';
+import { usePortfolioData } from '@/hooks/use-portfolio-data';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useStrings, Strings } from '@/i18n/strings';
 import { cn } from '@/lib/utils';
 
 type Tone = 'default' | 'muted' | 'accent' | 'error' | 'success';
 type Line = { text: string; tone?: Tone };
 type HistoryEntry = { id: number; command: string | null; lines: Line[] };
+type PortfolioData = typeof portfolioData;
+type ProjectFile = PortfolioData['projects']['items'][number] & { slug: string };
 
 const PROMPT = 'bruno@carvalho:~$';
 const EMAIL = 'brunocarvalhs@outlook.com.br';
-
-const { hero, about, projects, skills } = portfolioData;
 
 export function slugify(value: string) {
   return value
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\p{Diacritic}/gu, '')
     .replace(/!/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-+|-+$)/g, '');
 }
 
-const projectFiles = projects.items.map((p) => ({ ...p, slug: slugify(p.title) }));
+// Default (pt-BR) project slugs — the fallback candidate list for
+// getCompletions() when called without an explicit list (e.g. tests).
+// Inside the component, the current language's project slugs are passed in
+// explicitly so tab-completion matches whatever's actually on screen.
+const defaultProjectFiles: ProjectFile[] = portfolioData.projects.items.map((p) => ({ ...p, slug: slugify(p.title) }));
 
 export const COMMANDS = [
   'help', 'whoami', 'about', 'ls', 'cat', 'skills', 'contact',
@@ -37,7 +43,11 @@ export const COMMANDS = [
  * Returns all candidates matching the relevant prefix — the caller cycles
  * through them on repeated Tab presses.
  */
-export function getCompletions(value: string): { candidates: string[]; replace: (choice: string) => string } {
+export function getCompletions(
+  value: string,
+  projectFiles: ProjectFile[] = defaultProjectFiles,
+  aboutFileName = 'sobre.md'
+): { candidates: string[]; replace: (choice: string) => string } {
   const trimmedStart = value.match(/^\s*/)?.[0] ?? '';
   const [cmd, ...rest] = value.trim().split(/\s+/);
   const hasTrailingSpace = /\s$/.test(value);
@@ -50,7 +60,7 @@ export function getCompletions(value: string): { candidates: string[]; replace: 
   const argPrefix = (rest[rest.length - 1] ?? '').toLowerCase();
   let argCandidates: string[] = [];
   if (cmd === 'open') argCandidates = ['github', 'linkedin'];
-  if (cmd === 'cat') argCandidates = ['sobre.md', ...projectFiles.map((p) => `${p.slug}.md`)];
+  if (cmd === 'cat') argCandidates = [aboutFileName, ...projectFiles.map((p) => `${p.slug}.md`)];
 
   const candidates = argCandidates.filter((c) => c.startsWith(argPrefix));
   return {
@@ -59,37 +69,23 @@ export function getCompletions(value: string): { candidates: string[]; replace: 
   };
 }
 
-function findSocial(name: string) {
+function findSocial(hero: PortfolioData['hero'], name: string) {
   return hero.socialLinks.find((l) => l.name.toLowerCase() === name.toLowerCase());
 }
 
-function buildHelp(): Line[] {
+function buildHelp(ts: Strings['terminal']): Line[] {
+  const cmdWidth = Math.max(...ts.helpLines.map((l) => l.cmd.length)) + 2;
+  const keysWidth = Math.max(...ts.helpShortcuts.map((s) => s.keys.length)) + 2;
   return [
-    { text: 'comandos disponíveis:', tone: 'accent' },
-    { text: '  help                    lista os comandos disponíveis' },
-    { text: '  whoami                  quem sou eu' },
-    { text: '  about | cat sobre.md    bio e trajetória' },
-    { text: '  ls | ls projetos        lista os projetos' },
-    { text: '  cat <projeto>.md        detalhes de um projeto' },
-    { text: '  skills                  categorias e principais habilidades' },
-    { text: '  contact                 informações de contato e redes sociais' },
-    { text: '  open github             abre o GitHub em nova aba' },
-    { text: '  open linkedin           abre o LinkedIn em nova aba' },
-    { text: '  theme                   alterna entre tema claro/escuro' },
-    { text: '  date                    mostra a data e hora atual' },
-    { text: '  sudo hire-me            ;)' },
-    { text: '  clear                   limpa o terminal' },
-    { text: '  exit | close            fecha o terminal' },
+    { text: ts.helpCommandsHeader, tone: 'accent' },
+    ...ts.helpLines.map((l) => ({ text: `  ${l.cmd.padEnd(cmdWidth, ' ')}${l.desc}` })),
     { text: '' },
-    { text: 'atalhos:', tone: 'accent' },
-    { text: '  ↑ / ↓                   navega pelo histórico de comandos' },
-    { text: '  Tab                     autocompleta comando ou argumento' },
-    { text: '  Ctrl+L                  limpa o terminal' },
-    { text: '  Ctrl+C                  cancela a linha atual' },
+    { text: ts.helpShortcutsHeader, tone: 'accent' },
+    ...ts.helpShortcuts.map((s) => ({ text: `  ${s.keys.padEnd(keysWidth, ' ')}${s.desc}` })),
   ];
 }
 
-function buildWhoami(): Line[] {
+function buildWhoami(hero: PortfolioData['hero']): Line[] {
   return [
     { text: hero.name, tone: 'accent' },
     { text: hero.title },
@@ -98,7 +94,7 @@ function buildWhoami(): Line[] {
   ];
 }
 
-function buildAbout(): Line[] {
+function buildAbout(about: PortfolioData['about']): Line[] {
   return [
     { text: about.description },
     { text: '' },
@@ -109,21 +105,21 @@ function buildAbout(): Line[] {
   ];
 }
 
-function buildProjectList(): Line[] {
+function buildProjectList(projectFiles: ProjectFile[], ts: Strings['terminal']): Line[] {
   return [
     { text: projectFiles.map((p) => `${p.slug}.md`).join('   '), tone: 'accent' },
     { text: '' },
-    { text: 'dica: "cat <arquivo>.md" para ver os detalhes de um projeto.', tone: 'muted' },
+    { text: ts.lsHint, tone: 'muted' },
   ];
 }
 
-function buildProject(slugArg: string): Line[] {
+function buildProject(slugArg: string, projectFiles: ProjectFile[], ts: Strings['terminal']): Line[] {
   const clean = slugArg.replace(/\.md$/i, '');
   const project = projectFiles.find((p) => p.slug === clean);
   if (!project) {
     return [
-      { text: `cat: ${slugArg}: arquivo não encontrado`, tone: 'error' },
-      { text: 'digite "ls" para ver os projetos disponíveis.', tone: 'muted' },
+      { text: ts.catNotFound(slugArg), tone: 'error' },
+      { text: ts.catHint, tone: 'muted' },
     ];
   }
   return [
@@ -131,13 +127,13 @@ function buildProject(slugArg: string): Line[] {
     { text: '' },
     { text: project.description },
     { text: '' },
-    { text: `tecnologias: ${project.technologies.join(', ')}` },
-    { text: `github: ${project.github}` },
-    { text: `live: ${project.live ?? 'indisponível'}` },
+    { text: ts.projectTech(project.technologies.join(', ')) },
+    { text: ts.projectGithub(project.github) },
+    { text: ts.projectLive(project.live ?? ts.projectLiveUnavailable) },
   ];
 }
 
-function buildSkills(): Line[] {
+function buildSkills(skills: PortfolioData['skills']): Line[] {
   const lines: Line[] = [];
   skills.categories.forEach((category) => {
     lines.push({ text: `## ${category.title}`, tone: 'accent' });
@@ -153,12 +149,12 @@ function buildSkills(): Line[] {
   return lines;
 }
 
-function buildContact(): Line[] {
+function buildContact(hero: PortfolioData['hero'], ts: Strings['terminal']): Line[] {
   return [
-    { text: `email:    ${EMAIL}` },
+    { text: `${ts.emailLabel}    ${EMAIL}` },
     ...hero.socialLinks.map((link) => ({ text: `${link.name.toLowerCase()}:${' '.repeat(Math.max(1, 10 - link.name.length))}${link.url}` })),
     { text: '' },
-    { text: 'dica: "open github" ou "open linkedin" abre em uma nova aba.', tone: 'muted' as Tone },
+    { text: ts.contactHint, tone: 'muted' as Tone },
   ];
 }
 
@@ -180,6 +176,10 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const idRef = useRef(0);
   const { theme, toggleTheme } = useTheme();
+  const { hero, about, projects, skills } = usePortfolioData();
+  const t = useStrings();
+  const ts = t.terminal;
+  const projectFiles: ProjectFile[] = projects.items.map((p) => ({ ...p, slug: slugify(p.title) }));
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -195,8 +195,8 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
           id: idRef.current++,
           command: null,
           lines: [
-            { text: `bem-vindo ao terminal de ${hero.name} — v1.0.0`, tone: 'accent' },
-            { text: 'digite "help" para ver os comandos disponíveis.', tone: 'muted' },
+            { text: ts.welcome(hero.name), tone: 'accent' },
+            { text: ts.typeHelpHint, tone: 'muted' },
           ],
         },
       ]);
@@ -222,42 +222,42 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
 
     switch (command) {
       case 'help':
-        lines = buildHelp();
+        lines = buildHelp(ts);
         break;
       case 'whoami':
-        lines = buildWhoami();
+        lines = buildWhoami(hero);
         break;
       case 'about':
-        lines = buildAbout();
+        lines = buildAbout(about);
         break;
       case 'ls':
-        lines = buildProjectList();
+        lines = buildProjectList(projectFiles, ts);
         break;
       case 'cat':
         if (!arg) {
-          lines = [{ text: 'uso: cat <arquivo>.md', tone: 'error' }];
-        } else if (arg === 'sobre.md' || arg === 'sobre') {
-          lines = buildAbout();
+          lines = [{ text: ts.catUsage, tone: 'error' }];
+        } else if (arg === ts.aboutFileName || arg === ts.aboutFileName.replace(/\.md$/i, '')) {
+          lines = buildAbout(about);
         } else {
-          lines = buildProject(arg);
+          lines = buildProject(arg, projectFiles, ts);
         }
         break;
       case 'skills':
-        lines = buildSkills();
+        lines = buildSkills(skills);
         break;
       case 'contact':
-        lines = buildContact();
+        lines = buildContact(hero, ts);
         break;
       case 'open': {
         const target = rest[0]?.toLowerCase();
-        const social = target ? findSocial(target) : undefined;
+        const social = target ? findSocial(hero, target) : undefined;
         if (social) {
           window.open(social.url, '_blank', 'noopener,noreferrer');
-          lines = [{ text: `abrindo ${social.url} ...`, tone: 'success' }];
+          lines = [{ text: ts.openOpening(social.url), tone: 'success' }];
         } else {
           lines = [
-            { text: `open: destino desconhecido "${arg || ''}"`, tone: 'error' },
-            { text: 'tente: open github  ou  open linkedin', tone: 'muted' },
+            { text: ts.openUnknown(arg || ''), tone: 'error' },
+            { text: ts.openHint, tone: 'muted' },
           ];
         }
         break;
@@ -265,23 +265,23 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
       case 'theme': {
         const wasLight = theme === 'light';
         toggleTheme();
-        lines = [{ text: `tema alterado para ${wasLight ? 'escuro' : 'claro'}.`, tone: 'success' }];
+        lines = [{ text: ts.themeChanged(wasLight ? ts.themeDark : ts.themeLight), tone: 'success' }];
         break;
       }
       case 'date':
-        lines = [{ text: new Date().toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'short' }) }];
+        lines = [{ text: new Date().toLocaleString(ts.dateLocale, { dateStyle: 'full', timeStyle: 'short' }) }];
         break;
       case 'sudo':
         if (arg.toLowerCase() === 'hire-me') {
           lines = [
-            { text: '[sudo] password for visitante: ********', tone: 'muted' },
-            { text: 'verificando permissões... ✔', tone: 'muted' },
-            { text: 'contratando Bruno Carvalho...', tone: 'accent' },
-            { text: 'parabéns! você acabou de tomar a melhor decisão de contratação do ano.', tone: 'success' },
-            { text: `envie um e-mail para ${EMAIL} para tornar isso realidade. 🚀`, tone: 'success' },
+            { text: ts.sudoPassword, tone: 'muted' },
+            { text: ts.sudoVerifying, tone: 'muted' },
+            { text: ts.sudoHiring, tone: 'accent' },
+            { text: ts.sudoCongrats, tone: 'success' },
+            { text: ts.sudoEmail(EMAIL), tone: 'success' },
           ];
         } else {
-          lines = [{ text: 'sudo: permissão negada (e ainda bem).', tone: 'error' }];
+          lines = [{ text: ts.sudoDenied, tone: 'error' }];
         }
         break;
       case 'clear':
@@ -290,12 +290,12 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
       case 'exit':
       case 'close':
         shouldClose = true;
-        lines = [{ text: 'até a próxima 👋', tone: 'muted' }];
+        lines = [{ text: ts.exitMessage, tone: 'muted' }];
         break;
       default:
         lines = [
-          { text: `command not found: ${command}`, tone: 'error' },
-          { text: 'digite "help" para ver os comandos disponíveis.', tone: 'muted' },
+          { text: ts.commandNotFound(command), tone: 'error' },
+          { text: ts.typeHelpHint, tone: 'muted' },
         ];
     }
 
@@ -341,7 +341,11 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
       e.stopPropagation();
       const prevTab = tabStateRef.current;
       const isContinuing = prevTab && prevTab.base === input;
-      const { candidates, replace } = getCompletions(isContinuing ? prevTab.base : input);
+      const { candidates, replace } = getCompletions(
+        isContinuing ? prevTab.base : input,
+        projectFiles,
+        ts.aboutFileName
+      );
 
       if (candidates.length === 0) return;
 
@@ -406,7 +410,7 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
         <button
           type="button"
           onClick={openTerminal}
-          aria-label="Abrir terminal interativo"
+          aria-label={ts.triggerAriaLabel}
           className={cn(
             '-mx-1 -my-2 inline-flex w-fit items-center gap-1.5 rounded-md px-1 py-2 font-mono text-sm text-slate-400 transition-colors hover:text-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50 group',
             className
@@ -430,9 +434,9 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
             }}
             className="fixed left-1/2 top-1/2 z-[101] flex h-[88vh] w-[95vw] max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl border border-slate-700/50 bg-[#0b1120] shadow-2xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 sm:h-[75vh]"
           >
-            <DialogPrimitive.Title className="sr-only">Terminal interativo</DialogPrimitive.Title>
+            <DialogPrimitive.Title className="sr-only">{ts.dialogTitle}</DialogPrimitive.Title>
             <DialogPrimitive.Description className="sr-only">
-              Terminal interativo do portfólio de {hero.name}. Digite comandos como help, about, ls ou skills.
+              {ts.dialogDescription(hero.name)}
             </DialogPrimitive.Description>
 
             {/* Chrome */}
@@ -444,7 +448,7 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
               </div>
               <p className="flex-1 text-center font-mono text-xs text-slate-400">bruno@carvalho: ~</p>
               <DialogPrimitive.Close
-                aria-label="Fechar terminal"
+                aria-label={ts.closeAriaLabel}
                 className="flex h-11 w-11 items-center justify-center rounded-md text-slate-400 transition-colors hover:bg-slate-700/50 hover:text-white active:bg-slate-700/70"
               >
                 <X className="h-4 w-4" />
@@ -466,7 +470,7 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
                   )}
                   {entry.lines.map((line, i) => (
                     <p key={i} className={cn('whitespace-pre-wrap break-words', toneClass(line.tone))}>
-                      {line.text || ' '}
+                      {line.text || ' '}
                     </p>
                   ))}
                 </div>
@@ -484,7 +488,7 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
                   autoCorrect="off"
                   autoCapitalize="off"
                   spellCheck={false}
-                  aria-label="Linha de comando do terminal"
+                  aria-label={ts.inputAriaLabel}
                   className="min-w-0 flex-1 bg-transparent text-slate-100 outline-none [caret-color:#34d399]"
                 />
               </div>
