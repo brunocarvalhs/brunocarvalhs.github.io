@@ -16,7 +16,7 @@ import Footer from "@/components/Footer";
 const queryClient = new QueryClient();
 
 class AppErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
-  constructor(props: any) {
+  constructor(props: { children: ReactNode }) {
     super(props);
     this.state = { hasError: false };
   }
