@@ -17,21 +17,21 @@ const SoftSkillCard: React.FC<SoftSkillCardProps> = ({ title, description, icon,
 
   return (
     <Reveal delay={delay}>
-      <Card className="h-full border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-400/30">
+      <Card className="h-full border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-300 dark:border-white/10 dark:bg-white/[0.03] dark:backdrop-blur-sm dark:hover:border-blue-400/30">
         <CardHeader className="text-center">
           <div className="mb-4 text-4xl">{icon}</div>
-          <CardTitle className="mb-2 text-xl text-white">{title}</CardTitle>
+          <CardTitle className="mb-2 text-xl text-gray-900 dark:text-white">{title}</CardTitle>
         </CardHeader>
         <CardContent className="text-center">
-          <p className="mb-6 leading-relaxed text-neutral-400">{description}</p>
+          <p className="mb-6 leading-relaxed text-gray-600 dark:text-neutral-400">{description}</p>
 
-          <div ref={ref} className="mb-2 h-3 w-full overflow-hidden rounded-full bg-white/10">
+          <div ref={ref} className="mb-2 h-3 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-white/10">
             <div
               className="h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 transition-[width] duration-1000 ease-out"
               style={{ width: isVisible ? `${level}%` : '0%' }}
             />
           </div>
-          <span className="text-sm tabular-nums text-neutral-500">{level}%</span>
+          <span className="text-sm tabular-nums text-gray-500 dark:text-neutral-500">{level}%</span>
         </CardContent>
       </Card>
     </Reveal>
@@ -42,17 +42,17 @@ const SoftSkillsSection = () => {
   const { softSkills } = portfolioData;
 
   return (
-    <section id="soft-skills" className="min-h-screen bg-black py-20 md:py-24">
+    <section id="soft-skills" className="min-h-screen bg-white py-20 dark:bg-black md:py-24">
       <div className="container mx-auto px-6">
         <Reveal className="mb-16 text-center">
-          <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
+          <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
             Comportamental
           </span>
-          <h2 className="text-balance text-4xl font-bold tracking-tight text-white">
+          <h2 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             {softSkills.title}
           </h2>
           <div className="mx-auto mb-8 mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600" />
-          <p className="mx-auto max-w-3xl text-balance text-lg text-neutral-300">
+          <p className="mx-auto max-w-3xl text-balance text-lg text-gray-600 dark:text-neutral-300">
             {softSkills.description}
           </p>
         </Reveal>

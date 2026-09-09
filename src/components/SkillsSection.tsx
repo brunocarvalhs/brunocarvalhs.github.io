@@ -16,9 +16,26 @@ interface SkillBarProps {
 // health bands) — a deliberate nod to Bruno's real day job (performance &
 // observability), not just decoration.
 function threshold(level: number) {
-  if (level >= 85) return { label: 'avançado', text: 'text-emerald-400', bar: 'bg-emerald-500', dot: 'bg-emerald-400' };
-  if (level >= 70) return { label: 'sólido', text: 'text-blue-400', bar: 'bg-blue-500', dot: 'bg-blue-400' };
-  return { label: 'em evolução', text: 'text-amber-400', bar: 'bg-amber-500', dot: 'bg-amber-400' };
+  if (level >= 85)
+    return {
+      label: 'avançado',
+      text: 'text-emerald-600 dark:text-emerald-400',
+      bar: 'bg-emerald-500',
+      dot: 'bg-emerald-500 dark:bg-emerald-400',
+    };
+  if (level >= 70)
+    return {
+      label: 'sólido',
+      text: 'text-blue-600 dark:text-blue-400',
+      bar: 'bg-blue-500',
+      dot: 'bg-blue-500 dark:bg-blue-400',
+    };
+  return {
+    label: 'em evolução',
+    text: 'text-amber-600 dark:text-amber-400',
+    bar: 'bg-amber-500',
+    dot: 'bg-amber-500 dark:bg-amber-400',
+  };
 }
 
 const SkillBar: React.FC<SkillBarProps> = ({ name, level, delay }) => {
@@ -26,18 +43,18 @@ const SkillBar: React.FC<SkillBarProps> = ({ name, level, delay }) => {
   const t = threshold(level);
 
   return (
-    <div ref={ref} className="rounded-lg border border-white/5 bg-black/20 p-3">
+    <div ref={ref} className="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-white/5 dark:bg-black/20">
       <div className="mb-2 flex items-center justify-between">
-        <span className="flex items-center gap-2 font-medium text-neutral-300">
+        <span className="flex items-center gap-2 font-medium text-gray-700 dark:text-neutral-300">
           <span className={`h-1.5 w-1.5 rounded-full ${t.dot} animate-pulse-slow`} />
           {name}
         </span>
-        <span className="font-mono text-sm font-bold tabular-nums text-white">
+        <span className="font-mono text-sm font-bold tabular-nums text-gray-900 dark:text-white">
           {isVisible ? level : 0}
-          <span className="text-neutral-500">%</span>
+          <span className="text-gray-400 dark:text-neutral-500">%</span>
         </span>
       </div>
-      <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-white/10">
         <div
           className={`h-1.5 rounded-full ${t.bar} transition-[width] duration-1000 ease-out`}
           style={{ width: isVisible ? `${level}%` : '0%', transitionDelay: `${delay}ms` }}
@@ -54,18 +71,18 @@ const SkillsSection = () => {
   const { skills } = portfolioData;
 
   return (
-    <section id="skills" className="min-h-screen bg-neutral-950 py-20 md:py-24">
+    <section id="skills" className="min-h-screen bg-gray-50 py-20 dark:bg-neutral-950 md:py-24">
       <div className="container mx-auto px-6">
         <Reveal className="mb-16 text-center">
-          <span className="mb-3 inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
+          <span className="mb-3 inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse-slow" />
             Performance dashboard
           </span>
-          <h2 className="text-balance text-4xl font-bold tracking-tight text-white">
+          <h2 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             {skills.title}
           </h2>
           <div className="mx-auto mb-8 mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600" />
-          <p className="mx-auto max-w-3xl text-balance text-lg text-neutral-300">
+          <p className="mx-auto max-w-3xl text-balance text-lg text-gray-600 dark:text-neutral-300">
             {skills.description}
           </p>
         </Reveal>
@@ -75,12 +92,12 @@ const SkillsSection = () => {
             const Icon = categoryIcons[categoryIndex % categoryIcons.length];
             return (
               <Reveal key={categoryIndex} delay={categoryIndex * 100}>
-                <div className="h-full rounded-xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-all duration-300 hover:border-blue-400/30">
+                <div className="h-full rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:border-blue-300 dark:border-white/10 dark:bg-white/[0.03] dark:backdrop-blur-sm dark:hover:border-blue-400/30">
                   <div className="mb-5 flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-blue-400">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-gray-50 text-blue-600 dark:border-white/10 dark:bg-white/5 dark:text-blue-400">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">{category.title}</h3>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">{category.title}</h3>
                   </div>
 
                   <div className="space-y-4">
@@ -101,9 +118,9 @@ const SkillsSection = () => {
 
         {/* Additional Info */}
         <Reveal delay={150} className="mt-16 text-center">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm md:p-12">
-            <h3 className="mb-6 text-2xl font-bold text-white">{skills.additionalInfo.title}</h3>
-            <p className="mx-auto mb-8 max-w-2xl leading-relaxed text-neutral-300">
+          <div className="rounded-2xl border border-gray-200 bg-white p-8 dark:border-white/10 dark:bg-white/[0.03] dark:backdrop-blur-sm md:p-12">
+            <h3 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">{skills.additionalInfo.title}</h3>
+            <p className="mx-auto mb-8 max-w-2xl leading-relaxed text-gray-600 dark:text-neutral-300">
               {skills.additionalInfo.description}
             </p>
             <div className="grid gap-6 md:grid-cols-3">
@@ -112,16 +129,16 @@ const SkillsSection = () => {
                   <div
                     className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border ${
                       index === 0
-                        ? 'border-blue-400/30 bg-blue-500/10'
+                        ? 'border-blue-200 bg-blue-50 dark:border-blue-400/30 dark:bg-blue-500/10'
                         : index === 1
-                          ? 'border-purple-400/30 bg-purple-500/10'
-                          : 'border-green-400/30 bg-green-500/10'
+                          ? 'border-purple-200 bg-purple-50 dark:border-purple-400/30 dark:bg-purple-500/10'
+                          : 'border-green-200 bg-green-50 dark:border-green-400/30 dark:bg-green-500/10'
                     }`}
                   >
                     <span className="text-2xl">{highlight.icon}</span>
                   </div>
-                  <h4 className="mb-2 font-semibold text-white">{highlight.title}</h4>
-                  <p className="text-sm text-neutral-400">{highlight.description}</p>
+                  <h4 className="mb-2 font-semibold text-gray-900 dark:text-white">{highlight.title}</h4>
+                  <p className="text-sm text-gray-500 dark:text-neutral-400">{highlight.description}</p>
                 </div>
               ))}
             </div>

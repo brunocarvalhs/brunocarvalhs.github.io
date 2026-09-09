@@ -55,15 +55,15 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="flex min-h-screen flex-col bg-black py-20 md:py-24">
+    <section id="contact" className="flex min-h-screen flex-col bg-white py-20 dark:bg-black md:py-24">
       <div className="container mx-auto flex-1 px-6">
         <Reveal className="mb-16 text-center">
-          <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
+          <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
             Vamos conversar
           </span>
-          <h2 className="text-balance text-4xl font-bold tracking-tight text-white">Entre em Contato</h2>
+          <h2 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Entre em Contato</h2>
           <div className="mx-auto mb-8 mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600" />
-          <p className="mx-auto max-w-3xl text-balance text-lg text-neutral-300">
+          <p className="mx-auto max-w-3xl text-balance text-lg text-gray-600 dark:text-neutral-300">
             Estou sempre aberto a novas oportunidades e projetos interessantes.
             Vamos conversar sobre como posso ajudar você!
           </p>
@@ -72,17 +72,17 @@ const ContactSection = () => {
         <div className="grid gap-12 lg:grid-cols-2">
           {/* Contact Info */}
           <Reveal>
-            <h3 className="mb-8 text-2xl font-bold text-white">Informações de Contato</h3>
+            <h3 className="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Informações de Contato</h3>
 
             <div className="space-y-6">
               {/* Email */}
               <div className="flex items-start space-x-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-blue-400/30 bg-blue-500/10">
-                  <Mail className="h-6 w-6 text-blue-400" />
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-blue-200 bg-blue-50 dark:border-blue-400/30 dark:bg-blue-500/10">
+                  <Mail className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
-                  <h4 className="mb-1 font-semibold text-white">Email</h4>
-                  <a href="mailto:brunocarvalhs@outlook.com.br" className="text-neutral-400 hover:text-white hover:underline">
+                  <h4 className="mb-1 font-semibold text-gray-900 dark:text-white">Email</h4>
+                  <a href="mailto:brunocarvalhs@outlook.com.br" className="text-gray-500 hover:text-gray-900 hover:underline dark:text-neutral-400 dark:hover:text-white">
                     brunocarvalhs@outlook.com.br
                   </a>
                 </div>
@@ -90,12 +90,12 @@ const ContactSection = () => {
 
               {/* Telefone */}
               <div className="flex items-start space-x-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-green-400/30 bg-green-500/10">
-                  <Phone className="h-6 w-6 text-green-400" />
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-green-200 bg-green-50 dark:border-green-400/30 dark:bg-green-500/10">
+                  <Phone className="h-6 w-6 text-green-600 dark:text-green-400" />
                 </div>
                 <div>
-                  <h4 className="mb-1 font-semibold text-white">Telefone</h4>
-                  <a href="tel:+5513997934483" className="text-neutral-400 hover:text-white hover:underline">
+                  <h4 className="mb-1 font-semibold text-gray-900 dark:text-white">Telefone</h4>
+                  <a href="tel:+5513997934483" className="text-gray-500 hover:text-gray-900 hover:underline dark:text-neutral-400 dark:hover:text-white">
                     +55 (13) 99793-4483
                   </a>
                 </div>
@@ -103,16 +103,16 @@ const ContactSection = () => {
 
               {/* Localização */}
               <div className="flex items-start space-x-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-purple-400/30 bg-purple-500/10">
-                  <MapPin className="h-6 w-6 text-purple-400" />
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-purple-200 bg-purple-50 dark:border-purple-400/30 dark:bg-purple-500/10">
+                  <MapPin className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
-                  <h4 className="mb-1 font-semibold text-white">Localização</h4>
+                  <h4 className="mb-1 font-semibold text-gray-900 dark:text-white">Localização</h4>
                   <a
                     href="https://www.google.com/maps?q=São+Paulo,+Brasil"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-neutral-400 hover:text-white hover:underline"
+                    className="text-gray-500 hover:text-gray-900 hover:underline dark:text-neutral-400 dark:hover:text-white"
                   >
                     São Paulo, Brasil
                   </a>
@@ -122,14 +122,14 @@ const ContactSection = () => {
 
             {/* Social Links */}
             <div className="mt-8">
-              <h4 className="mb-4 font-semibold text-white">Redes Sociais</h4>
+              <h4 className="mb-4 font-semibold text-gray-900 dark:text-white">Redes Sociais</h4>
               <div className="flex space-x-4">
                 <a
                   href="https://github.com/brunocarvalhs"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
-                  className="flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/15"
+                  className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-gray-300 hover:bg-gray-100 dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:border-white/30 dark:hover:bg-white/15"
                 >
                   <Github className="h-6 w-6" />
                 </a>
@@ -138,7 +138,7 @@ const ContactSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/15"
+                  className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-gray-300 hover:bg-gray-100 dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:border-white/30 dark:hover:bg-white/15"
                 >
                   <Linkedin className="h-6 w-6" />
                 </a>
@@ -147,12 +147,12 @@ const ContactSection = () => {
           </Reveal>
 
           {/* Contact Form */}
-          <Reveal delay={120} className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm">
-            <h3 className="mb-6 text-2xl font-bold text-white">Envie uma Mensagem</h3>
+          <Reveal delay={120} className="rounded-2xl border border-gray-200 bg-gray-50 p-8 dark:border-white/10 dark:bg-white/[0.03] dark:backdrop-blur-sm">
+            <h3 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Envie uma Mensagem</h3>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="mb-2 block text-sm font-medium text-neutral-300">
+                <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-700 dark:text-neutral-300">
                   Nome
                 </label>
                 <Input
@@ -162,13 +162,13 @@ const ContactSection = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full border-white/15 bg-black/30 text-white placeholder:text-neutral-500"
+                  className="w-full border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 dark:border-white/15 dark:bg-black/30 dark:text-white dark:placeholder:text-neutral-500"
                   placeholder="Seu nome"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="mb-2 block text-sm font-medium text-neutral-300">
+                <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700 dark:text-neutral-300">
                   Email
                 </label>
                 <Input
@@ -178,13 +178,13 @@ const ContactSection = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full border-white/15 bg-black/30 text-white placeholder:text-neutral-500"
+                  className="w-full border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 dark:border-white/15 dark:bg-black/30 dark:text-white dark:placeholder:text-neutral-500"
                   placeholder="seu@email.com"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="mb-2 block text-sm font-medium text-neutral-300">
+                <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-700 dark:text-neutral-300">
                   Mensagem
                 </label>
                 <Textarea
@@ -194,7 +194,7 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="w-full border-white/15 bg-black/30 text-white placeholder:text-neutral-500"
+                  className="w-full border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 dark:border-white/15 dark:bg-black/30 dark:text-white dark:placeholder:text-neutral-500"
                   placeholder="Sua mensagem aqui..."
                 />
               </div>
@@ -218,9 +218,9 @@ const ContactSection = () => {
           socials) lives here instead. Also used as-is on the mobile
           vertical stack, so the standalone <Footer> only renders on other
           routes (see src/components/Footer.tsx). */}
-      <div className="container mx-auto mt-16 border-t border-white/10 px-6 pt-8">
+      <div className="container mx-auto mt-16 border-t border-gray-200 px-6 pt-8 dark:border-white/10">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-gray-400 dark:text-neutral-500">
             © {year} {hero.name}. Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-3">
@@ -231,7 +231,7 @@ const ContactSection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.name}
-                className="flex h-9 w-9 items-center justify-center rounded-full text-neutral-500 transition-colors duration-300 hover:bg-white/10 hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full text-gray-400 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-900 dark:text-neutral-500 dark:hover:bg-white/10 dark:hover:text-white"
               >
                 {getIcon(link.icon)}
               </a>

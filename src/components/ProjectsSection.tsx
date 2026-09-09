@@ -48,21 +48,21 @@ const ProjectsSection = () => {
       }));
 
   return (
-    <section id="projects" className="min-h-screen bg-black py-20 md:py-24">
+    <section id="projects" className="min-h-screen bg-white py-20 dark:bg-black md:py-24">
       <div className="container mx-auto px-6">
         <Reveal className="mb-12 text-center">
-          <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
+          <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
             Portfólio
           </span>
-          <h2 className="text-balance text-4xl font-bold tracking-tight text-white">
+          <h2 className="text-balance text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             {projects.title}
           </h2>
           <div className="mx-auto mb-8 mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600" />
-          <p className="mx-auto max-w-3xl text-balance text-lg text-neutral-300">
+          <p className="mx-auto max-w-3xl text-balance text-lg text-gray-600 dark:text-neutral-300">
             {projects.description}
           </p>
           {useLive && (
-            <p className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs text-neutral-500">
+            <p className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs text-gray-400 dark:text-neutral-500">
               <RefreshCw className="h-3 w-3" />
               repositórios mais recentes e populares, direto do GitHub
             </p>
@@ -81,18 +81,18 @@ const ProjectsSection = () => {
               ].map((tile) => (
                 <div
                   key={tile.label}
-                  className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-center backdrop-blur-sm"
+                  className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-center dark:border-white/10 dark:bg-white/[0.03] dark:backdrop-blur-sm"
                 >
-                  <tile.icon className="mx-auto mb-2 h-4 w-4 text-blue-400" />
-                  <div className="font-mono text-xl font-bold tabular-nums text-white sm:text-2xl">
+                  <tile.icon className="mx-auto mb-2 h-4 w-4 text-blue-600 dark:text-blue-400" />
+                  <div className="font-mono text-xl font-bold tabular-nums text-gray-900 dark:text-white sm:text-2xl">
                     {tile.value}
                   </div>
-                  <div className="mt-1 text-xs text-neutral-500">{tile.label}</div>
+                  <div className="mt-1 text-xs text-gray-500 dark:text-neutral-500">{tile.label}</div>
                 </div>
               ))}
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-white/10 bg-white p-4 sm:p-6">
+            <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white p-4 dark:border-white/10 sm:p-6">
               <img
                 src={`https://ghchart.rshah.org/2563eb/${GITHUB_USER}`}
                 alt={`Mapa de contribuições de ${GITHUB_USER} no GitHub`}
@@ -106,8 +106,8 @@ const ProjectsSection = () => {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((project, index) => (
             <Reveal key={project.title + index} delay={index * 80} className="h-full">
-              <div className="group flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-400/30">
-                <div className="relative aspect-video overflow-hidden bg-neutral-900 transition-transform duration-500 group-hover:scale-105">
+              <div className="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-300 dark:border-white/10 dark:bg-white/[0.03] dark:backdrop-blur-sm dark:hover:border-blue-400/30">
+                <div className="relative aspect-video overflow-hidden bg-gray-100 transition-transform duration-500 group-hover:scale-105 dark:bg-neutral-900">
                   <ProjectThumbnail title={project.title} technologies={project.technologies} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   {typeof project.stars === 'number' && project.stars > 0 && (
@@ -119,8 +119,8 @@ const ProjectsSection = () => {
                 </div>
 
                 <div className="flex flex-grow flex-col p-6">
-                  <h3 className="mb-3 text-xl font-semibold text-white">{project.title}</h3>
-                  <p className="mb-4 flex-grow leading-relaxed text-neutral-400">
+                  <h3 className="mb-3 text-xl font-semibold text-gray-900 dark:text-white">{project.title}</h3>
+                  <p className="mb-4 flex-grow leading-relaxed text-gray-600 dark:text-neutral-400">
                     {project.description.length > maxDescriptionLength
                       ? project.description.slice(0, maxDescriptionLength) + '...'
                       : project.description}
@@ -130,7 +130,7 @@ const ProjectsSection = () => {
                     {project.technologies.map((tech, techIndex) => (
                       <span
                         key={techIndex}
-                        className="rounded-full border border-blue-400/20 bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-300 transition-colors group-hover:border-blue-400/40"
+                        className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 transition-colors group-hover:border-blue-300 dark:border-blue-400/20 dark:bg-blue-500/10 dark:text-blue-300 dark:group-hover:border-blue-400/40"
                       >
                         {tech}
                       </span>
@@ -141,7 +141,7 @@ const ProjectsSection = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex-1 border-white/15 bg-transparent text-white hover:bg-white/10 hover:text-white"
+                      className="flex-1 border-gray-300 bg-transparent text-gray-900 hover:bg-gray-100 dark:border-white/15 dark:text-white dark:hover:bg-white/10"
                       onClick={() => window.open(project.github, '_blank')}
                     >
                       <Github className="mr-2 h-4 w-4" />
@@ -152,7 +152,7 @@ const ProjectsSection = () => {
                       className={`flex-1 text-white ${
                         project.live
                           ? 'bg-blue-600 hover:bg-blue-500'
-                          : 'cursor-not-allowed bg-neutral-700 hover:bg-neutral-700'
+                          : 'cursor-not-allowed bg-gray-300 hover:bg-gray-300 dark:bg-neutral-700 dark:hover:bg-neutral-700'
                       }`}
                       onClick={() => project.live && window.open(project.live, '_blank')}
                       disabled={!project.live}
