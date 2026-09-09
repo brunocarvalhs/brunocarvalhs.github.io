@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Download, Calendar, Link as LinkIcon, Check } from 'lucide-react';
+import { ArrowLeft, Download, Calendar, Link as LinkIcon, Share2, Check } from 'lucide-react';
 import { LegalDocument, markdownToHtml } from '@/utils/markdownLoader';
 import { categoryLabels, categoryColors, categoryIcons } from '@/lib/legalCategories';
 
@@ -11,16 +11,40 @@ interface LegalDocViewerProps {
     onBack: () => void;
 }
 
-const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document, onBack }) => {
+const SITE_TITLE = 'Bruno Carvalho — Desenvolvedor Android';
+const SITE_DESCRIPTION =
+    'Bruno Carvalho, desenvolvedor Android com 5+ anos de experiência em Kotlin, Jetpack Compose e arquitetura, hoje no app do Itaú Unibanco. Veja projetos, apps publicados na Play Store e contato.';
+
+const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }) => {
     const [content, setContent] = useState<string>('');
     const [loading, setLoading] = useState(true);
     const [copied, setCopied] = useState(false);
+
+    // Opening a specific legal document from a link inside one of the apps
+    // shouldn't show the generic site title/description in the browser tab
+    // (and in whatever preview the OS/browser builds from it) — swap them for
+    // the document's own, and restore the site defaults on the way out.
+    // This can't fix social-card previews (WhatsApp/Discord bots don't run
+    // JS), but it fixes what the visitor's own browser actually shows.
+    useEffect(() => {
+        const previousTitle = window.document.title;
+        const metaDescription = window.document.querySelector('meta[name="description"]');
+        const previousDescription = metaDescription?.getAttribute('content') ?? SITE_DESCRIPTION;
+
+        window.document.title = `${doc.title.replace(/_/g, ' ')} — Documentação Legal | Bruno Carvalho`;
+        metaDescription?.setAttribute('content', doc.description.replace(/_/g, ' '));
+
+        return () => {
+            window.document.title = previousTitle || SITE_TITLE;
+            metaDescription?.setAttribute('content', previousDescription);
+        };
+    }, [doc.id, doc.title, doc.description]);
 
     useEffect(() => {
         const loadContent = async () => {
             setLoading(true);
             try {
-                const contentWithoutFrontmatter = document.content.replace(/^---[\r\n]+[\s\S]*?[\r\n]+---[\r\n]+/, '');
+                const contentWithoutFrontmatter = doc.content.replace(/^---[\r\n]+[\s\S]*?[\r\n]+---[\r\n]+/, '');
                 const htmlContent = await markdownToHtml(contentWithoutFrontmatter);
                 setContent(htmlContent);
             } catch (error) {
@@ -32,24 +56,36 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document, onBack }) => 
         };
 
         loadContent();
-    }, [document.content]);
+    }, [doc.content]);
 
     const handleDownload = () => {
         const element = window.document.createElement('a');
-        const file = new Blob([document.content], { type: 'text/plain' });
+        const file = new Blob([doc.content], { type: 'text/plain' });
         element.href = URL.createObjectURL(file);
-        element.download = `${document.id}.md`;
+        element.download = `${doc.id}.md`;
         window.document.body.appendChild(element);
         element.click();
         window.document.body.removeChild(element);
     };
 
-    const handleCopyUrl = () => {
+    const handleShare = async () => {
         const baseUrl = window.location.origin;
-        const docHash = `/legal?doc=${document.id}`;
-        const urlToCopy = `${baseUrl}${docHash}`;
+        const url = `${baseUrl}/legal?doc=${doc.id}`;
 
-        navigator.clipboard.writeText(urlToCopy)
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: doc.title.replace(/_/g, ' '),
+                    text: doc.description.replace(/_/g, ' '),
+                    url,
+                });
+            } catch {
+                // User cancelled the share sheet — not an error, nothing to do.
+            }
+            return;
+        }
+
+        navigator.clipboard.writeText(url)
             .then(() => {
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
@@ -59,10 +95,11 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document, onBack }) => 
             });
     };
 
-    const formattedDate = new Date(document.lastUpdated).toLocaleDateString('pt-BR', {
+    const formattedDate = new Date(doc.lastUpdated).toLocaleDateString('pt-BR', {
         timeZone: 'UTC'
     });
-    const CategoryIcon = categoryIcons[document.category];
+    const CategoryIcon = categoryIcons[doc.category];
+    const canShare = typeof navigator !== 'undefined' && 'share' in navigator;
 
     return (
         <div className="mx-auto max-w-4xl transition-colors duration-300 reveal is-visible">
@@ -81,12 +118,12 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document, onBack }) => 
                     <div>
                         <div className="flex items-center gap-2 mb-2">
                             <CategoryIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                            <Badge variant="secondary" className={categoryColors[document.category]}>
-                                {categoryLabels[document.category]}
+                            <Badge variant="secondary" className={categoryColors[doc.category]}>
+                                {categoryLabels[doc.category]}
                             </Badge>
-                            {document.project && (
+                            {doc.project && (
                                 <Badge variant="outline" className="bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-700">
-                                    {document.project.replace(/_/g, ' ')}
+                                    {doc.project.replace(/_/g, ' ')}
                                 </Badge>
                             )}
                         </div>
@@ -104,13 +141,18 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document, onBack }) => 
 
                         <Button
                             variant={copied ? 'default' : 'outline'}
-                            onClick={handleCopyUrl}
+                            onClick={handleShare}
                             className="flex items-center gap-2 dark:hover:bg-gray-700 dark:hover:text-white transition-colors"
                         >
                             {copied ? (
                                 <>
                                     <Check className="h-4 w-4 text-green-500" />
                                     Copiado!
+                                </>
+                            ) : canShare ? (
+                                <>
+                                    <Share2 className="h-4 w-4" />
+                                    Compartilhar
                                 </>
                             ) : (
                                 <>

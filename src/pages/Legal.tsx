@@ -8,6 +8,7 @@ import LegalDocCard from '@/components/LegalDocCard';
 import LegalDocViewer from '@/components/LegalDocViewer';
 import Reveal from '@/components/Reveal';
 import { categoryLabels, categoryIcons } from '@/lib/legalCategories';
+import { useToast } from '@/hooks/use-toast';
 
 // Lê parâmetros tanto de query string quanto de hash
 function getQueryParam(param: string) {
@@ -63,6 +64,7 @@ const Legal: React.FC = () => {
   const [documents, setDocuments] = useState<LegalDocument[]>([]);
   const [projects, setProjects] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   // Carrega documentos e projetos
   useEffect(() => {
@@ -83,8 +85,15 @@ const Legal: React.FC = () => {
           if (foundDoc) {
             setSelectedDocument(foundDoc);
           } else {
-            // Remove query se inválido
+            // Link direto (provavelmente de dentro de um app) apontando pra
+            // um documento que não existe mais — avisa em vez de cair
+            // silenciosamente na lista geral sem explicação.
             updateQueryParam('doc', null);
+            toast({
+              title: 'Documento não encontrado',
+              description: 'O link que você acessou aponta para um documento que não existe mais. Aqui está a lista completa.',
+              variant: 'destructive',
+            });
           }
         }
       } catch (error) {
