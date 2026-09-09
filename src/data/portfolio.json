@@ -62,7 +62,6 @@
       {
         "title": "Friends Secrets",
         "description": "App Android para sorteio de amigo secreto com sugestões inteligentes de presentes, usando IA para tornar o processo mais divertido.",
-        "image": "https://www.pensarcursos.com.br/blog/wp-content/uploads/2023/12/08144038781025-750x430.webp",
         "technologies": ["Kotlin", "Android", "Jetpack Compose", "IA"],
         "github": "https://github.com/brunocarvalhs/FriendsSecrets",
         "live": "https://play.google.com/store/apps/details?id=br.com.brunocarvalhs.friendssecrets"
@@ -70,7 +69,6 @@
       {
         "title": "Paguei!",
         "description": "Aplicativo Android para centralizar e organizar despesas e boletos, com interface intuitiva e suporte a compartilhamento de custos.",
-        "image": "https://i0.wp.com/blog.adiantesa.com/wp-content/uploads/2023/10/gestao-financeira.jpg?resize=1024%2C683&ssl=1",
         "technologies": ["Kotlin", "Android", "MVVM", "Jetpack Compose"],
         "github": "https://github.com/brunocarvalhs/Paguei",
         "live": null
@@ -78,7 +76,6 @@
       {
         "title": "Portfólio Pessoal",
         "description": "Site de portfólio desenvolvido em Angular para apresentar meus projetos, habilidades e informações de contato.",
-        "image": "https://neilpatel.com/wp-content/uploads/2017/12/portfolio.jpg",
         "technologies": ["Angular", "SCSS", "HTML"],
         "github": "https://github.com/brunocarvalhs/brunocarvalhs.github.io",
         "live": "https://brunocarvalhs.github.io"
@@ -86,7 +83,6 @@
       {
         "title": "PhotoBoost",
         "description": "Script em Node.js para processamento em massa de imagens a partir de moldes definidos por designers, acelerando a criação de conteúdos visuais.",
-        "image": "https://images.pexels.com/photos/270360/pexels-photo-270360.jpeg",
         "technologies": ["Node.js", "JavaScript"],
         "github": "https://github.com/brunocarvalhs/PhotoBoost",
         "live": null
@@ -94,7 +90,6 @@
       {
         "title": "Revise",
         "description": "Aplicativo web para manutenção preventiva de veículos. Permite ao usuário cadastrar a quilometragem do carro e, com base nisso, recomenda revisões e peças a serem verificadas periodicamente.",
-        "image": "https://reparadorsa.com.br/wp-content/uploads/2023/06/HEADER-1.jpg",
         "technologies": ["JavaScript", "Node.js", "MongoDB", "Express.js"],
         "github": "https://github.com/brunocarvalhs/Revise",
         "live": null

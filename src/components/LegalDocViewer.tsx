@@ -2,29 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Download, Calendar, FileText, Link as LinkIcon, Check } from 'lucide-react';
+import { ArrowLeft, Download, Calendar, Link as LinkIcon, Check } from 'lucide-react';
 import { LegalDocument, markdownToHtml } from '@/utils/markdownLoader';
+import { categoryLabels, categoryColors, categoryIcons } from '@/lib/legalCategories';
 
 interface LegalDocViewerProps {
     document: LegalDocument;
     onBack: () => void;
 }
-
-const categoryLabels = {
-    privacy: 'Privacidade',
-    terms: 'Termos',
-    accessibility: 'Acessibilidade',
-    cookies: 'Cookies',
-    data: 'Dados'
-};
-
-const categoryColors = {
-    privacy: 'bg-blue-100 text-blue-800',
-    terms: 'bg-green-100 text-green-800',
-    accessibility: 'bg-purple-100 text-purple-800',
-    cookies: 'bg-orange-100 text-orange-800',
-    data: 'bg-red-100 text-red-800'
-};
 
 const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document, onBack }) => {
     const [content, setContent] = useState<string>('');
@@ -77,9 +62,10 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document, onBack }) => 
     const formattedDate = new Date(document.lastUpdated).toLocaleDateString('pt-BR', {
         timeZone: 'UTC'
     });
+    const CategoryIcon = categoryIcons[document.category];
 
     return (
-        <div className="max-w-4xl mx-auto transition-colors duration-300">
+        <div className="mx-auto max-w-4xl transition-colors duration-300 reveal is-visible">
             {/* Header */}
             <div className="mb-6">
                 <Button
@@ -94,11 +80,8 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document, onBack }) => 
                 <div className="flex items-start justify-between flex-wrap gap-4">
                     <div>
                         <div className="flex items-center gap-2 mb-2">
-                            <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                            <Badge
-                                variant="secondary"
-                                className={categoryColors[document.category] + ' dark:bg-opacity-20 dark:text-white dark:border-white'}
-                            >
+                            <CategoryIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                            <Badge variant="secondary" className={categoryColors[document.category]}>
                                 {categoryLabels[document.category]}
                             </Badge>
                             {document.project && (
