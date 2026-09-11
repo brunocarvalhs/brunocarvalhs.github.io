@@ -139,6 +139,14 @@ const Header = () => {
                 </Link>
               )
             )}
+            <Link
+              to="/legal"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`flex w-full items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700 ${baseLinkClass}`}
+            >
+              <Scale className="h-4 w-4" />
+              {t.nav.legal}
+            </Link>
           </div>
         )}
       </nav>
