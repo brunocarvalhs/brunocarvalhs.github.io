@@ -8,7 +8,11 @@ import { useStrings, Strings } from '@/i18n/strings';
 import { cn } from '@/lib/utils';
 
 type Tone = 'default' | 'muted' | 'accent' | 'error' | 'success';
-type Line = { text: string; tone?: Tone };
+// `desc`, when present, marks this as a two-column "cmd — description" row
+// (help/contact output) — rendered via CSS grid instead of manual space
+// padding, so the description gets a proper hanging indent when it wraps
+// on narrow screens instead of breaking column alignment.
+type Line = { text: string; tone?: Tone; desc?: string };
 type HistoryEntry = { id: number; command: string | null; lines: Line[] };
 type PortfolioData = typeof portfolioData;
 type ProjectFile = PortfolioData['projects']['items'][number] & { slug: string };
@@ -74,14 +78,12 @@ function findSocial(hero: PortfolioData['hero'], name: string) {
 }
 
 function buildHelp(ts: Strings['terminal']): Line[] {
-  const cmdWidth = Math.max(...ts.helpLines.map((l) => l.cmd.length)) + 2;
-  const keysWidth = Math.max(...ts.helpShortcuts.map((s) => s.keys.length)) + 2;
   return [
     { text: ts.helpCommandsHeader, tone: 'accent' },
-    ...ts.helpLines.map((l) => ({ text: `  ${l.cmd.padEnd(cmdWidth, ' ')}${l.desc}` })),
+    ...ts.helpLines.map((l) => ({ text: l.cmd, desc: l.desc })),
     { text: '' },
     { text: ts.helpShortcutsHeader, tone: 'accent' },
-    ...ts.helpShortcuts.map((s) => ({ text: `  ${s.keys.padEnd(keysWidth, ' ')}${s.desc}` })),
+    ...ts.helpShortcuts.map((s) => ({ text: s.keys, desc: s.desc })),
   ];
 }
 
@@ -151,8 +153,8 @@ function buildSkills(skills: PortfolioData['skills']): Line[] {
 
 function buildContact(hero: PortfolioData['hero'], ts: Strings['terminal']): Line[] {
   return [
-    { text: `${ts.emailLabel}    ${EMAIL}` },
-    ...hero.socialLinks.map((link) => ({ text: `${link.name.toLowerCase()}:${' '.repeat(Math.max(1, 10 - link.name.length))}${link.url}` })),
+    { text: ts.emailLabel, desc: EMAIL },
+    ...hero.socialLinks.map((link) => ({ text: `${link.name.toLowerCase()}:`, desc: link.url })),
     { text: '' },
     { text: ts.contactHint, tone: 'muted' as Tone },
   ];
@@ -402,6 +404,43 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
     }
   };
 
+  // Groups consecutive two-column (`desc`) lines into one shared CSS grid so
+  // their description column stays aligned — and, on narrow screens, wraps
+  // with a proper hanging indent instead of breaking at a fixed character
+  // count like the old space-padded strings did.
+  const renderLines = (lines: Line[]) => {
+    const nodes: React.ReactNode[] = [];
+    let i = 0;
+    while (i < lines.length) {
+      if (lines[i].desc !== undefined) {
+        const group: Line[] = [];
+        while (i < lines.length && lines[i].desc !== undefined) {
+          group.push(lines[i]);
+          i++;
+        }
+        nodes.push(
+          <div key={i} className="my-1 grid grid-cols-[max-content_1fr] gap-x-3 gap-y-1 pl-2">
+            {group.map((line, gi) => (
+              <React.Fragment key={gi}>
+                <span className={toneClass(line.tone)}>{line.text}</span>
+                <span className="min-w-0 break-words text-slate-300">{line.desc}</span>
+              </React.Fragment>
+            ))}
+          </div>
+        );
+      } else {
+        const line = lines[i];
+        nodes.push(
+          <p key={i} className={cn('whitespace-pre-wrap break-words', toneClass(line.tone))}>
+            {line.text || ' '}
+          </p>
+        );
+        i++;
+      }
+    }
+    return nodes;
+  };
+
   return (
     <>
       {trigger ? (
@@ -468,11 +507,7 @@ const Terminal: React.FC<TerminalProps> = ({ className, trigger }) => {
                       <span className="text-emerald-400">{PROMPT}</span> {entry.command}
                     </p>
                   )}
-                  {entry.lines.map((line, i) => (
-                    <p key={i} className={cn('whitespace-pre-wrap break-words', toneClass(line.tone))}>
-                      {line.text || ' '}
-                    </p>
-                  ))}
+                  {renderLines(entry.lines)}
                 </div>
               ))}
 
