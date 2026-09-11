@@ -170,7 +170,7 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }
 
             {/* Content */}
             <Card className="transition-colors duration-300">
-                <CardContent className="p-8">
+                <CardContent className="p-4 sm:p-6 md:p-8">
                     {loading ? (
                         <div className="flex items-center justify-center py-12">
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400"></div>
@@ -179,15 +179,15 @@ const LegalDocViewer: React.FC<LegalDocViewerProps> = ({ document: doc, onBack }
                     ) : (
                         <div
                             className="
-                                prose prose-lg max-w-none 
-                                bg-white text-gray-900 
-                                dark:bg-gray-900 dark:text-gray-100 
-                                dark:prose-headings:text-white 
-                                dark:prose-strong:text-white 
+                                prose prose-sm sm:prose-base md:prose-lg max-w-none
+                                text-gray-900 dark:text-gray-100
+                                dark:prose-headings:text-white
+                                dark:prose-strong:text-white
                                 dark:prose-code:text-gray-200
                                 prose-a:text-blue-600 dark:prose-a:text-blue-400
                                 prose-blockquote:text-gray-700 dark:prose-blockquote:text-gray-300
-                                rounded-xl p-4 transition-colors
+                                prose-pre:overflow-x-auto
+                                transition-colors
                             "
                             dangerouslySetInnerHTML={{ __html: content }}
                         />
