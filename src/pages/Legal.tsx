@@ -152,8 +152,8 @@ const Legal: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white px-4 py-8 pt-24 dark:bg-gray-900">
-        <div className="container mx-auto max-w-6xl">
+      <div className="min-h-screen bg-white py-8 pt-24 dark:bg-gray-900">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex items-center justify-center py-12">
             <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600 dark:border-blue-400"></div>
             <span className="ml-3 text-gray-600 dark:text-gray-300">{t.legal.loading}</span>
@@ -165,22 +165,20 @@ const Legal: React.FC = () => {
 
   if (selectedDocument) {
     return (
-      <div className="min-h-screen bg-gray-50 px-4 py-8 pt-24 dark:bg-gray-900">
-        <div className="container mx-auto">
-          <div className="rounded-xl bg-white p-4 shadow dark:bg-gray-800">
-            <LegalDocViewer
-              document={selectedDocument}
-              onBack={closeDocument}
-            />
-          </div>
+      <div className="min-h-screen bg-gray-50 py-8 pt-24 dark:bg-gray-900">
+        <div className="container mx-auto px-4 sm:px-6">
+          <LegalDocViewer
+            document={selectedDocument}
+            onBack={closeDocument}
+          />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white px-4 py-8 pt-24 dark:bg-gray-900">
-      <div className="container mx-auto max-w-6xl">
+    <div className="min-h-screen bg-white py-8 pt-24 dark:bg-gray-900">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         {/* Header */}
         <Reveal className="mb-16 text-center">
           <span className="mb-3 inline-block font-mono text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
