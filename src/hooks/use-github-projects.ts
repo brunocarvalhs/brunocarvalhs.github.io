@@ -25,6 +25,7 @@ export interface RawRepo {
   pushed_at: string;
   fork: boolean;
   archived: boolean;
+  has_pages?: boolean;
   topics?: string[];
 }
 
@@ -54,12 +55,17 @@ function writeCache(projects: GithubProject[]) {
   }
 }
 
-function mapRepo(repo: RawRepo): GithubProject {
+/**
+ * Demo link: the repo's `homepage` if set, else its GitHub Pages site
+ * (`https://<user>.github.io/<repo>`) when Pages is enabled — so a project
+ * just needs a published docs/gh-pages site to get a working Demo button.
+ */
+export function mapRepo(repo: RawRepo): GithubProject {
   return {
     name: repo.name,
     description: repo.description,
     htmlUrl: repo.html_url,
-    homepage: repo.homepage,
+    homepage: repo.homepage || (repo.has_pages ? `https://${GITHUB_USER}.github.io/${repo.name}` : null),
     language: repo.language,
     stars: repo.stargazers_count,
     pushedAt: repo.pushed_at,

@@ -125,7 +125,7 @@ const html = template
     /<meta name="description" content="[^"]*" \/>/,
     '<meta name="description" content="Políticas de privacidade e termos de uso dos aplicativos publicados por Bruno Carvalho na Play Store." />'
   )
-  .replace(/<link rel="canonical" href="[^"]*" \/>/, '<link rel="canonical" href="https://bruno-carvalho.dev.br/legal" />');
+  .replace(/<link rel="canonical" href="[^"]*" \/>/, '<link rel="canonical" href="https://brunocarvalhs.github.io/legal" />');
 
 // Written to both forms — build/legal.html and build/legal/index.html —
 // because it's not worth staking the fix on knowing exactly how GitHub

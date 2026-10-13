@@ -1,0 +1,10 @@
+name = "github-oauth"
+main = "index.ts"
+compatibility_date = "2026-10-01"
+
+[vars]
+# Client ID do GitHub App (não é segredo). O client secret vai por
+# `npx wrangler secret put GITHUB_CLIENT_SECRET`, nunca aqui.
+GITHUB_CLIENT_ID = ""
+ALLOWED_LOGIN = "brunocarvalhs"
+SITE_URL = "https://brunocarvalhs.github.io"
