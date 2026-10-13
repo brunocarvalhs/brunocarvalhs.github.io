@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { blendRepos, type RawRepo } from './use-github-projects';
+import { blendRepos, mapRepo, type RawRepo } from './use-github-projects';
 
 function repo(overrides: Partial<RawRepo>): RawRepo {
   return {
@@ -56,5 +56,21 @@ describe('blendRepos', () => {
 
   it('returns an empty list for an empty input', () => {
     expect(blendRepos([], 6)).toEqual([]);
+  });
+});
+
+describe('mapRepo', () => {
+  it('falls back to the GitHub Pages URL when homepage is empty and Pages is on', () => {
+    expect(mapRepo(repo({ name: 'bem-ti-click', has_pages: true })).homepage).toBe(
+      'https://brunocarvalhs.github.io/bem-ti-click'
+    );
+  });
+
+  it('prefers an explicit homepage over the Pages URL', () => {
+    expect(mapRepo(repo({ homepage: 'https://example.com', has_pages: true })).homepage).toBe('https://example.com');
+  });
+
+  it('has no demo when there is neither homepage nor Pages', () => {
+    expect(mapRepo(repo({})).homepage).toBeNull();
   });
 });
