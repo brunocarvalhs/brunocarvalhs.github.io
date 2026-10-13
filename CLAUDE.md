@@ -67,10 +67,6 @@ GitHub Pages has no server-side rewrite, so any client-side route other than `/`
 
 `index.html` carries the site's `<title>`, meta description, Open Graph/Twitter tags, canonical link, and a `Person` JSON-LD block (`sameAs` linking GitHub/LinkedIn/Instagram) — all pt-BR only; `SeoManager` (see "Internationalization" above) overrides title/description/OG/Twitter at runtime per language, but the JSON-LD block is not touched and stays pt-BR. `public/robots.txt` and `public/sitemap.xml` are static files, manually kept in sync with actual routes. There is currently no per-route meta tag mechanism — every route serves the same `<head>`. If a new indexable route is added (a project case study, a blog post, etc.), it inherits the homepage's meta tags as-is unless a per-route solution is introduced first (tracked as a shared open dependency across several backlog specs — see `specs/README.md`).
 
-### Modo admin (`/admin`)
-
-`/admin` (`src/pages/Admin.tsx`, carregada com `React.lazy`) edita os três `portfolio*.json` direto pelo site: o formulário é gerado da forma do próprio JSON, e "Salvar" faz um commit no `master` pela API de contents do GitHub (o CI publica). O login é OAuth de um GitHub App; a troca do `code` pelo token roda em um Cloudflare Worker (`workers/github-oauth/`) que só devolve o token para `ALLOWED_LOGIN`. Nenhum segredo fica no site; `GITHUB_CLIENT_ID` em `src/lib/admin.ts` é público e, vazio, desliga o admin. Detalhes e passo a passo de configuração em `specs/008-admin-editor/spec.md`.
-
 ### Theming
 
 `src/contexts/ThemeContext.tsx` toggles a `dark` class on `<html>` and persists the choice to `localStorage`, defaulting to `prefers-color-scheme` on first visit. Components style both modes with Tailwind `dark:` variants (not CSS custom properties, despite shadcn's `components.json` having `cssVariables: true` — the primitives in `src/components/ui/*` use the CSS-variable tokens from `src/index.css`, but the hand-written section components mostly use literal Tailwind grays/colors with explicit `dark:` pairs instead).
