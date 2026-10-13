@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://brunocarvalhs.github.io/sitemap.xml
+Sitemap: https://bruno-carvalho.dev.br/sitemap.xml
