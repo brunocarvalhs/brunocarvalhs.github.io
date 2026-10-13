@@ -1,6 +1,11 @@
 # 008 — Modo admin para editar o conteúdo pelo site
 
-**Status:** In Progress
+**Status:** Dropped
+
+> Implementado no PR #24 e removido logo depois, por decisão do dono do site,
+> antes de ser configurado. O código sai do repo; a abordagem abaixo fica como
+> registro caso a ideia volte (ver o histórico do git em `workers/github-oauth/`,
+> `src/lib/admin.ts` e `src/pages/Admin.tsx`).
 
 ## Problema
 

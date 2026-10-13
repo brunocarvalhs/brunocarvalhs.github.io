@@ -67,7 +67,7 @@ não implica prioridade — é só um ID estável pra referenciar
 | 005 | [Blog técnico](./005-technical-blog/spec.md) | Draft |
 | 006 | [Página /uses](./006-uses-page/spec.md) | Draft |
 | 007 | [CTA principal + WhatsApp](./007-primary-cta-whatsapp/spec.md) | Draft |
-| 008 | [Modo admin para editar o conteúdo](./008-admin-editor/spec.md) | In Progress |
+| 008 | [Modo admin para editar o conteúdo](./008-admin-editor/spec.md) | Dropped |
 
 Três specs (003, 005, 006) compartilham a mesma dependência técnica: meta
 tags dinâmicas por rota, que o site não tem hoje (só tags estáticas no

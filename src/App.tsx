@@ -1,4 +1,4 @@
-import React, { Component, ReactNode, Suspense, lazy } from "react";
+import React, { Component, ReactNode } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -14,9 +14,6 @@ import NotFound from "./pages/NotFound";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SeoManager from "@/components/SeoManager";
-
-// Fora do bundle principal: só o dono do site abre o /admin.
-const Admin = lazy(() => import("./pages/Admin"));
 
 const queryClient = new QueryClient();
 
@@ -57,7 +54,6 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/legal" element={<Legal />} />
-                <Route path="/admin" element={<Suspense fallback={null}><Admin /></Suspense>} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
               <Footer />
