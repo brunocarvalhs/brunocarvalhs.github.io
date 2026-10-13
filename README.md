@@ -1,106 +1,82 @@
-# Portfolio Bruno Carvalho
+# Portfólio Bruno Carvalho
 
-[![GitHub license](https://img.shields.io/github/license/brunocarvalhs/brunocarvalhs.github.io)](https://github.com/brunocarvalhs/brunocarvalhs.github.io/blob/main/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/brunocarvalhs/brunocarvalhs.github.io)](https://github.com/brunocarvalhs/brunocarvalhs.github.io/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/brunocarvalhs/brunocarvalhs.github.io)](https://github.com/brunocarvalhs/brunocarvalhs.github.io/issues)
+Meu portfólio pessoal, no ar em **https://brunocarvalhs.github.io/**.
 
-Este e meu portfolio pessoal, desenvolvido com Angular para exibir meus projetos, habilidades e informacoes de contato de forma interativa e responsiva. O site integra-se com a API do GitHub para exibir automaticamente meus repositorios publicos.
+Reúne apresentação, projetos, habilidades, depoimentos e contato, em três idiomas (pt-BR, en e es) e com tema claro e escuro. Os projetos são combinados com os repositórios públicos do meu GitHub, buscados pela API deles.
 
-## Tecnologias Utilizadas
+## Stack
 
-- **React**: Framework para construcao da interface
-- **TypeScript**: Linguagem de programacao
-- **GitHub API**: Integracao para exibir projetos publicos
+- **Vite + React 18 + TypeScript**
+- **Tailwind CSS** e **shadcn/ui** (sobre Radix)
+- **react-router-dom** para as rotas
+- **Vitest + Testing Library** para os testes
+- **GitHub Pages**, com deploy automático pelo GitHub Actions
 
-## Funcionalidades
+## O que tem no site
 
-- **Secao de Apresentacao**: Introducao pessoal com animacoes
-- **Sobre Mim**: Informacoes detalhadas sobre minha experiencia e formacao
-- **Projetos**: Exibicao automatica dos repositorios do GitHub
-- **Habilidades**: Visualizacao das tecnologias que domino
-- **Contato**: Formulario para envio de mensagens
+- **Seções da home:** apresentação, sobre mim, projetos, habilidades, soft skills, depoimentos e contato
+- **Terminal interativo** (`help`, `whoami`, `ls`, `cat`…) para explorar o conteúdo pelo teclado
+- **Projetos ao vivo:** a lista mistura `portfolio.json` com os repositórios públicos do GitHub
+- **Três idiomas:** detecta o idioma do navegador e deixa trocar manualmente
+- **Documentos legais** em `/legal`: políticas de privacidade e termos de uso dos meus apps Android, linkados de dentro dos próprios apps
 
-## Instalacao e Execucao
+## Como rodar
 
-### Pre-requisitos
-
-- Node.js (versao 18 ou superior)
-- npm ou yarn
-
-### Instalacao
+Precisa de **Node 22 ou superior** (o CI usa o 22).
 
 ```bash
-# Clone o repositorio
 git clone https://github.com/brunocarvalhs/brunocarvalhs.github.io.git
-
-# Entre no diretorio
 cd brunocarvalhs.github.io
-
-# Instale as dependencias
 npm install
+npm run dev        # http://localhost:8080
 ```
 
-### Execucao
+| Comando | O que faz |
+|---|---|
+| `npm run dev` | Servidor de desenvolvimento (porta 8080) |
+| `npm run build` | Build de produção em `build/` |
+| `npm run preview` | Serve o build localmente |
+| `npm run lint` | ESLint |
+| `npm run test` | Testes, uma execução só (o que o CI roda) |
+| `npm run test:watch` | Testes em modo watch |
 
-```bash
-# Servidor de desenvolvimento
-ng serve
+## Como editar o conteúdo
 
-# Acesse https://localhost:4200/
-```
+Quase todo o texto do site mora em JSON, não nos componentes:
 
-### Compilacao para producao
+- `src/data/portfolio.json`: pt-BR, a fonte principal
+- `src/data/portfolio.en.json` e `src/data/portfolio.es.json`: as traduções
 
-```bash
-# Compilar o projeto
-ng build --prod
+Para trocar um texto, adicionar um projeto ou uma skill, edite **os três arquivos**. Os textos fixos da interface (menus, botões, avisos) ficam em `src/i18n/strings.ts`.
 
-# Os arquivos serao gerados na pasta dist/
-```
-
-## Testes
-
-```bash
-# Executar testes unitarios
-ng test
-
-# Executar testes end-to-end
-ng e2e
-```
-
-## Estrutura do Projeto
+## Estrutura
 
 ```
 src/
-├── app/
-│   ├── components/       # Componentes reutilizaveis
-│   ├── models/           # Interfaces e classes de modelo
-│   ├── pages/            # Paginas da aplicacao
-│   │   └── home/
-│   │       └── section/  # Secoes da pagina inicial
-│   └── services/         # Servicos para integracao com APIs
-├── assets/
-│   ├── images/           # Imagens utilizadas no site
-│   └── scss/             # Arquivos de estilo SCSS
-└── environments/         # Configuracoes de ambiente
+├── components/   # Seções da home, terminal, header e footer
+├── contexts/     # Tema e idioma
+├── data/         # portfolio*.json e os documentos legais (legal-docs/)
+├── hooks/        # Dados do portfólio e da API do GitHub
+├── i18n/         # Idiomas e textos fixos
+├── pages/        # Home, /legal e 404
+└── services/     # Leitura dos documentos legais em Markdown
+public/           # robots.txt, sitemap.xml e imagens
+scripts/          # Pré-renderização da página /legal
+specs/            # Specs de funcionalidades planejadas
 ```
 
-## Contribuicao
+## Deploy
 
-Contribuicoes sao bem-vindas! Sinta-se a vontade para abrir issues ou enviar pull requests.
+Todo push na `master` roda o CI (`lint`, `test` e `build`) e, passando, publica `build/` na branch `gh-pages`. Não há passo manual.
 
-1. Faca um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Faca commit das suas alteracoes (`git commit -m 'Adiciona nova feature'`)
-4. Faca push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
+O GitHub Pages não faz reescrita de rotas, então o `npm run build` copia o `index.html` para `404.html`. É isso que faz links diretos como `/legal?doc=...` funcionarem. Não remova esse passo.
 
-## Licenca
+## Para quem usa o Claude Code
 
-Este projeto esta licenciado sob a licenca MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+O `CLAUDE.md` descreve a arquitetura e as convenções do projeto. Funcionalidades novas começam por uma spec em `specs/` (veja `specs/README.md`).
 
 ## Contato
 
-- **Email**: brunocarvalhs@outlook.com.br
-- **LinkedIn**: [brunocarvalhs](https://www.linkedin.com/in/brunocarvalhs/)
-- **GitHub**: [brunocarvalhs](https://github.com/brunocarvalhs)
+- **E-mail:** brunocarvalhs@outlook.com.br
+- **LinkedIn:** [brunocarvalhs](https://www.linkedin.com/in/brunocarvalhs/)
+- **GitHub:** [brunocarvalhs](https://github.com/brunocarvalhs)
