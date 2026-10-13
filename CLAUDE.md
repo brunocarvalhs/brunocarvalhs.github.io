@@ -25,7 +25,7 @@ Vitest + Testing Library (`jsdom` environment, configured inline in `vite.config
 
 ## Architecture
 
-This is a personal portfolio site (Vite + React 18 + TypeScript + Tailwind + shadcn/ui on Radix + `react-router-dom`), deployed to GitHub Pages at `bruno-carvalho.dev.br`.
+This is a personal portfolio site (Vite + React 18 + TypeScript + Tailwind + shadcn/ui on Radix + `react-router-dom`), deployed to GitHub Pages at `brunocarvalhs.github.io`.
 
 ### Content is data-driven, not hardcoded
 
