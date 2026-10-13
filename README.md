@@ -1,6 +1,5 @@
 # Portfolio Bruno Carvalho
 
-[![GitHub license](https://img.shields.io/github/license/brunocarvalhs/brunocarvalhs.github.io)](https://github.com/brunocarvalhs/brunocarvalhs.github.io/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/brunocarvalhs/brunocarvalhs.github.io)](https://github.com/brunocarvalhs/brunocarvalhs.github.io/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/brunocarvalhs/brunocarvalhs.github.io)](https://github.com/brunocarvalhs/brunocarvalhs.github.io/issues)
 
@@ -97,7 +96,7 @@ Contribuicoes sao bem-vindas! Sinta-se a vontade para abrir issues ou enviar pul
 
 ## Licenca
 
-Este projeto esta licenciado sob a licenca MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Copyright (c) Bruno Carvalho. Todos os direitos reservados. O código é público apenas para consulta; não é permitido copiar, modificar ou redistribuir sem autorização. Veja [LICENSE](LICENSE).
 
 ## Contato
 
