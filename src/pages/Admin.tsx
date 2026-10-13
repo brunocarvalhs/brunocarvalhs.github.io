@@ -94,7 +94,7 @@ function Field({ name, value, onChange }: { name: string; value: Json; onChange:
   const TextField = /description|quote/i.test(name) ? Textarea : Input;
   return (
     <Labeled name={name}>
-      <TextField value={value ?? ''} onChange={(e) => onChange(e.target.value)} />
+      <TextField value={(value as string | null) ?? ''} onChange={(e) => onChange(e.target.value)} />
     </Labeled>
   );
 }
