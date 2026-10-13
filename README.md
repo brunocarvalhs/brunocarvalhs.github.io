@@ -80,3 +80,7 @@ O `CLAUDE.md` descreve a arquitetura e as convenções do projeto. Funcionalidad
 - **E-mail:** brunocarvalhs@outlook.com.br
 - **LinkedIn:** [brunocarvalhs](https://www.linkedin.com/in/brunocarvalhs/)
 - **GitHub:** [brunocarvalhs](https://github.com/brunocarvalhs)
+
+## Licença
+
+Copyright (c) Bruno Carvalho. Todos os direitos reservados. O código é público apenas para consulta; não é permitido copiar, modificar ou redistribuir sem autorização. Veja [LICENSE](LICENSE).
