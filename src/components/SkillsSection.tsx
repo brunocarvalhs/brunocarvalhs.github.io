@@ -1,77 +1,56 @@
-import React from 'react';
-import { Layers, Palette, Server, Database } from 'lucide-react';
+import React, { useMemo } from 'react';
 import { usePortfolioData } from '@/hooks/use-portfolio-data';
+import { useGithubProjects } from '@/hooks/use-github-projects';
 import Reveal from '@/components/Reveal';
-import { useScrollReveal } from '@/hooks/use-scroll-reveal';
-import { useStrings, Strings } from '@/i18n/strings';
+import { pickIcon, slugifyTitle } from '@/components/ProjectThumbnail';
+import { useStrings } from '@/i18n/strings';
 
-const categoryIcons = [Layers, Palette, Server, Database];
+export type HardSkill = { name: string; count: number };
 
-interface SkillBarProps {
-  name: string;
-  level: number;
-  delay: number;
+/**
+ * Hard skills = technologies actually present in my projects, ranked by how
+ * many projects use each. Each project is `{ url, technologies }`; entries
+ * with the same url (a curated portfolio.json project that is also a live
+ * GitHub repo) are merged so a project is never counted twice. Names are
+ * deduped by slug ("Jetpack Compose" == "jetpack-compose"), keeping the first
+ * spelling seen — pass curated/language sources before raw GitHub topics so
+ * the nicer casing wins.
+ */
+export function collectHardSkills(projects: { url: string; technologies: string[] }[]): HardSkill[] {
+  const byProject = new Map<string, Set<string>>();
+  const label = new Map<string, string>();
+  for (const { url, technologies } of projects) {
+    const key = url.toLowerCase();
+    const set = byProject.get(key) ?? new Set<string>();
+    for (const tech of technologies) {
+      const slug = slugifyTitle(tech);
+      if (!slug) continue;
+      if (!label.has(slug)) label.set(slug, tech);
+      set.add(slug);
+    }
+    byProject.set(key, set);
+  }
+  const counts = new Map<string, number>();
+  for (const set of byProject.values()) for (const slug of set) counts.set(slug, (counts.get(slug) ?? 0) + 1);
+  return [...counts.entries()]
+    .map(([slug, count]) => ({ name: label.get(slug), count }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 }
-
-// Thresholds borrowed from observability dashboards (green/blue/amber
-// health bands) — a deliberate nod to Bruno's real day job (performance &
-// observability), not just decoration.
-function threshold(level: number, skillsStrings: Strings['skills']) {
-  if (level >= 85)
-    return {
-      label: skillsStrings.thresholdAdvanced,
-      text: 'text-emerald-600 dark:text-emerald-400',
-      bar: 'bg-emerald-500',
-      dot: 'bg-emerald-500 dark:bg-emerald-400',
-    };
-  if (level >= 70)
-    return {
-      label: skillsStrings.thresholdSolid,
-      text: 'text-blue-600 dark:text-blue-400',
-      bar: 'bg-blue-500',
-      dot: 'bg-blue-500 dark:bg-blue-400',
-    };
-  return {
-    label: skillsStrings.thresholdEvolving,
-    text: 'text-amber-600 dark:text-amber-400',
-    bar: 'bg-amber-500',
-    dot: 'bg-amber-500 dark:bg-amber-400',
-  };
-}
-
-const SkillBar: React.FC<SkillBarProps> = ({ name, level, delay }) => {
-  const { ref, isVisible } = useScrollReveal<HTMLDivElement>();
-  const { skills } = useStrings();
-  const t = threshold(level, skills);
-
-  return (
-    <div ref={ref} className="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-white/5 dark:bg-black/20">
-      <div className="mb-2 flex items-center justify-between">
-        <span className="flex items-center gap-2 font-medium text-gray-700 dark:text-neutral-300">
-          <span className={`h-1.5 w-1.5 rounded-full ${t.dot} animate-pulse-slow`} />
-          {name}
-        </span>
-        <span className="font-mono text-sm font-bold tabular-nums text-gray-900 dark:text-white">
-          {isVisible ? level : 0}
-          <span className="text-gray-400 dark:text-neutral-500">%</span>
-        </span>
-      </div>
-      <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-white/10">
-        <div
-          className={`h-1.5 rounded-full ${t.bar} transition-[width] duration-1000 ease-out`}
-          style={{ width: isVisible ? `${level}%` : '0%', transitionDelay: `${delay}ms` }}
-        />
-      </div>
-      <div className={`mt-1.5 text-right font-mono text-[10px] uppercase tracking-wide ${t.text}`}>
-        {t.label}
-      </div>
-    </div>
-  );
-};
 
 const SkillsSection = () => {
-  const { skills } = usePortfolioData();
+  const { skills, projects } = usePortfolioData();
+  const { projects: repos } = useGithubProjects(100);
   const t = useStrings();
+
+  const hardSkills = useMemo(
+    () =>
+      collectHardSkills([
+        ...projects.items.map((p) => ({ url: p.github, technologies: p.technologies })),
+        ...repos.map((r) => ({ url: r.htmlUrl, technologies: [r.language, ...r.topics].filter(Boolean) as string[] })),
+      ]),
+    [projects, repos]
+  );
+  const maxCount = hardSkills[0]?.count ?? 1;
 
   return (
     <section id="skills" className="min-h-screen bg-gray-50 py-20 dark:bg-neutral-950 md:py-24">
@@ -90,28 +69,24 @@ const SkillsSection = () => {
           </p>
         </Reveal>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {skills.categories.map((category, categoryIndex) => {
-            const Icon = categoryIcons[categoryIndex % categoryIcons.length];
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+          {hardSkills.map((skill, index) => {
+            const Icon = pickIcon([skill.name]);
             return (
-              <Reveal key={categoryIndex} delay={categoryIndex * 100}>
-                <div className="h-full rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:border-blue-300 dark:border-white/10 dark:bg-white/[0.03] dark:backdrop-blur-sm dark:hover:border-blue-400/30">
-                  <div className="mb-5 flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-gray-50 text-blue-600 dark:border-white/10 dark:bg-white/5 dark:text-blue-400">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">{category.title}</h3>
+              <Reveal key={skill.name} delay={Math.min(index, 12) * 40}>
+                <div className="h-full rounded-xl border border-gray-200 bg-white p-4 transition-colors hover:border-blue-300 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-blue-400/30">
+                  <div className="mb-3 flex items-center gap-2">
+                    <Icon className="h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" aria-hidden="true" />
+                    <span className="truncate font-medium text-gray-900 dark:text-white">{skill.name}</span>
                   </div>
-
-                  <div className="space-y-4">
-                    {category.skills.map((skill, skillIndex) => (
-                      <SkillBar
-                        key={skillIndex}
-                        name={skill.name}
-                        level={skill.level}
-                        delay={skillIndex * 80}
-                      />
-                    ))}
+                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-white/10">
+                    <div
+                      className="h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"
+                      style={{ width: `${(skill.count / maxCount) * 100}%` }}
+                    />
+                  </div>
+                  <div className="mt-1.5 font-mono text-xs text-gray-500 dark:text-neutral-500">
+                    {t.skills.projectCount(skill.count)}
                   </div>
                 </div>
               </Reveal>

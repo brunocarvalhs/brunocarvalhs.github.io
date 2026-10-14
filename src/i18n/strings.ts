@@ -55,9 +55,7 @@ export interface Strings {
   };
   skills: {
     eyebrow: string;
-    thresholdAdvanced: string;
-    thresholdSolid: string;
-    thresholdEvolving: string;
+    projectCount: (n: number) => string;
   };
   softSkills: {
     eyebrow: string;
@@ -219,10 +217,8 @@ const ptBR: Strings = {
     errorLink: 'Ver no GitHub',
   },
   skills: {
-    eyebrow: 'Performance dashboard',
-    thresholdAdvanced: 'avançado',
-    thresholdSolid: 'sólido',
-    thresholdEvolving: 'em evolução',
+    eyebrow: 'Tecnologias',
+    projectCount: (n) => (n === 1 ? '1 projeto' : `${n} projetos`),
   },
   softSkills: {
     eyebrow: 'Comportamental',
@@ -415,10 +411,8 @@ const en: Strings = {
     errorLink: 'View on GitHub',
   },
   skills: {
-    eyebrow: 'Performance Dashboard',
-    thresholdAdvanced: 'advanced',
-    thresholdSolid: 'solid',
-    thresholdEvolving: 'evolving',
+    eyebrow: 'Technologies',
+    projectCount: (n) => (n === 1 ? '1 project' : `${n} projects`),
   },
   softSkills: {
     eyebrow: 'Behavioral',
@@ -611,10 +605,8 @@ const es: Strings = {
     errorLink: 'Ver en GitHub',
   },
   skills: {
-    eyebrow: 'Panel de Rendimiento',
-    thresholdAdvanced: 'avanzado',
-    thresholdSolid: 'sólido',
-    thresholdEvolving: 'en evolución',
+    eyebrow: 'Tecnologías',
+    projectCount: (n) => (n === 1 ? '1 proyecto' : `${n} proyectos`),
   },
   softSkills: {
     eyebrow: 'Conductual',
