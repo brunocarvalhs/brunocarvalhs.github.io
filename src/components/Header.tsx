@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Scale } from 'lucide-react';
+import { Menu, X, Scale, Store } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -90,6 +90,13 @@ const Header = () => {
               )
             )}
 
+            <Link to="/loja">
+              <Button size="sm" className="bg-blue-600 text-white hover:bg-blue-500">
+                <Store className="mr-2 h-4 w-4" />
+                {t.nav.store}
+              </Button>
+            </Link>
+
             <Link to="/legal">
               <Button variant="outline" size="sm">
                 <Scale className="mr-2 h-4 w-4" />
@@ -139,6 +146,14 @@ const Header = () => {
                 </Link>
               )
             )}
+            <Link
+              to="/loja"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`flex w-full items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700 ${baseLinkClass}`}
+            >
+              <Store className="h-4 w-4" />
+              {t.nav.store}
+            </Link>
             <Link
               to="/legal"
               onClick={() => setIsMobileMenuOpen(false)}

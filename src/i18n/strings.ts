@@ -10,6 +10,7 @@ export interface Strings {
   nav: {
     items: string[];
     legal: string;
+    store: string;
     openMenu: string;
     closeMenu: string;
   };
@@ -36,6 +37,21 @@ export interface Strings {
     codeButton: string;
     demoButton: string;
     noDescription: string;
+  };
+  store: {
+    title: string;
+    subtitle: string;
+    searchPlaceholder: string;
+    allCategories: string;
+    featured: string;
+    allApps: string;
+    playStore: string;
+    site: string;
+    demo: string;
+    codeButton: string;
+    empty: string;
+    error: string;
+    errorLink: string;
   };
   skills: {
     eyebrow: string;
@@ -159,6 +175,7 @@ const ptBR: Strings = {
   nav: {
     items: ['Início', 'Sobre', 'Projetos', 'Habilidades', 'Depoimentos', 'Contato'],
     legal: 'Legal',
+    store: 'Loja',
     openMenu: 'Abrir menu',
     closeMenu: 'Fechar menu',
   },
@@ -185,6 +202,21 @@ const ptBR: Strings = {
     codeButton: 'Código',
     demoButton: 'Demo',
     noDescription: 'Sem descrição no GitHub ainda.',
+  },
+  store: {
+    title: 'Loja de projetos',
+    subtitle: 'Todos os meus projetos públicos, direto do GitHub. Escolha um e abra.',
+    searchPlaceholder: 'Pesquisar projetos',
+    allCategories: 'Todos',
+    featured: 'Destaques',
+    allApps: 'Todos os projetos',
+    playStore: 'Google Play',
+    site: 'Site',
+    demo: 'Demo',
+    codeButton: 'Código',
+    empty: 'Nenhum projeto encontrado.',
+    error: 'Não foi possível carregar os projetos agora.',
+    errorLink: 'Ver no GitHub',
   },
   skills: {
     eyebrow: 'Performance dashboard',
@@ -339,6 +371,7 @@ const en: Strings = {
   nav: {
     items: ['Home', 'About', 'Projects', 'Skills', 'Testimonials', 'Contact'],
     legal: 'Legal',
+    store: 'Store',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
   },
@@ -365,6 +398,21 @@ const en: Strings = {
     codeButton: 'Code',
     demoButton: 'Demo',
     noDescription: 'No description on GitHub yet.',
+  },
+  store: {
+    title: 'Project store',
+    subtitle: 'All my public projects, straight from GitHub. Pick one and open it.',
+    searchPlaceholder: 'Search projects',
+    allCategories: 'All',
+    featured: 'Featured',
+    allApps: 'All projects',
+    playStore: 'Google Play',
+    site: 'Website',
+    demo: 'Demo',
+    codeButton: 'Code',
+    empty: 'No projects found.',
+    error: "Couldn't load the projects right now.",
+    errorLink: 'View on GitHub',
   },
   skills: {
     eyebrow: 'Performance Dashboard',
@@ -519,6 +567,7 @@ const es: Strings = {
   nav: {
     items: ['Inicio', 'Sobre mí', 'Proyectos', 'Habilidades', 'Testimonios', 'Contacto'],
     legal: 'Legal',
+    store: 'Tienda',
     openMenu: 'Abrir menú',
     closeMenu: 'Cerrar menú',
   },
@@ -545,6 +594,21 @@ const es: Strings = {
     codeButton: 'Código',
     demoButton: 'Demo',
     noDescription: 'Aún sin descripción en GitHub.',
+  },
+  store: {
+    title: 'Tienda de proyectos',
+    subtitle: 'Todos mis proyectos públicos, directo de GitHub. Elige uno y ábrelo.',
+    searchPlaceholder: 'Buscar proyectos',
+    allCategories: 'Todos',
+    featured: 'Destacados',
+    allApps: 'Todos los proyectos',
+    playStore: 'Google Play',
+    site: 'Sitio web',
+    demo: 'Demo',
+    codeButton: 'Código',
+    empty: 'No se encontraron proyectos.',
+    error: 'No se pudieron cargar los proyectos ahora.',
+    errorLink: 'Ver en GitHub',
   },
   skills: {
     eyebrow: 'Panel de Rendimiento',

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 
 const GITHUB_USER = 'brunocarvalhs';
-const CACHE_KEY = `github-projects-cache:${GITHUB_USER}`;
+// Keyed by limit too: Home asks for 6, /loja for all — sharing one key would
+// leak the 6-item list into the store (or vice versa) for the cache's hour.
+const cacheKey = (limit: number) => `github-projects-cache:${GITHUB_USER}:${limit}`;
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1h — keeps us well under the 60 req/h unauthenticated rate limit
 
 export interface GithubProject {
@@ -34,9 +36,9 @@ interface CacheShape {
   projects: GithubProject[];
 }
 
-function readCache(): GithubProject[] | null {
+function readCache(limit: number): GithubProject[] | null {
   try {
-    const raw = localStorage.getItem(CACHE_KEY);
+    const raw = localStorage.getItem(cacheKey(limit));
     if (!raw) return null;
     const parsed = JSON.parse(raw) as CacheShape;
     if (Date.now() - parsed.fetchedAt > CACHE_TTL_MS) return null;
@@ -46,10 +48,10 @@ function readCache(): GithubProject[] | null {
   }
 }
 
-function writeCache(projects: GithubProject[]) {
+function writeCache(limit: number, projects: GithubProject[]) {
   try {
     const payload: CacheShape = { fetchedAt: Date.now(), projects };
-    localStorage.setItem(CACHE_KEY, JSON.stringify(payload));
+    localStorage.setItem(cacheKey(limit), JSON.stringify(payload));
   } catch {
     // localStorage unavailable (private mode, quota) — fine, just skip caching
   }
@@ -109,12 +111,12 @@ export function blendRepos(repos: RawRepo[], limit: number): RawRepo[] {
  * content rather than show a broken section.
  */
 export function useGithubProjects(limit = 6) {
-  const [projects, setProjects] = useState<GithubProject[]>(() => readCache() ?? []);
+  const [projects, setProjects] = useState<GithubProject[]>(() => readCache(limit) ?? []);
   const [loading, setLoading] = useState(projects.length === 0);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (readCache()) {
+    if (readCache(limit)) {
       setLoading(false);
       return;
     }
@@ -134,7 +136,7 @@ export function useGithubProjects(limit = 6) {
         const blended = blendRepos(eligible, limit);
         const result = blended.map(mapRepo);
         setProjects(result);
-        writeCache(result);
+        writeCache(limit, result);
         setError(null);
       } catch (err) {
         if ((err as Error).name === 'AbortError') return;
