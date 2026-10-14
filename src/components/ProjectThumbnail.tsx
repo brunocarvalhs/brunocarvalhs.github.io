@@ -1,7 +1,7 @@
 import React from 'react';
 import { Smartphone, Globe, Terminal as TerminalIcon, Wrench, LucideIcon } from 'lucide-react';
 
-const PALETTES: [string, string][] = [
+export const PALETTES: [string, string][] = [
   ['from-blue-500', 'to-purple-600'],
   ['from-emerald-500', 'to-teal-600'],
   ['from-orange-500', 'to-pink-600'],

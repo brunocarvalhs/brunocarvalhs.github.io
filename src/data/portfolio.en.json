@@ -97,8 +97,8 @@
     ]
   },
   "skills": {
-    "title": "Skills",
-    "description": "Technologies and tools I use day-to-day as an Android developer, delivering robust, efficient solutions aligned with market best practices.",
+    "title": "Hard Skills",
+    "description": "Technologies present in my projects, ranked by how many projects use each one — straight from GitHub, no made-up scores.",
     "categories": [
         {
           "title": "Mobile",

@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest';
-import { blendRepos, mapRepo, type RawRepo } from './use-github-projects';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { renderHook, waitFor } from '@testing-library/react';
+import { blendRepos, mapRepo, useGithubProjects, type RawRepo } from './use-github-projects';
 
 function repo(overrides: Partial<RawRepo>): RawRepo {
   return {
@@ -72,5 +73,56 @@ describe('mapRepo', () => {
 
   it('has no demo when there is neither homepage nor Pages', () => {
     expect(mapRepo(repo({})).homepage).toBeNull();
+  });
+});
+
+describe('useGithubProjects', () => {
+  const fetchMock = vi.fn();
+  beforeEach(() => {
+    localStorage.clear();
+    vi.stubGlobal('fetch', fetchMock);
+  });
+  afterEach(() => {
+    fetchMock.mockReset();
+    vi.unstubAllGlobals();
+  });
+  const ok = (body: RawRepo[]) => ({ ok: true, status: 200, json: async () => body });
+
+  it('drops forks/archived, maps repos and caches per limit', async () => {
+    fetchMock.mockResolvedValue(
+      ok([repo({ name: 'a', stargazers_count: 2 }), repo({ name: 'fork', fork: true }), repo({ name: 'old', archived: true })])
+    );
+    const { result } = renderHook(() => useGithubProjects(6));
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(result.current.projects.map((p) => p.name)).toEqual(['a']);
+    expect(result.current.error).toBeNull();
+
+    // same limit → served from cache, no new request
+    const again = renderHook(() => useGithubProjects(6));
+    expect(again.result.current.projects.map((p) => p.name)).toEqual(['a']);
+    expect(again.result.current.loading).toBe(false);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+
+    // different limit → its own cache entry, fetches again
+    renderHook(() => useGithubProjects(100));
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
+  });
+
+  it('ignores an expired cache', async () => {
+    localStorage.setItem(
+      'github-projects-cache:brunocarvalhs:6',
+      JSON.stringify({ fetchedAt: Date.now() - 2 * 60 * 60 * 1000, projects: [mapRepo(repo({ name: 'stale' }))] })
+    );
+    fetchMock.mockResolvedValue(ok([repo({ name: 'fresh' })]));
+    const { result } = renderHook(() => useGithubProjects(6));
+    await waitFor(() => expect(result.current.projects.map((p) => p.name)).toEqual(['fresh']));
+  });
+
+  it('sets error and keeps projects empty when GitHub fails', async () => {
+    fetchMock.mockResolvedValue({ ok: false, status: 403, json: async () => [] });
+    const { result } = renderHook(() => useGithubProjects(6));
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(result.current.error).toMatch(/403/);
+    expect(result.current.projects).toEqual([]);
   });
 });

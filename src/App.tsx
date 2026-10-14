@@ -10,6 +10,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 
 import Index from "./pages/Index";
 import Legal from "./pages/Legal";
+import Store from "./pages/Store";
 import NotFound from "./pages/NotFound";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -54,6 +55,7 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/legal" element={<Legal />} />
+                <Route path="/loja" element={<Store />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
               <Footer />

@@ -25,3 +25,4 @@ dist-ssr
 
 # Claude Code agent worktrees (scratch, not repo content)
 .claude/
+coverage

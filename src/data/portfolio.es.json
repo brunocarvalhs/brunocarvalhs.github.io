@@ -97,8 +97,8 @@
     ]
   },
   "skills": {
-    "title": "Habilidades",
-    "description": "Tecnologías y herramientas que aplico en el día a día como desarrollador Android, garantizando la entrega de soluciones robustas, eficientes y alineadas con las mejores prácticas del mercado.",
+    "title": "Habilidades Técnicas",
+    "description": "Tecnologías presentes en mis proyectos, ordenadas por cuántos proyectos usan cada una — directo de GitHub, sin notas inventadas.",
     "categories": [
         {
           "title": "Mobile",
