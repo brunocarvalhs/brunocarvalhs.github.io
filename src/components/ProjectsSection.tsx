@@ -1,53 +1,18 @@
 import React from 'react';
-import { ExternalLink, Github, Star, RefreshCw, GitFork, Users, Code2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Star, GitFork, Users, Code2, Store, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePortfolioData } from '@/hooks/use-portfolio-data';
 import Reveal from '@/components/Reveal';
-import ProjectThumbnail from '@/components/ProjectThumbnail';
-import { useGithubProjects } from '@/hooks/use-github-projects';
 import { useGithubProfileStats } from '@/hooks/use-github-profile-stats';
 import { useStrings } from '@/i18n/strings';
 
-const maxDescriptionLength = 150;
 const GITHUB_USER = 'brunocarvalhs';
-
-type CardData = {
-  title: string;
-  description: string;
-  technologies: string[];
-  github: string;
-  live: string | null;
-  stars?: number;
-};
 
 const ProjectsSection = () => {
   const { projects } = usePortfolioData();
-  const { projects: githubProjects, loading, error } = useGithubProjects(6);
   const { stats } = useGithubProfileStats();
   const t = useStrings();
-
-  // Live GitHub repos (recent + starred, deduped) are the primary source —
-  // real, always current, no manual upkeep. If the fetch fails or the
-  // account has nothing eligible yet, fall back to the curated list in
-  // portfolio.json so the section never renders empty or broken.
-  const useLive = !loading && !error && githubProjects.length > 0;
-
-  const cards: CardData[] = useLive
-    ? githubProjects.map((repo) => ({
-        title: repo.name,
-        description: repo.description ?? t.projects.noDescription,
-        technologies: [repo.language, ...repo.topics].filter((t): t is string => Boolean(t)).slice(0, 4),
-        github: repo.htmlUrl,
-        live: repo.homepage || null,
-        stars: repo.stars,
-      }))
-    : projects.items.map((p) => ({
-        title: p.title,
-        description: p.description,
-        technologies: p.technologies,
-        github: p.github,
-        live: p.live,
-      }));
 
   return (
     <section id="projects" className="min-h-screen bg-white py-20 dark:bg-black md:py-24">
@@ -63,12 +28,6 @@ const ProjectsSection = () => {
           <p className="mx-auto max-w-3xl text-balance text-lg text-gray-600 dark:text-neutral-300">
             {projects.description}
           </p>
-          {useLive && (
-            <p className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs text-gray-400 dark:text-neutral-500">
-              <RefreshCw className="h-3 w-3" />
-              {t.projects.liveDataNote}
-            </p>
-          )}
         </Reveal>
 
         {/* Dashboard strip: live GitHub stat tiles + contribution heatmap */}
@@ -105,68 +64,14 @@ const ProjectsSection = () => {
           </Reveal>
         )}
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {cards.map((project, index) => (
-            <Reveal key={project.title + index} delay={index * 80} className="h-full">
-              <div className="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-300 dark:border-white/10 dark:bg-white/[0.03] dark:backdrop-blur-sm dark:hover:border-blue-400/30">
-                <div className="relative aspect-video overflow-hidden bg-gray-100 transition-transform duration-500 group-hover:scale-105 dark:bg-neutral-900">
-                  <ProjectThumbnail title={project.title} technologies={project.technologies} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  {typeof project.stars === 'number' && project.stars > 0 && (
-                    <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 font-mono text-xs text-amber-300 backdrop-blur-sm">
-                      <Star className="h-3 w-3 fill-current" />
-                      {project.stars}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex flex-grow flex-col p-6">
-                  <h3 className="mb-3 text-xl font-semibold text-gray-900 dark:text-white">{project.title}</h3>
-                  <p className="mb-4 flex-grow leading-relaxed text-gray-600 dark:text-neutral-400">
-                    {project.description.length > maxDescriptionLength
-                      ? project.description.slice(0, maxDescriptionLength) + '...'
-                      : project.description}
-                  </p>
-
-                  <div className="mb-6 flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 transition-colors group-hover:border-blue-300 dark:border-blue-400/20 dark:bg-blue-500/10 dark:text-blue-300 dark:group-hover:border-blue-400/40"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-auto flex space-x-4">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 border-gray-300 bg-transparent text-gray-900 hover:bg-gray-100 dark:border-white/15 dark:text-white dark:hover:bg-white/10"
-                      onClick={() => window.open(project.github, '_blank')}
-                    >
-                      <Github className="mr-2 h-4 w-4" />
-                      {t.projects.codeButton}
-                    </Button>
-                    <Button
-                      size="sm"
-                      className={`flex-1 text-white ${
-                        project.live
-                          ? 'bg-blue-600 hover:bg-blue-500'
-                          : 'cursor-not-allowed bg-gray-300 hover:bg-gray-300 dark:bg-neutral-700 dark:hover:bg-neutral-700'
-                      }`}
-                      onClick={() => project.live && window.open(project.live, '_blank')}
-                      disabled={!project.live}
-                    >
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      {t.projects.demoButton}
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          ))}
+        <div className="mt-12 text-center">
+          <Link to="/loja">
+            <Button size="lg" className="group bg-blue-600 text-white hover:bg-blue-500">
+              <Store className="h-4 w-4" />
+              {t.projects.storeCta}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
