@@ -28,15 +28,13 @@ export interface Strings {
   };
   projects: {
     eyebrow: string;
-    liveDataNote: string;
     statRepos: string;
     statStars: string;
     statFollowers: string;
     statTopLanguage: string;
     contributionMapAlt: (user: string) => string;
-    codeButton: string;
-    demoButton: string;
     noDescription: string;
+    storeCta: string;
   };
   store: {
     title: string;
@@ -191,15 +189,13 @@ const ptBR: Strings = {
   },
   projects: {
     eyebrow: 'Portfólio',
-    liveDataNote: 'repositórios mais recentes e populares, direto do GitHub',
     statRepos: 'Repositórios',
     statStars: 'Estrelas',
     statFollowers: 'Seguidores',
     statTopLanguage: 'Linguagem principal',
     contributionMapAlt: (user) => `Mapa de contribuições de ${user} no GitHub`,
-    codeButton: 'Código',
-    demoButton: 'Demo',
     noDescription: 'Sem descrição no GitHub ainda.',
+    storeCta: 'Ver todos os projetos na loja',
   },
   store: {
     title: 'Loja de projetos',
@@ -385,15 +381,13 @@ const en: Strings = {
   },
   projects: {
     eyebrow: 'Portfolio',
-    liveDataNote: 'most recent and popular repositories, straight from GitHub',
     statRepos: 'Repositories',
     statStars: 'Stars',
     statFollowers: 'Followers',
     statTopLanguage: 'Top language',
     contributionMapAlt: (user) => `${user}'s GitHub contribution map`,
-    codeButton: 'Code',
-    demoButton: 'Demo',
     noDescription: 'No description on GitHub yet.',
+    storeCta: 'See all projects in the store',
   },
   store: {
     title: 'Project store',
@@ -579,15 +573,13 @@ const es: Strings = {
   },
   projects: {
     eyebrow: 'Portafolio',
-    liveDataNote: 'repositorios más recientes y populares, directo de GitHub',
     statRepos: 'Repositorios',
     statStars: 'Estrellas',
     statFollowers: 'Seguidores',
     statTopLanguage: 'Lenguaje principal',
     contributionMapAlt: (user) => `Mapa de contribuciones de ${user} en GitHub`,
-    codeButton: 'Código',
-    demoButton: 'Demo',
     noDescription: 'Aún sin descripción en GitHub.',
+    storeCta: 'Ver todos los proyectos en la tienda',
   },
   store: {
     title: 'Tienda de proyectos',
