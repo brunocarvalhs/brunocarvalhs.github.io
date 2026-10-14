@@ -9,8 +9,9 @@ npm run dev          # Vite dev server, port 8080
 npm run build         # vite build && cp build/index.html build/404.html — see "GitHub Pages deploy" below for why the copy step exists
 npm run build:dev     # build in development mode
 npm run lint          # eslint .
-npm run test          # vitest run — single pass, what CI runs
+npm run test          # vitest run — single pass
 npm run test:watch    # vitest — interactive watch mode
+npm run test:coverage # vitest + v8 coverage (what CI runs); fails below the thresholds in vite.config.ts, HTML report in coverage/
 npm run preview       # preview the production build locally
 npm run deploy        # gh-pages -d build — manual fallback only; master pushes deploy automatically now, see CI below
 ```
@@ -19,7 +20,7 @@ Both `package-lock.json` and `yarn.lock` are present; `npm` is the one actually 
 
 ### Tests
 
-Vitest + Testing Library (`jsdom` environment, configured inline in `vite.config.ts`'s `test` block; setup file at `src/test/setup.ts`). Tests live next to the code they cover as `*.test.ts(x)`. The suite so far is deliberately narrow: it covers pure logic that was extracted specifically to be testable (and exported) from otherwise-component-local helpers — `Terminal.tsx` (`slugify`, `getCompletions`, `COMMANDS`), `ProjectThumbnail.tsx` (`hashString`, `pickIcon`, `slugifyTitle`), `use-github-projects.ts` (`blendRepos`), `ContactSection.tsx` (`buildMailtoUrl`, `CONTACT_EMAIL`), `Legal.tsx` (`getQueryParam`, `updateQueryParam`), and `i18n/languages.ts` (`detectBrowserLanguage`). When adding new non-trivial logic to a component, prefer exporting it as a standalone function (even from the component's own file) over leaving it inline and untested — that's the established pattern here, not a full component-rendering test for everything.
+Vitest + Testing Library (`jsdom` environment, configured inline in `vite.config.ts`'s `test` block; setup file at `src/test/setup.ts`). Tests live next to the code they cover as `*.test.ts(x)`. The suite so far is deliberately narrow: it covers pure logic that was extracted specifically to be testable (and exported) from otherwise-component-local helpers — `Terminal.tsx` (`slugify`, `getCompletions`, `COMMANDS`), `ProjectThumbnail.tsx` (`hashString`, `pickIcon`, `slugifyTitle`), `use-github-projects.ts` (`blendRepos`), `ContactSection.tsx` (`buildMailtoUrl`, `CONTACT_EMAIL`), `Legal.tsx` (`getQueryParam`, `updateQueryParam`), and `i18n/languages.ts` (`detectBrowserLanguage`). Render tests exist too for the pages/sections that combine live GitHub data with curated content (`Store.test.tsx`, `SkillsSection.test.tsx` — they `vi.mock` `useGithubProjects`), plus `markdownLoader.test.ts`, which runs against the real `legal-docs` files and guards the deep-linked doc ids. Coverage thresholds in `vite.config.ts` are a ratchet: raise them when coverage goes up, never lower them to make CI pass. When adding new non-trivial logic to a component, prefer exporting it as a standalone function (even from the component's own file) over leaving it inline and untested — that's the established pattern here, not a full component-rendering test for everything.
 
 `jsdom`'s bundled `undici` throws `webidl.util.markAsUncloneable is not a function` on Node 20 (confirmed on GitHub Actions' runner; works fine on Node 22+) — this is why CI pins Node 22, not 20. Don't drop that pin without checking this still holds on whatever `jsdom` version is current then.
 

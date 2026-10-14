@@ -50,5 +50,14 @@ export default defineConfig(({ mode }) => ({
     globals: true,
     setupFiles: "./src/test/setup.ts",
     css: false,
+    coverage: {
+      provider: "v8",
+      include: ["src/**/*.{ts,tsx}"],
+      // shadcn primitives are vendored, not ours to test; entry/dead files add noise.
+      exclude: ["src/components/ui/**", "src/**/*.test.{ts,tsx}", "src/test/**", "src/main.tsx", "src/vite-env.d.ts", "src/components/SwotSection.tsx"],
+      reporter: ["text-summary", "html"],
+      // Ratchet: set just under the current numbers so CI fails if coverage drops. Raise as tests are added.
+      thresholds: { statements: 38, branches: 37, functions: 33, lines: 36 },
+    },
   },
 }));
