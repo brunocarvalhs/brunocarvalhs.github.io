@@ -91,14 +91,14 @@ const Header = () => {
             )}
 
             <Link to="/loja">
-              <Button size="sm" className="bg-blue-600 text-white hover:bg-blue-500">
+              <Button size="sm" className="w-28 bg-blue-600 text-white hover:bg-blue-500">
                 <Store className="mr-2 h-4 w-4" />
                 {t.nav.store}
               </Button>
             </Link>
 
             <Link to="/legal">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="w-28">
                 <Scale className="mr-2 h-4 w-4" />
                 {t.nav.legal}
               </Button>
